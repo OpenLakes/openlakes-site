@@ -34,8 +34,8 @@
         <p class="eyebrow">Architecture</p>
         <h1>The OpenLakes platform in one glance</h1>
         <p class="lead">
-          Eight opinionated layers that turn open source projects into a cohesive lakehouse.
-          Every component ships pre-integrated, versioned, and observable from day one.
+          Eight documented layers mirror the structure of the OpenLakes Core repository. Each Helm chart is versioned, reviewed, and wired
+          for ingress, storage, and metrics so you can inspect every manifest before applying it to your cluster.
         </p>
         <div class="hero__actions">
           <a href="https://core.openlakes.io/" class="btn btn--primary">Start free trial</a>
@@ -46,36 +46,36 @@
         <div class="hero__brand" style="padding: 1.5rem;">
           <div style="display: grid; grid-template-columns: repeat(2, minmax(140px, 1fr)); gap: 1rem;">
             <div style="background: white; border-radius: 1rem; padding: 1rem; border: 1px solid var(--border);">
-              <p style="font-size: 0.85rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.07em;">Experience</p>
-              <p style="margin-top: 0.5rem;">Superset, Streamlit Apps, VS Code, Notebooks</p>
+              <p style="font-size: 0.85rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.07em;">Layer 01 · Infrastructure</p>
+              <p style="margin-top: 0.5rem;">Traefik ingress, Longhorn, PostgreSQL, MinIO, Kafka, and Nessie routing form the base.</p>
             </div>
             <div style="background: white; border-radius: 1rem; padding: 1rem; border: 1px solid var(--border);">
-              <p style="font-size: 0.85rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.07em;">SQL + Semantic</p>
-              <p style="margin-top: 0.5rem;">Trino, REST APIs, Metrics Layer</p>
+              <p style="font-size: 0.85rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.07em;">Layer 02 · Compute</p>
+              <p style="margin-top: 0.5rem;">Trino 478 and Spark 4.1.0-preview3 (Iceberg + Nessie enabled) share object storage and credentials.</p>
             </div>
             <div style="background: white; border-radius: 1rem; padding: 1rem; border: 1px solid var(--border);">
-              <p style="font-size: 0.85rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.07em;">Processing</p>
-              <p style="margin-top: 0.5rem;">Apache Spark, Ray, dbt</p>
+              <p style="font-size: 0.85rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.07em;">Layer 03 · Streaming</p>
+              <p style="margin-top: 0.5rem;">Reserved for future engines. Spark Structured Streaming ships today for event use cases.</p>
             </div>
             <div style="background: white; border-radius: 1rem; padding: 1rem; border: 1px solid var(--border);">
-              <p style="font-size: 0.85rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.07em;">Workflow</p>
-              <p style="margin-top: 0.5rem;">Airflow, Dagster, Automation APIs</p>
+              <p style="font-size: 0.85rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.07em;">Layer 04 · Orchestration</p>
+              <p style="margin-top: 0.5rem;">Airflow runtime image with OpenLakes providers and Papermill support keeps jobs reproducible.</p>
             </div>
             <div style="background: white; border-radius: 1rem; padding: 1rem; border: 1px solid var(--border);">
-              <p style="font-size: 0.85rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.07em;">Storage</p>
-              <p style="margin-top: 0.5rem;">Apache Iceberg, Parquet, MinIO / S3</p>
+              <p style="font-size: 0.85rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.07em;">Layer 05 · Analytics</p>
+              <p style="margin-top: 0.5rem;">Superset 4.1 and JupyterHub 4.3 connect to the same catalogs, buckets, and SSO settings.</p>
             </div>
             <div style="background: white; border-radius: 1rem; padding: 1rem; border: 1px solid var(--border);">
-              <p style="font-size: 0.85rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.07em;">Ingestion</p>
-              <p style="margin-top: 0.5rem;">Kafka, Debezium, CDC connectors</p>
+              <p style="font-size: 0.85rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.07em;">Layer 06 · Ingestion</p>
+              <p style="margin-top: 0.5rem;">Meltano 4.0.6 projects and Debezium 3.0 Kafka Connect deliver repeatable ELT + CDC paths.</p>
             </div>
             <div style="background: white; border-radius: 1rem; padding: 1rem; border: 1px solid var(--border);">
-              <p style="font-size: 0.85rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.07em;">Governance</p>
-              <p style="margin-top: 0.5rem;">Apache Ranger, OPA policies, Lineage</p>
+              <p style="font-size: 0.85rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.07em;">Layer 07 · Catalog</p>
+              <p style="margin-top: 0.5rem;">OpenMetadata 1.10.7 ships with PostgreSQL + OpenSearch backing services already plumbed.</p>
             </div>
             <div style="background: white; border-radius: 1rem; padding: 1rem; border: 1px solid var(--border);">
-              <p style="font-size: 0.85rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.07em;">Infrastructure</p>
-              <p style="margin-top: 0.5rem;">Kubernetes, Terraform, Observability</p>
+              <p style="font-size: 0.85rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.07em;">Layer 08 · Monitoring</p>
+              <p style="margin-top: 0.5rem;">kube-prometheus-stack bundles Prometheus, Alertmanager, Grafana, and Loki dashboards.</p>
             </div>
           </div>
         </div>
@@ -86,33 +86,41 @@
   <section class="section">
     <div class="container">
       <div class="section__header">
-        <h2>Component versions we ship today</h2>
-        <p>Version-locked, security-patched, and battle-tested in production.</p>
+        <h2>Default component versions</h2>
+        <p>Every chart pins an upstream version so reviews are predictable and upgrades are deliberate.</p>
       </div>
       <div class="pill-grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
         <div class="pill">
-          <h3>Apache Iceberg</h3>
-          <p>v1.6 with REST catalog, retention policies, and branching.</p>
+          <h3>Trino 478</h3>
+          <p>Pinned to 478 with Nessie + MinIO catalogs already declared and secured behind Traefik.</p>
         </div>
         <div class="pill">
-          <h3>Trino</h3>
-          <p>v436 with Lakehouse, Delta, and JDBC catalog connectors.</p>
+          <h3>Spark 4.1.0-preview3</h3>
+          <p>Custom Spark image with Iceberg 1.8, Nessie 0.77, OpenLineage, and Alluxio client jars.</p>
         </div>
         <div class="pill">
-          <h3>Apache Spark</h3>
-          <p>Spark 3.5 tuned for Iceberg, Ray data interchange, and GPU pools.</p>
+          <h3>Airflow 3.1.2 runtime</h3>
+          <p>Based on apache/airflow:3.1.2 with Spark, Trino, dbt, Papermill, and Amazon providers baked in.</p>
         </div>
         <div class="pill">
-          <h3>Airflow</h3>
-          <p>2.9 with OpenLakes providers for Spark, Trino, Superset, and dbt.</p>
+          <h3>Superset 4.1.1</h3>
+          <p>Official image, OAuth-ready, pointed at the shared PostgreSQL metadata store.</p>
         </div>
         <div class="pill">
-          <h3>Kafka & Debezium</h3>
-          <p>3.7 brokers + 2.6 connectors for Postgres, MySQL, and MongoDB.</p>
+          <h3>JupyterHub 4.3.1</h3>
+          <p>Hub + proxy pair come with a notebook image that matches the Spark cluster stack.</p>
         </div>
         <div class="pill">
-          <h3>Superset</h3>
-          <p>3.0 configured with OAuth, row-level security, and semantic caches.</p>
+          <h3>Meltano 4.0.6</h3>
+          <p>Runtime container pre-loaded with the OpenLakes sample project and S3-compatible targets.</p>
+        </div>
+        <div class="pill">
+          <h3>Debezium 3.0.0.Final</h3>
+          <p>Kafka Connect deployment sized for PostgreSQL CDC by default, adjustable via resource profiles.</p>
+        </div>
+        <div class="pill">
+          <h3>OpenMetadata 1.10.7</h3>
+          <p>Catalog, glossary, and lineage UI with built-in Airflow client + OpenSearch indexing.</p>
         </div>
       </div>
     </div>
@@ -122,34 +130,39 @@
     <div class="container">
       <div class="section__header">
         <h2>Resource profiles</h2>
-        <p>Choose the footprint that matches your workloads—or let autoscaling handle it.</p>
+        <p>The deploy script inspects your cluster and picks a profile (<code>compact-vm</code>, <code>compact</code>, <code>small</code>, or <code>full</code>). Override it in <code>core-config.yaml</code> when you need a specific footprint.</p>
       </div>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem;">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem;">
         <div class="pill" style="background: white;">
-          <h3>Starter</h3>
+          <h3>compact-vm</h3>
           <ul style="list-style: none; padding-left: 0; margin-top: 0.75rem; color: var(--muted);">
-            <li>3-node Kubernetes control plane</li>
-            <li>2 Spark workers (32 GB RAM)</li>
-            <li>Single Trino coordinator & worker</li>
-            <li>Daily snapshot backups</li>
+            <li>Auto-selected for single-node macOS/VM setups.</li>
+            <li>Guards against under-provisioned CPU and memory.</li>
+            <li>Keeps every layer online with the smallest requests possible.</li>
           </ul>
         </div>
         <div class="pill" style="background: white;">
-          <h3>Growth</h3>
+          <h3>compact</h3>
           <ul style="list-style: none; padding-left: 0; margin-top: 0.75rem; color: var(--muted);">
-            <li>HA Kubernetes (3 masters / 6 workers)</li>
-            <li>Auto-scaling Spark & Ray pools</li>
-            <li>3 Trino workers with autoscale</li>
-            <li>Multi-zone object storage</li>
+            <li>Manual override for single-node bare metal.</li>
+            <li>Reduces Spark, Trino, Meltano, Debezium, and Loki footprints.</li>
+            <li>Useful when you need the entire stack on a workstation.</li>
           </ul>
         </div>
         <div class="pill" style="background: white;">
-          <h3>Enterprise</h3>
+          <h3>small</h3>
           <ul style="list-style: none; padding-left: 0; margin-top: 0.75rem; color: var(--muted);">
-            <li>Private networking & SSO enforcement</li>
-            <li>GPU-ready compute tiers</li>
-            <li>Regional DR + 30-day retention</li>
-            <li>Dedicated success engineer</li>
+            <li>Default for most lab clusters and small multi-node installs.</li>
+            <li>Balances resource requests so all services remain enabled.</li>
+            <li>Works up to roughly 24 cores / 128&nbsp;Gi across the cluster.</li>
+          </ul>
+        </div>
+        <div class="pill" style="background: white;">
+          <h3>full</h3>
+          <ul style="list-style: none; padding-left: 0; margin-top: 0.75rem; color: var(--muted);">
+            <li>Selected when the cluster advertises ample CPU and memory.</li>
+            <li>Keeps higher retention, multiple Spark executors, and beefier Trino workers.</li>
+            <li>Designed for production environments with dedicated hardware.</li>
           </ul>
         </div>
       </div>
