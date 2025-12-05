@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Coordinate a Multi-Tool Data Platform with One Playbook | OpenLakes Blog</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <style>
+    .nav { display: flex; justify-content: space-between; align-items: center; padding: 1rem 0; }
+    .nav__logo { font-weight: 700; font-size: 1.1rem; color: var(--text); text-decoration: none; }
+    .nav__links { display: flex; gap: 1.5rem; }
+    .nav__links a { color: var(--muted); text-decoration: none; font-weight: 500; }
+    .nav__links a:hover { color: var(--accent); }
+    .article-header { padding: 3rem 0 2rem; background: linear-gradient(180deg, var(--bg) 0%, var(--bg-alt) 100%); }
+    .article-header h1 { font-size: clamp(1.8rem, 3vw, 2.5rem); margin-bottom: 1rem; max-width: 800px; }
+    .article-meta { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; margin-bottom: 1rem; }
+    .article-date { color: var(--muted); font-size: 0.9rem; }
+    .article-content { max-width: 760px; margin: 0 auto; padding: 2rem 0 4rem; }
+    .article-content h2 { font-size: 1.5rem; margin: 2.5rem 0 1rem; color: var(--text); }
+    .article-content h3 { font-size: 1.25rem; margin: 2rem 0 0.75rem; color: var(--text); }
+    .article-content p { font-size: 1.05rem; line-height: 1.75; margin-bottom: 1.25rem; }
+    .article-content ul, .article-content ol { margin: 1rem 0 1.5rem 1.5rem; }
+    .article-content li { margin-bottom: 0.5rem; line-height: 1.7; color: var(--muted); }
+    .article-content strong { color: var(--text); }
+    .article-content code { background: var(--bg-alt); padding: 0.15rem 0.4rem; border-radius: 4px; font-size: 0.9em; }
+    .article-content pre { background: #1e293b; color: #e2e8f0; padding: 1.25rem; border-radius: 0.5rem; overflow-x: auto; margin: 1.5rem 0; }
+    .article-content pre code { background: none; padding: 0; color: inherit; }
+    .highlight-box { background: var(--bg-alt); border-left: 4px solid var(--accent); padding: 1.25rem 1.5rem; margin: 1.5rem 0; border-radius: 0 0.5rem 0.5rem 0; }
+    .highlight-box p { margin: 0; }
+    .comparison-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; }
+    .comparison-table th, .comparison-table td { padding: 0.75rem 1rem; text-align: left; border-bottom: 1px solid var(--border); }
+    .comparison-table th { background: var(--bg-alt); font-weight: 600; color: var(--text); }
+    .comparison-table td { color: var(--muted); }
+    sup { font-size: 0.7em; }
+    sup a { color: var(--accent); text-decoration: none; }
+    sup a:hover { text-decoration: underline; }
+    .references { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border); }
+    .references h3 { font-size: 1.1rem; margin-bottom: 1rem; }
+    .references ol { font-size: 0.85rem; color: var(--muted); }
+    .references li { margin-bottom: 0.5rem; word-break: break-all; }
+    .references a { color: var(--accent); }
+    .cta-box { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: white; padding: 2rem; border-radius: 0.75rem; margin: 2rem 0; text-align: center; }
+    .cta-box h3 { color: white; margin: 0 0 0.5rem; }
+    .cta-box p { color: rgba(255,255,255,0.9); margin-bottom: 1rem; }
+    .cta-box .btn { background: white; color: var(--accent); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav class="nav">
+      <a href="../" class="nav__logo">OpenLakes</a>
+      <div class="nav__links">
+        <a href="../">Home</a>
+        <a href="./">Blog</a>
+        <a href="https://docs.openlakes.io/">Docs</a>
+        <a href="https://github.com/openlakes-io">GitHub</a>
+      </div>
+    </nav>
+  </div>
+
+  <header class="article-header">
+    <div class="container">
+      <div class="article-meta">
+        <span class="article-date">December 2024</span>
+      </div>
+      <h1>Coordinate 20+ Integrated Data Tools with One Playbook</h1>
+      <p class="lead">OpenLakes captures the wiring between Spark, Trino, Kafka, Airflow, MinIO, and the surrounding services so you can deploy with confidence instead of chasing YAML drift.</p>
+    </div>
+  </header>
+
+  <article class="article-content container">
+    <p>Teams building internal data platforms know the pain: deploying a modern stack means integrating a dozen tools, each with its own configuration, dependencies, and failure modes. OpenLakes wraps these integrations into a repeatable script so you are not rebuilding glue code for every environment.</p>
+
+    <h2>The Integration Tax</h2>
+
+    <p>Building a data platform from scratch requires:</p>
+
+    <ul>
+      <li><strong>Spark</strong> &mdash; Needs S3 credentials, Iceberg catalog configuration, history server setup</li>
+      <li><strong>Trino</strong> &mdash; Catalog connectors for Iceberg, PostgreSQL, MinIO</li>
+      <li><strong>Kafka</strong> &mdash; Schema registry, topic management, consumer groups</li>
+      <li><strong>Airflow</strong> &mdash; Executor configuration, database connections, DAG deployment</li>
+      <li><strong>MinIO</strong> &mdash; Bucket policies, access keys, lifecycle rules</li>
+      <li><strong>Monitoring</strong> &mdash; Prometheus targets, Grafana dashboards, log aggregation</li>
+    </ul>
+
+    <p>Each integration requires custom configuration. Without a reference implementation it's common for teams to spend multiple quarters just lining up plumbing.</p>
+
+    <h2>One Script, Complete Platform</h2>
+
+    <p>OpenLakes deploys with a single command (and prompts you to review generated manifests if you prefer a GitOps flow):<sup><a href="#ref1" id="cite1">[1]</a></sup></p>
+
+    <pre><code>./deploy-openlakes.sh</code></pre>
+
+    <p>The script automatically:</p>
+
+    <ol>
+      <li><strong>Detects your cluster</strong> &mdash; Single-node vs multi-node, available resources<sup><a href="#ref2" id="cite2">[2]</a></sup></li>
+      <li><strong>Selects resource profile</strong> &mdash; Compact, small, or full based on capacity</li>
+      <li><strong>Creates storage infrastructure</strong> &mdash; MinIO PVs from your configured paths</li>
+      <li><strong>Deploys all 8 layers</strong> &mdash; In dependency order with health checks</li>
+      <li><strong>Wires service connections</strong> &mdash; Each component pre-configured to talk to others</li>
+      <li><strong>Sets up ingress</strong> &mdash; All UIs accessible via <code>*.openlakes.dev</code></li>
+    </ol>
+
+    <h2>Layered Architecture</h2>
+
+    <p>OpenLakes organizes components into logical layers:<sup><a href="#ref3" id="cite3">[3]</a></sup></p>
+
+    <table class="comparison-table">
+      <thead>
+        <tr>
+          <th>Layer</th>
+          <th>Components</th>
+          <th>Helm Chart</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>01-infrastructure</td>
+          <td>PostgreSQL 15, MinIO, Kafka 4.0, Redis 7, Nessie 0.77, OpenSearch 2.11, Apicurio 2.6, Traefik<sup><a href="#ref4" id="cite4">[4]</a></sup></td>
+          <td><code>layers/01-infrastructure</code></td>
+        </tr>
+        <tr>
+          <td>02-compute</td>
+          <td>Spark (custom image), Trino 478<sup><a href="#ref5" id="cite5">[5]</a></sup></td>
+          <td><code>layers/02-compute</code></td>
+        </tr>
+        <tr>
+          <td>03-streaming</td>
+          <td>Reserved (Spark Structured Streaming in 02)</td>
+          <td><code>layers/03-streaming</code></td>
+        </tr>
+        <tr>
+          <td>04-orchestration</td>
+          <td>Airflow 3.x with KubernetesExecutor<sup><a href="#ref6" id="cite6">[6]</a></sup></td>
+          <td><code>layers/04-orchestration</code></td>
+        </tr>
+        <tr>
+          <td>05-analytics</td>
+          <td>Superset 4.1, JupyterHub 4.3<sup><a href="#ref7" id="cite7">[7]</a></sup></td>
+          <td><code>layers/05-analytics</code></td>
+        </tr>
+        <tr>
+          <td>06-ingestion</td>
+          <td>Meltano 4.0, Debezium 3.0<sup><a href="#ref8" id="cite8">[8]</a></sup></td>
+          <td><code>layers/06-ingestion</code></td>
+        </tr>
+        <tr>
+          <td>07-catalog</td>
+          <td>OpenMetadata 1.10<sup><a href="#ref9" id="cite9">[9]</a></sup></td>
+          <td><code>layers/07-catalog</code></td>
+        </tr>
+        <tr>
+          <td>08-monitoring</td>
+          <td>Prometheus, Grafana, Alertmanager, Loki, StatsD exporter<sup><a href="#ref10" id="cite10">[10]</a></sup></td>
+          <td><code>layers/08-monitoring</code></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Single Configuration File</h2>
+
+    <p>All settings live in <code>core-config.yaml</code>:<sup><a href="#ref11" id="cite11">[11]</a></sup></p>
+
+    <pre><code>cluster:
+  mode: auto                # auto|single|multi
+  namespace: openlakes
+  storageClass: longhorn
+
+networking:
+  domain: openlakes.dev
+  ingressClass: traefik
+
+credentials:
+  minio:
+    rootUser: admin
+    rootPassword: changeme
+  postgres:
+    user: openlakes
+    password: changeme
+
+storage:
+  tiers:
+    hot:
+      - node: worker-a
+        paths: ["/minio1", "/minio2"]
+      - node: worker-b
+        paths: ["/minio3", "/minio4"]</code></pre>
+
+    <p>Change credentials, storage paths, or domain&mdash;the deployment script applies overrides to all Helm charts automatically.</p>
+
+    <h2>Pre-Wired Integrations</h2>
+
+    <p>Components are configured to work together out of the box:</p>
+
+    <div class="highlight-box">
+      <p><strong>Spark &rarr; Nessie &rarr; MinIO:</strong> Spark writes Iceberg tables to the Nessie catalog, which stores metadata in PostgreSQL. Table data goes to MinIO in Parquet format.<sup><a href="#ref12" id="cite12">[12]</a></sup></p>
+    </div>
+
+    <ul>
+      <li><strong>Trino &rarr; Nessie</strong> &mdash; Same Iceberg catalog, same tables, interactive queries<sup><a href="#ref13" id="cite13">[13]</a></sup></li>
+      <li><strong>Superset &rarr; Trino</strong> &mdash; Pre-configured database connection for dashboards<sup><a href="#ref14" id="cite14">[14]</a></sup></li>
+      <li><strong>Debezium &rarr; Kafka</strong> &mdash; CDC events flow to Kafka topics automatically<sup><a href="#ref15" id="cite15">[15]</a></sup></li>
+      <li><strong>Airflow &rarr; Spark</strong> &mdash; SparkSubmitOperator configured with cluster endpoints</li>
+      <li><strong>Prometheus &rarr; All</strong> &mdash; ServiceMonitors for every component<sup><a href="#ref16" id="cite16">[16]</a></sup></li>
+    </ul>
+
+    <h2>Resource Profiles</h2>
+
+    <p>The deployment script auto-detects cluster resources and selects appropriate profiles:<sup><a href="#ref17" id="cite17">[17]</a></sup></p>
+
+    <table class="comparison-table">
+      <thead>
+        <tr>
+          <th>Profile</th>
+          <th>Requirements</th>
+          <th>Use Case</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>compact-vm</code></td>
+          <td>10 vCPU / 18 GB RAM</td>
+          <td>Apple Silicon with Rancher Desktop</td>
+        </tr>
+        <tr>
+          <td><code>small</code></td>
+          <td>10 vCPU / 18-32 GB RAM</td>
+          <td>Single-node Linux servers</td>
+        </tr>
+        <tr>
+          <td><code>full</code></td>
+          <td>24+ cores / 128 GB+ aggregate</td>
+          <td>Multi-node production clusters</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Storage Automation</h2>
+
+    <p>The deployment script creates MinIO PersistentVolumes from your configured paths:<sup><a href="#ref18" id="cite18">[18]</a></sup></p>
+
+    <ul>
+      <li><strong>Hot tier</strong> &mdash; NVMe/SSD paths become MinIO distributed storage</li>
+      <li><strong>Cold tier</strong> &mdash; NAS mounts for lifecycle tiering (optional)</li>
+      <li><strong>Longhorn</strong> &mdash; Replicated block storage for stateful services</li>
+    </ul>
+
+    <p>Capacities are validated across nodes. The script warns if disk sizes differ by more than 5%.</p>
+
+    <h2>Ingress and DNS</h2>
+
+    <p>Traefik provides unified ingress with automatic TLS:<sup><a href="#ref19" id="cite19">[19]</a></sup></p>
+
+    <ul>
+      <li><code>minio.openlakes.dev</code> &rarr; MinIO Console</li>
+      <li><code>trino.openlakes.dev</code> &rarr; Trino UI</li>
+      <li><code>spark.openlakes.dev</code> &rarr; Spark Master UI</li>
+      <li><code>airflow.openlakes.dev</code> &rarr; Airflow</li>
+      <li><code>superset.openlakes.dev</code> &rarr; Superset</li>
+      <li><code>metadata.openlakes.dev</code> &rarr; OpenMetadata</li>
+      <li><code>grafana.openlakes.dev</code> &rarr; Grafana</li>
+    </ul>
+
+    <p>Configure your domain in <code>core-config.yaml</code>. The script supports Let's Encrypt via Cloudflare DNS-01 challenge, or bring your own certificates.</p>
+
+    <h2>Custom Docker Images</h2>
+
+    <p>OpenLakes includes custom images with all dependencies pre-installed:<sup><a href="#ref20" id="cite20">[20]</a></sup></p>
+
+    <ul>
+      <li><code>ghcr.io/openlakes/core/spark:1.0.0</code> &mdash; Spark with Iceberg, Nessie, S3A</li>
+      <li><code>ghcr.io/openlakes/core/jupyterhub-notebook:1.0.0</code> &mdash; Notebook with Spark client</li>
+      <li><code>ghcr.io/openlakes/core/meltano-runtime:1.0.0</code> &mdash; Meltano with Singer connectors</li>
+      <li><code>ghcr.io/openlakes/core/openlakes-dashboard:1.0.0</code> &mdash; Service links dashboard</li>
+    </ul>
+
+    <p>Build contexts are in the <code>docker/</code> directory. Customize and rebuild as needed.</p>
+
+    <div class="cta-box">
+      <h3>Deploy in Minutes</h3>
+      <p>Follow the quick start guide to deploy your first OpenLakes cluster.</p>
+      <a href="https://docs.openlakes.io/getting-started/quickstart/" class="btn">Quick Start</a>
+    </div>
+
+    <div class="references">
+      <h3>Source References</h3>
+      <ol>
+        <li id="ref1">Deployment script: <a href="https://github.com/openlakes-io/core/blob/main/deploy-openlakes.sh" target="_blank">deploy-openlakes.sh</a></li>
+        <li id="ref2">Resource profile detection: <a href="https://docs.openlakes.io/getting-started/#resource-profiles--minimum-footprints" target="_blank">docs.openlakes.io/getting-started</a></li>
+        <li id="ref3">Layered architecture: <a href="https://docs.openlakes.io/core/#layered-architecture" target="_blank">docs.openlakes.io/core</a></li>
+        <li id="ref4">Infrastructure layer: <a href="https://github.com/openlakes-io/core/blob/main/layers/01-infrastructure/values.yaml" target="_blank">layers/01-infrastructure/values.yaml</a></li>
+        <li id="ref5">Compute layer: <a href="https://github.com/openlakes-io/core/blob/main/layers/02-compute/values.yaml" target="_blank">layers/02-compute/values.yaml</a></li>
+        <li id="ref6">Orchestration layer: <a href="https://github.com/openlakes-io/core/blob/main/layers/04-orchestration" target="_blank">layers/04-orchestration</a></li>
+        <li id="ref7">Analytics layer: <a href="https://github.com/openlakes-io/core/blob/main/layers/05-analytics/values.yaml" target="_blank">layers/05-analytics/values.yaml</a></li>
+        <li id="ref8">Ingestion layer: <a href="https://github.com/openlakes-io/core/blob/main/layers/06-ingestion/values.yaml" target="_blank">layers/06-ingestion/values.yaml</a></li>
+        <li id="ref9">Catalog layer: <a href="https://github.com/openlakes-io/core/blob/main/layers/07-catalog/values.yaml" target="_blank">layers/07-catalog/values.yaml</a></li>
+        <li id="ref10">Monitoring layer: <a href="https://github.com/openlakes-io/core/blob/main/layers/08-monitoring/values.yaml" target="_blank">layers/08-monitoring/values.yaml</a></li>
+        <li id="ref11">Core configuration: <a href="https://github.com/openlakes-io/core/blob/main/core-config.yaml" target="_blank">core-config.yaml</a></li>
+        <li id="ref12">Spark S3/Nessie config: <a href="https://github.com/openlakes-io/core/blob/main/layers/02-compute/values.yaml#L127-L139" target="_blank">layers/02-compute/values.yaml</a></li>
+        <li id="ref13">Trino Nessie catalog: <a href="https://github.com/openlakes-io/core/blob/main/layers/02-compute/values.yaml#L36-L45" target="_blank">layers/02-compute/values.yaml</a></li>
+        <li id="ref14">Superset Trino connection: <a href="https://docs.openlakes.io/core/components/superset/" target="_blank">docs.openlakes.io/core/components/superset</a></li>
+        <li id="ref15">Debezium Kafka config: <a href="https://github.com/openlakes-io/core/blob/main/layers/06-ingestion/values.yaml#L84-L98" target="_blank">layers/06-ingestion/values.yaml</a></li>
+        <li id="ref16">ServiceMonitors: <a href="https://github.com/openlakes-io/core/blob/main/layers/08-monitoring/values.yaml#L376-L403" target="_blank">layers/08-monitoring/values.yaml</a></li>
+        <li id="ref17">Resource profiles: <a href="https://docs.openlakes.io/getting-started/#resource-profiles--minimum-footprints" target="_blank">docs.openlakes.io/getting-started</a></li>
+        <li id="ref18">Storage tier configuration: <a href="https://github.com/openlakes-io/core/blob/main/core-config.yaml#L44-L93" target="_blank">core-config.yaml</a></li>
+        <li id="ref19">Traefik ingress: <a href="https://github.com/openlakes-io/core/blob/main/layers/01-infrastructure/values.yaml#L118-L258" target="_blank">layers/01-infrastructure/values.yaml</a></li>
+        <li id="ref20">Docker images: <a href="https://github.com/openlakes-io/core/tree/main/docker" target="_blank">docker/</a></li>
+      </ol>
+    </div>
+  </article>
+
+  <footer class="footer">
+    <div class="container footer__grid">
+      <p>&copy; <span id="year"></span> OpenLakes.io. Built with open-source from day one.</p>
+      <div class="footer__links">
+        <a href="https://docs.openlakes.io/">Docs</a>
+        <a href="https://docs.openlakes.io/privacy-policy/">Privacy</a>
+        <a href="https://docs.openlakes.io/terms-of-service/">Terms</a>
+        <a href="https://github.com/openlakes-io">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

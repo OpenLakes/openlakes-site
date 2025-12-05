@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OpenLakes Platform | Unified Lakehouse Architecture</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <link rel="icon" type="image/x-icon" href="../brand/favicon.ico" />
+</head>
+<body>
+  <div class="container" style="padding-top: 1rem;">
+    <nav style="display: flex; justify-content: space-between; align-items: center;">
+      <div style="display: flex; align-items: center; gap: 0.5rem;">
+        <img src="../brand/logo-icon.svg" alt="OpenLakes icon" style="width: 32px; height: 32px;" />
+        <span style="font-weight: 700; font-size: 1.1rem; color: var(--text);">OpenLakes</span>
+      </div>
+      <div style="display: flex; gap: 1.25rem; align-items: center;">
+        <a href="/" style="color: var(--muted); text-decoration: none; font-weight: 500;">Home</a>
+        <a href="/platform/" style="color: var(--text); text-decoration: none; font-weight: 600;">Platform</a>
+        <a href="/blog/" style="color: var(--muted); text-decoration: none; font-weight: 500;">Blog</a>
+        <a href="https://docs.openlakes.io/" style="color: var(--muted); text-decoration: none; font-weight: 500;">Docs</a>
+        <a href="https://github.com/openlakes-io" style="color: var(--muted); text-decoration: none; font-weight: 500;">GitHub</a>
+        <a href="https://core.openlakes.io/" class="btn btn--primary" style="padding: 0.4rem 1rem;">Sign In</a>
+      </div>
+    </nav>
+  </div>
+
+  <header class="hero" style="padding-top: 4rem; padding-bottom: 4rem;">
+    <div class="container hero__grid">
+      <div class="hero__content">
+        <p class="eyebrow">Architecture</p>
+        <h1>The OpenLakes platform in one glance</h1>
+        <p class="lead">
+          Eight opinionated layers that turn open source projects into a cohesive lakehouse.
+          Every component ships pre-integrated, versioned, and observable from day one.
+        </p>
+        <div class="hero__actions">
+          <a href="https://core.openlakes.io/" class="btn btn--primary">Start free trial</a>
+          <a href="mailto:hello@openlakes.io" class="btn btn--ghost">Talk to us</a>
+        </div>
+      </div>
+      <div class="hero__visual">
+        <div class="hero__brand" style="padding: 1.5rem;">
+          <div style="display: grid; grid-template-columns: repeat(2, minmax(140px, 1fr)); gap: 1rem;">
+            <div style="background: white; border-radius: 1rem; padding: 1rem; border: 1px solid var(--border);">
+              <p style="font-size: 0.85rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.07em;">Experience</p>
+              <p style="margin-top: 0.5rem;">Superset, Streamlit Apps, VS Code, Notebooks</p>
+            </div>
+            <div style="background: white; border-radius: 1rem; padding: 1rem; border: 1px solid var(--border);">
+              <p style="font-size: 0.85rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.07em;">SQL + Semantic</p>
+              <p style="margin-top: 0.5rem;">Trino, REST APIs, Metrics Layer</p>
+            </div>
+            <div style="background: white; border-radius: 1rem; padding: 1rem; border: 1px solid var(--border);">
+              <p style="font-size: 0.85rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.07em;">Processing</p>
+              <p style="margin-top: 0.5rem;">Apache Spark, Ray, dbt</p>
+            </div>
+            <div style="background: white; border-radius: 1rem; padding: 1rem; border: 1px solid var(--border);">
+              <p style="font-size: 0.85rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.07em;">Workflow</p>
+              <p style="margin-top: 0.5rem;">Airflow, Dagster, Automation APIs</p>
+            </div>
+            <div style="background: white; border-radius: 1rem; padding: 1rem; border: 1px solid var(--border);">
+              <p style="font-size: 0.85rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.07em;">Storage</p>
+              <p style="margin-top: 0.5rem;">Apache Iceberg, Parquet, MinIO / S3</p>
+            </div>
+            <div style="background: white; border-radius: 1rem; padding: 1rem; border: 1px solid var(--border);">
+              <p style="font-size: 0.85rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.07em;">Ingestion</p>
+              <p style="margin-top: 0.5rem;">Kafka, Debezium, CDC connectors</p>
+            </div>
+            <div style="background: white; border-radius: 1rem; padding: 1rem; border: 1px solid var(--border);">
+              <p style="font-size: 0.85rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.07em;">Governance</p>
+              <p style="margin-top: 0.5rem;">Apache Ranger, OPA policies, Lineage</p>
+            </div>
+            <div style="background: white; border-radius: 1rem; padding: 1rem; border: 1px solid var(--border);">
+              <p style="font-size: 0.85rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.07em;">Infrastructure</p>
+              <p style="margin-top: 0.5rem;">Kubernetes, Terraform, Observability</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container">
+      <div class="section__header">
+        <h2>Component versions we ship today</h2>
+        <p>Version-locked, security-patched, and battle-tested in production.</p>
+      </div>
+      <div class="pill-grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
+        <div class="pill">
+          <h3>Apache Iceberg</h3>
+          <p>v1.6 with REST catalog, retention policies, and branching.</p>
+        </div>
+        <div class="pill">
+          <h3>Trino</h3>
+          <p>v436 with Lakehouse, Delta, and JDBC catalog connectors.</p>
+        </div>
+        <div class="pill">
+          <h3>Apache Spark</h3>
+          <p>Spark 3.5 tuned for Iceberg, Ray data interchange, and GPU pools.</p>
+        </div>
+        <div class="pill">
+          <h3>Airflow</h3>
+          <p>2.9 with OpenLakes providers for Spark, Trino, Superset, and dbt.</p>
+        </div>
+        <div class="pill">
+          <h3>Kafka & Debezium</h3>
+          <p>3.7 brokers + 2.6 connectors for Postgres, MySQL, and MongoDB.</p>
+        </div>
+        <div class="pill">
+          <h3>Superset</h3>
+          <p>3.0 configured with OAuth, row-level security, and semantic caches.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <div class="section__header">
+        <h2>Resource profiles</h2>
+        <p>Choose the footprint that matches your workloads—or let autoscaling handle it.</p>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem;">
+        <div class="pill" style="background: white;">
+          <h3>Starter</h3>
+          <ul style="list-style: none; padding-left: 0; margin-top: 0.75rem; color: var(--muted);">
+            <li>3-node Kubernetes control plane</li>
+            <li>2 Spark workers (32 GB RAM)</li>
+            <li>Single Trino coordinator & worker</li>
+            <li>Daily snapshot backups</li>
+          </ul>
+        </div>
+        <div class="pill" style="background: white;">
+          <h3>Growth</h3>
+          <ul style="list-style: none; padding-left: 0; margin-top: 0.75rem; color: var(--muted);">
+            <li>HA Kubernetes (3 masters / 6 workers)</li>
+            <li>Auto-scaling Spark & Ray pools</li>
+            <li>3 Trino workers with autoscale</li>
+            <li>Multi-zone object storage</li>
+          </ul>
+        </div>
+        <div class="pill" style="background: white;">
+          <h3>Enterprise</h3>
+          <ul style="list-style: none; padding-left: 0; margin-top: 0.75rem; color: var(--muted);">
+            <li>Private networking & SSO enforcement</li>
+            <li>GPU-ready compute tiers</li>
+            <li>Regional DR + 30-day retention</li>
+            <li>Dedicated success engineer</li>
+          </ul>
+        </div>
+      </div>
+      <div style="text-align: center; margin-top: 2rem;">
+        <a href="https://core.openlakes.io/" class="btn btn--primary">Deploy OpenLakes now</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer__grid">
+      <p>© <span id="year"></span> OpenLakes.io. Built with open-source from day one.</p>
+      <div class="footer__links">
+        <a href="/blog/">Blog</a>
+        <a href="https://docs.openlakes.io/">Docs</a>
+        <a href="https://docs.openlakes.io/privacy-policy/">Privacy</a>
+        <a href="https://docs.openlakes.io/terms-of-service/">Terms</a>
+        <a href="https://github.com/openlakes-io">GitHub</a>
+        <a href="mailto:hello@openlakes.io">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog | OpenLakes.io</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <style>
+    .blog-header {
+      padding: 3rem 0 2rem;
+      background: linear-gradient(180deg, var(--bg) 0%, var(--bg-alt) 100%);
+    }
+    .blog-header h1 {
+      font-size: clamp(2rem, 3vw, 2.5rem);
+      margin-bottom: 0.5rem;
+    }
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .blog-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .blog-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+    }
+    .blog-card__tag {
+      display: inline-block;
+      background: var(--bg-alt);
+      color: var(--accent);
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      margin-bottom: 0.75rem;
+    }
+    .blog-card h3 {
+      font-size: 1.25rem;
+      margin: 0 0 0.5rem;
+      color: var(--text);
+    }
+    .blog-card p {
+      font-size: 0.95rem;
+      margin: 0;
+    }
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0;
+    }
+    .nav__logo {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .nav__links {
+      display: flex;
+      gap: 1.5rem;
+    }
+    .nav__links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .nav__links a:hover {
+      color: var(--accent);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav class="nav">
+      <a href="../" class="nav__logo">OpenLakes</a>
+      <div class="nav__links">
+        <a href="../">Home</a>
+        <a href="./">Blog</a>
+        <a href="https://docs.openlakes.io/">Docs</a>
+        <a href="https://github.com/openlakes-io">GitHub</a>
+      </div>
+    </nav>
+  </div>
+
+  <header class="blog-header">
+    <div class="container">
+      <p class="eyebrow">Insights</p>
+      <h1>OpenLakes Blog</h1>
+      <p class="lead">Learn how OpenLakes can transform your data infrastructure across every role in your organization.</p>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container">
+      <div class="blog-grid">
+        <a href="cfo-cost-control-open-source-lakehouse.html" class="blog-card">
+          <span class="blog-card__tag">CFO</span>
+          <h3>Reduce Data Infrastructure Costs by 70-90% with Open Source</h3>
+          <p>How finance leaders can eliminate cloud data warehouse bills while maintaining enterprise capabilities.</p>
+        </a>
+
+        <a href="cto-no-vendor-lock-in-data-platform.html" class="blog-card">
+          <span class="blog-card__tag">CTO</span>
+          <h3>Build a Future-Proof Data Platform Without Vendor Lock-In</h3>
+          <p>Why Apache Iceberg and open source components protect your long-term technology strategy.</p>
+        </a>
+
+        <a href="ciso-data-sovereignty-security.html" class="blog-card">
+          <span class="blog-card__tag">CISO</span>
+          <h3>Data Sovereignty: Keep Your Data in Your Environment</h3>
+          <p>How self-hosted data infrastructure addresses compliance, security, and privacy requirements.</p>
+        </a>
+
+        <a href="platform-engineering-single-deployment.html" class="blog-card">
+          <span class="blog-card__tag">Platform Engineering</span>
+          <h3>Deploy 20+ Integrated Data Tools with One Command</h3>
+          <p>Stop spending months on integration. OpenLakes pre-wires Spark, Trino, Kafka, and more.</p>
+        </a>
+
+        <a href="data-engineer-pipelines-not-infrastructure.html" class="blog-card">
+          <span class="blog-card__tag">Data Engineer</span>
+          <h3>Focus on Pipelines, Not Infrastructure</h3>
+          <p>Write notebooks that automatically become production DAGs with full lineage tracking.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer__grid">
+      <p>&copy; <span id="year"></span> OpenLakes.io. Built with open-source from day one.</p>
+      <div class="footer__links">
+        <a href="https://docs.openlakes.io/">Docs</a>
+        <a href="https://docs.openlakes.io/privacy-policy/">Privacy</a>
+        <a href="https://docs.openlakes.io/terms-of-service/">Terms</a>
+        <a href="https://github.com/openlakes-io">GitHub</a>
+        <a href="mailto:hello@openlakes.io">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

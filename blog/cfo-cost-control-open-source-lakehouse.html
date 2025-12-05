@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bring Data Infrastructure Costs Back in Line | OpenLakes Blog</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <style>
+    .nav { display: flex; justify-content: space-between; align-items: center; padding: 1rem 0; }
+    .nav__logo { font-weight: 700; font-size: 1.1rem; color: var(--text); text-decoration: none; }
+    .nav__links { display: flex; gap: 1.5rem; }
+    .nav__links a { color: var(--muted); text-decoration: none; font-weight: 500; }
+    .nav__links a:hover { color: var(--accent); }
+    .article-header { padding: 3rem 0 2rem; background: linear-gradient(180deg, var(--bg) 0%, var(--bg-alt) 100%); }
+    .article-header h1 { font-size: clamp(1.8rem, 3vw, 2.5rem); margin-bottom: 1rem; max-width: 800px; }
+    .article-meta { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; margin-bottom: 1rem; }
+    .article-date { color: var(--muted); font-size: 0.9rem; }
+    .article-content { max-width: 760px; margin: 0 auto; padding: 2rem 0 4rem; }
+    .article-content h2 { font-size: 1.5rem; margin: 2.5rem 0 1rem; color: var(--text); }
+    .article-content h3 { font-size: 1.25rem; margin: 2rem 0 0.75rem; color: var(--text); }
+    .article-content p { font-size: 1.05rem; line-height: 1.75; margin-bottom: 1.25rem; }
+    .article-content ul, .article-content ol { margin: 1rem 0 1.5rem 1.5rem; }
+    .article-content li { margin-bottom: 0.5rem; line-height: 1.7; color: var(--muted); }
+    .article-content strong { color: var(--text); }
+    .article-content code { background: var(--bg-alt); padding: 0.15rem 0.4rem; border-radius: 4px; font-size: 0.9em; }
+    .highlight-box { background: var(--bg-alt); border-left: 4px solid var(--accent); padding: 1.25rem 1.5rem; margin: 1.5rem 0; border-radius: 0 0.5rem 0.5rem 0; }
+    .highlight-box p { margin: 0; }
+    .comparison-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; }
+    .comparison-table th, .comparison-table td { padding: 0.75rem 1rem; text-align: left; border-bottom: 1px solid var(--border); }
+    .comparison-table th { background: var(--bg-alt); font-weight: 600; color: var(--text); }
+    .comparison-table td { color: var(--muted); }
+    sup { font-size: 0.7em; }
+    sup a { color: var(--accent); text-decoration: none; }
+    sup a:hover { text-decoration: underline; }
+    .references { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border); }
+    .references h3 { font-size: 1.1rem; margin-bottom: 1rem; }
+    .references ol { font-size: 0.85rem; color: var(--muted); }
+    .references li { margin-bottom: 0.5rem; word-break: break-all; }
+    .references a { color: var(--accent); }
+    .cta-box { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: white; padding: 2rem; border-radius: 0.75rem; margin: 2rem 0; text-align: center; }
+    .cta-box h3 { color: white; margin: 0 0 0.5rem; }
+    .cta-box p { color: rgba(255,255,255,0.9); margin-bottom: 1rem; }
+    .cta-box .btn { background: white; color: var(--accent); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav class="nav">
+      <a href="../" class="nav__logo">OpenLakes</a>
+      <div class="nav__links">
+        <a href="../">Home</a>
+        <a href="./">Blog</a>
+        <a href="https://docs.openlakes.io/">Docs</a>
+        <a href="https://github.com/openlakes-io">GitHub</a>
+      </div>
+    </nav>
+  </div>
+
+  <header class="article-header">
+    <div class="container">
+      <div class="article-meta">
+        <span class="article-date">December 2024</span>
+      </div>
+      <h1>Bring Data Infrastructure Costs Back in Line</h1>
+      <p class="lead">A practical look at how to taper cloud data warehouse bills without giving up the reliability teams expect.</p>
+    </div>
+  </header>
+
+  <article class="article-content container">
+    <p>Cloud data warehouses like Snowflake and Databricks have become essential infrastructure for modern enterprises. But they come with a hidden cost: at scale, these platforms can consume millions of dollars annually in compute, storage, and egress fees. OpenLakes offers a different path.</p>
+
+    <h2>The Hidden Cost of Cloud Data Warehouses</h2>
+
+    <p>Many teams don't realize the full cost of their data infrastructure until it's too late. Cloud data warehouse pricing models charge for:</p>
+
+    <ul>
+      <li><strong>Compute</strong> &mdash; Per-second or per-query charges that scale with usage</li>
+      <li><strong>Storage</strong> &mdash; Monthly fees for every terabyte stored</li>
+      <li><strong>Data egress</strong> &mdash; Charges for moving data out of the platform</li>
+      <li><strong>Vendor features</strong> &mdash; Premium add-ons for governance, security, and compliance</li>
+    </ul>
+
+    <p>At 10TB, a typical cloud data warehouse costs $50,000-$100,000 annually. At 100TB, costs balloon to $500,000-$1,000,000. Petabyte-scale deployments can exceed $5 million per year.</p>
+
+    <h2>OpenLakes: Enterprise Capabilities at Infrastructure Cost</h2>
+
+    <p>OpenLakes deploys a complete data lakehouse platform on your existing Kubernetes infrastructure.<sup><a href="#ref1" id="cite1">[1]</a></sup> Instead of paying cloud vendors for compute and storage, you pay only for the underlying infrastructure you already control.</p>
+
+    <div class="highlight-box">
+      <p><strong>Key insight:</strong> OpenLakes separates compute from storage. You can scale query engines independently of data storage, avoiding the "pay for everything together" model of traditional cloud data warehouses.</p>
+    </div>
+
+    <h3>What's Included</h3>
+
+    <p>OpenLakes deploys over 20 integrated components across 8 architectural layers:<sup><a href="#ref2" id="cite2">[2]</a></sup></p>
+
+    <table class="comparison-table">
+      <thead>
+        <tr>
+          <th>Layer</th>
+          <th>Components</th>
+          <th>Replaces</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Infrastructure</td>
+          <td>PostgreSQL 15, MinIO, Kafka 4.0, Nessie 0.77, Redis 7<sup><a href="#ref3" id="cite3">[3]</a></sup></td>
+          <td>Managed databases, object storage, streaming</td>
+        </tr>
+        <tr>
+          <td>Compute</td>
+          <td>Apache Spark, Trino 478<sup><a href="#ref4" id="cite4">[4]</a></sup></td>
+          <td>Snowflake compute, Databricks clusters</td>
+        </tr>
+        <tr>
+          <td>Analytics</td>
+          <td>Apache Superset 4.1, JupyterHub 4.3<sup><a href="#ref5" id="cite5">[5]</a></sup></td>
+          <td>Tableau, Looker, managed notebooks</td>
+        </tr>
+        <tr>
+          <td>Ingestion</td>
+          <td>Meltano 4.0, Debezium 3.0<sup><a href="#ref6" id="cite6">[6]</a></sup></td>
+          <td>Fivetran, Airbyte cloud</td>
+        </tr>
+        <tr>
+          <td>Catalog</td>
+          <td>OpenMetadata 1.10<sup><a href="#ref7" id="cite7">[7]</a></sup></td>
+          <td>Alation, Collibra</td>
+        </tr>
+        <tr>
+          <td>Monitoring</td>
+          <td>Prometheus, Grafana, Loki<sup><a href="#ref8" id="cite8">[8]</a></sup></td>
+          <td>Datadog, Splunk</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Real Cost Comparison</h2>
+
+    <p>Consider a mid-size enterprise with 50TB of data and moderate query workloads:</p>
+
+    <table class="comparison-table">
+      <thead>
+        <tr>
+          <th>Cost Category</th>
+          <th>Cloud Data Warehouse</th>
+          <th>OpenLakes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Compute (annual)</td>
+          <td>$200,000 - $400,000</td>
+          <td>Infrastructure only</td>
+        </tr>
+        <tr>
+          <td>Storage (annual)</td>
+          <td>$60,000 - $120,000</td>
+          <td>Infrastructure only</td>
+        </tr>
+        <tr>
+          <td>BI Tools</td>
+          <td>$50,000 - $150,000</td>
+          <td>$0 (Superset included)</td>
+        </tr>
+        <tr>
+          <td>Data Catalog</td>
+          <td>$100,000 - $300,000</td>
+          <td>$0 (OpenMetadata included)</td>
+        </tr>
+        <tr>
+          <td>Ingestion Tools</td>
+          <td>$30,000 - $100,000</td>
+          <td>$0 (Meltano included)</td>
+        </tr>
+        <tr>
+          <td><strong>Total Annual</strong></td>
+          <td><strong>$440,000 - $1,070,000</strong></td>
+          <td><strong>Infrastructure + Ops</strong></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>For organizations with existing Kubernetes infrastructure and platform engineering teams, OpenLakes can materially reduce total data platform costs because compute, storage, and control-plane run on hardware you already manage.</p>
+
+    <h2>Deployment Flexibility</h2>
+
+    <p>OpenLakes supports multiple deployment profiles based on your infrastructure:<sup><a href="#ref9" id="cite9">[9]</a></sup></p>
+
+    <ul>
+      <li><strong>Compact (10 vCPU / 18GB RAM)</strong> &mdash; Single-node deployments for development and small workloads</li>
+      <li><strong>Small (10 vCPU / 24-32GB RAM)</strong> &mdash; Single-node production with local storage</li>
+      <li><strong>Full (24+ cores / 128GB+ RAM)</strong> &mdash; Multi-node clusters with distributed storage</li>
+    </ul>
+
+    <p>Start small on a single node, then scale horizontally as data volumes grow. The same deployment script handles both scenarios.<sup><a href="#ref10" id="cite10">[10]</a></sup></p>
+
+    <h2>No Hidden Costs</h2>
+
+    <p>OpenLakes is 100% open source under the Apache 2.0 license. There are no:</p>
+
+    <ul>
+      <li>Per-query charges</li>
+      <li>Per-user fees</li>
+      <li>Storage tiering premiums</li>
+      <li>Enterprise feature gates</li>
+      <li>Egress fees (your data stays in your infrastructure)</li>
+    </ul>
+
+    <h2>A Simple Decision Framework</h2>
+
+    <p>OpenLakes makes financial sense when:</p>
+
+    <ol>
+      <li><strong>You have existing Kubernetes infrastructure</strong> or are willing to invest in it</li>
+      <li><strong>Your data volumes exceed 10TB</strong> (cost savings increase with scale)</li>
+      <li><strong>You have platform engineering capacity</strong> to operate the deployment</li>
+      <li><strong>You value long-term cost predictability</strong> over pay-as-you-go convenience</li>
+      <li><strong>Data sovereignty matters</strong> (regulatory, security, or strategic reasons)</li>
+    </ol>
+
+    <div class="cta-box">
+      <h3>See What You Could Save</h3>
+      <p>Deploy OpenLakes on your infrastructure and compare costs firsthand.</p>
+      <a href="https://docs.openlakes.io/getting-started/quickstart/" class="btn">Get Started</a>
+    </div>
+
+    <div class="references">
+      <h3>Source References</h3>
+      <ol>
+        <li id="ref1">OpenLakes Core deployment configuration: <a href="https://github.com/openlakes-io/core/blob/main/core-config.yaml" target="_blank">core-config.yaml</a></li>
+        <li id="ref2">Layered architecture overview: <a href="https://docs.openlakes.io/core/#layered-architecture" target="_blank">docs.openlakes.io/core</a></li>
+        <li id="ref3">Infrastructure layer values: <a href="https://github.com/openlakes-io/core/blob/main/layers/01-infrastructure/values.yaml" target="_blank">layers/01-infrastructure/values.yaml</a> (PostgreSQL 15 line 264, Kafka 4.0.1 line 340, Redis 7 line 292, Nessie 0.77.1 line 423)</li>
+        <li id="ref4">Compute layer values: <a href="https://github.com/openlakes-io/core/blob/main/layers/02-compute/values.yaml" target="_blank">layers/02-compute/values.yaml</a> (Trino 478 line 33)</li>
+        <li id="ref5">Analytics layer values: <a href="https://github.com/openlakes-io/core/blob/main/layers/05-analytics/values.yaml" target="_blank">layers/05-analytics/values.yaml</a> (Superset 4.1.1 line 33, JupyterHub 4.3.1 line 72)</li>
+        <li id="ref6">Ingestion layer values: <a href="https://github.com/openlakes-io/core/blob/main/layers/06-ingestion/values.yaml" target="_blank">layers/06-ingestion/values.yaml</a> (Meltano 4.0.6 line 37, Debezium 3.0.0 line 89)</li>
+        <li id="ref7">Catalog layer values: <a href="https://github.com/openlakes-io/core/blob/main/layers/07-catalog/values.yaml" target="_blank">layers/07-catalog/values.yaml</a> (OpenMetadata 1.10.7 line 37)</li>
+        <li id="ref8">Monitoring layer values: <a href="https://github.com/openlakes-io/core/blob/main/layers/08-monitoring/values.yaml" target="_blank">layers/08-monitoring/values.yaml</a></li>
+        <li id="ref9">Resource profiles documentation: <a href="https://docs.openlakes.io/getting-started/#resource-profiles--minimum-footprints" target="_blank">docs.openlakes.io/getting-started</a></li>
+        <li id="ref10">Deployment script: <a href="https://github.com/openlakes-io/core/blob/main/deploy-openlakes.sh" target="_blank">deploy-openlakes.sh</a></li>
+      </ol>
+    </div>
+  </article>
+
+  <footer class="footer">
+    <div class="container footer__grid">
+      <p>&copy; <span id="year"></span> OpenLakes.io. Built with open-source from day one.</p>
+      <div class="footer__links">
+        <a href="https://docs.openlakes.io/">Docs</a>
+        <a href="https://docs.openlakes.io/privacy-policy/">Privacy</a>
+        <a href="https://docs.openlakes.io/terms-of-service/">Terms</a>
+        <a href="https://github.com/openlakes-io">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

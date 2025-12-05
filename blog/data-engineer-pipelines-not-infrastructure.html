@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Focus on Pipelines, Not Infrastructure | OpenLakes Blog</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <style>
+    .nav { display: flex; justify-content: space-between; align-items: center; padding: 1rem 0; }
+    .nav__logo { font-weight: 700; font-size: 1.1rem; color: var(--text); text-decoration: none; }
+    .nav__links { display: flex; gap: 1.5rem; }
+    .nav__links a { color: var(--muted); text-decoration: none; font-weight: 500; }
+    .nav__links a:hover { color: var(--accent); }
+    .article-header { padding: 3rem 0 2rem; background: linear-gradient(180deg, var(--bg) 0%, var(--bg-alt) 100%); }
+    .article-header h1 { font-size: clamp(1.8rem, 3vw, 2.5rem); margin-bottom: 1rem; max-width: 800px; }
+    .article-meta { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; margin-bottom: 1rem; }
+    .article-date { color: var(--muted); font-size: 0.9rem; }
+    .article-content { max-width: 760px; margin: 0 auto; padding: 2rem 0 4rem; }
+    .article-content h2 { font-size: 1.5rem; margin: 2.5rem 0 1rem; color: var(--text); }
+    .article-content h3 { font-size: 1.25rem; margin: 2rem 0 0.75rem; color: var(--text); }
+    .article-content p { font-size: 1.05rem; line-height: 1.75; margin-bottom: 1.25rem; }
+    .article-content ul, .article-content ol { margin: 1rem 0 1.5rem 1.5rem; }
+    .article-content li { margin-bottom: 0.5rem; line-height: 1.7; color: var(--muted); }
+    .article-content strong { color: var(--text); }
+    .article-content code { background: var(--bg-alt); padding: 0.15rem 0.4rem; border-radius: 4px; font-size: 0.9em; }
+    .article-content pre { background: #1e293b; color: #e2e8f0; padding: 1.25rem; border-radius: 0.5rem; overflow-x: auto; margin: 1.5rem 0; }
+    .article-content pre code { background: none; padding: 0; color: inherit; }
+    .highlight-box { background: var(--bg-alt); border-left: 4px solid var(--accent); padding: 1.25rem 1.5rem; margin: 1.5rem 0; border-radius: 0 0.5rem 0.5rem 0; }
+    .highlight-box p { margin: 0; }
+    .comparison-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; }
+    .comparison-table th, .comparison-table td { padding: 0.75rem 1rem; text-align: left; border-bottom: 1px solid var(--border); }
+    .comparison-table th { background: var(--bg-alt); font-weight: 600; color: var(--text); }
+    .comparison-table td { color: var(--muted); }
+    sup { font-size: 0.7em; }
+    sup a { color: var(--accent); text-decoration: none; }
+    sup a:hover { text-decoration: underline; }
+    .references { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border); }
+    .references h3 { font-size: 1.1rem; margin-bottom: 1rem; }
+    .references ol { font-size: 0.85rem; color: var(--muted); }
+    .references li { margin-bottom: 0.5rem; word-break: break-all; }
+    .references a { color: var(--accent); }
+    .cta-box { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: white; padding: 2rem; border-radius: 0.75rem; margin: 2rem 0; text-align: center; }
+    .cta-box h3 { color: white; margin: 0 0 0.5rem; }
+    .cta-box p { color: rgba(255,255,255,0.9); margin-bottom: 1rem; }
+    .cta-box .btn { background: white; color: var(--accent); }
+    .workflow-diagram { background: var(--card); border: 1px solid var(--border); border-radius: 0.75rem; padding: 1.5rem; margin: 1.5rem 0; font-family: monospace; font-size: 0.85rem; text-align: center; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav class="nav">
+      <a href="../" class="nav__logo">OpenLakes</a>
+      <div class="nav__links">
+        <a href="../">Home</a>
+        <a href="./">Blog</a>
+        <a href="https://docs.openlakes.io/">Docs</a>
+        <a href="https://github.com/openlakes-io">GitHub</a>
+      </div>
+    </nav>
+  </div>
+
+  <header class="article-header">
+    <div class="container">
+      <div class="article-meta">
+        <span class="article-date">December 2024</span>
+      </div>
+      <h1>Focus on Pipelines, Not Infrastructure</h1>
+      <p class="lead">Move notebooks into production workflows without pausing to rebuild Spark, Airflow, or storage integrations.</p>
+    </div>
+  </header>
+
+  <article class="article-content container">
+    <p>Teams building data products spend too much time on infrastructure and not enough on actual pipelines. OpenLakes gives you a complete development environment where notebooks become production jobs, Iceberg tables are ready to query, and lineage tracks itself.</p>
+
+    <h2>The Development Workflow</h2>
+
+    <p>OpenLakes provides an integrated workflow from development to production:</p>
+
+    <div class="workflow-diagram">
+      <strong>JupyterHub</strong> &rarr; develop &rarr; <strong>MinIO</strong> &rarr; sync &rarr; <strong>Airflow</strong> &rarr; execute &rarr; <strong>Iceberg Tables</strong>
+    </div>
+
+    <ol>
+      <li><strong>Develop in JupyterHub</strong> &mdash; Write PySpark notebooks with pre-configured Spark context</li>
+      <li><strong>Publish to MinIO</strong> &mdash; Mark notebooks ready for production</li>
+      <li><strong>Airflow discovers DAGs</strong> &mdash; CronJobs sync published notebooks to Airflow</li>
+      <li><strong>Papermill executes</strong> &mdash; Notebooks run as parameterized DAGs</li>
+      <li><strong>Write to Iceberg</strong> &mdash; Tables managed by Nessie catalog</li>
+    </ol>
+
+    <h2>JupyterHub Environment</h2>
+
+    <p>The custom notebook image includes everything you need:<sup><a href="#ref1" id="cite1">[1]</a></sup></p>
+
+    <pre><code># Image: ghcr.io/openlakes/core/jupyterhub-notebook:1.0.0
+# Pre-installed:
+# - PySpark with Iceberg support
+# - S3A filesystem for MinIO access
+# - Nessie catalog client
+# - pandas, numpy, matplotlib, seaborn</code></pre>
+
+    <p>Notebooks spawn on Kubernetes with persistent storage via Longhorn:<sup><a href="#ref2" id="cite2">[2]</a></sup></p>
+
+    <ul>
+      <li><strong>Per-user home directories</strong> &mdash; 10GB PVC per user</li>
+      <li><strong>Shared examples</strong> &mdash; Mounted at <code>/home/jovyan/examples</code><sup><a href="#ref3" id="cite3">[3]</a></sup></li>
+      <li><strong>MinIO integration</strong> &mdash; Environment variables pre-configured<sup><a href="#ref4" id="cite4">[4]</a></sup></li>
+    </ul>
+
+    <h2>Writing to Iceberg Tables</h2>
+
+    <p>Spark is pre-configured to write Iceberg tables via the Nessie catalog:<sup><a href="#ref5" id="cite5">[5]</a></sup></p>
+
+    <pre><code># SparkSession is pre-configured with Nessie catalog
+# Just write your transformation logic
+
+df = spark.read.parquet("s3a://openlakes/raw/events/")
+
+# Transform
+processed = df.groupBy("user_id", "date").agg(
+    count("event_id").alias("event_count"),
+    sum("revenue").alias("total_revenue")
+)
+
+# Write to Iceberg table (Nessie manages metadata)
+processed.writeTo("nessie.warehouse.user_daily_stats") \
+    .using("iceberg") \
+    .createOrReplace()</code></pre>
+
+    <p>The Nessie catalog stores table metadata in PostgreSQL.<sup><a href="#ref6" id="cite6">[6]</a></sup> Table data goes to MinIO in Parquet format.</p>
+
+    <h2>Querying with Trino</h2>
+
+    <p>The same tables are immediately queryable from Trino:<sup><a href="#ref7" id="cite7">[7]</a></sup></p>
+
+    <pre><code>-- Trino connects to the same Nessie catalog
+-- Tables created by Spark are instantly available
+
+SELECT
+    user_id,
+    date,
+    event_count,
+    total_revenue
+FROM iceberg.warehouse.user_daily_stats
+WHERE date >= CURRENT_DATE - INTERVAL '7' DAY
+ORDER BY total_revenue DESC
+LIMIT 100;</code></pre>
+
+    <p>Superset dashboards query Trino, giving analysts self-service access to pipeline outputs.<sup><a href="#ref8" id="cite8">[8]</a></sup></p>
+
+    <h2>Notebook to DAG Pipeline</h2>
+
+    <p>OpenLakes automates the path from notebook to scheduled job:</p>
+
+    <h3>1. Notebook Sync System</h3>
+
+    <p>MinIO buckets organize the workflow:<sup><a href="#ref9" id="cite9">[9]</a></sup></p>
+
+    <table class="comparison-table">
+      <thead>
+        <tr>
+          <th>Prefix</th>
+          <th>Purpose</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>shared/</code></td>
+          <td>Example notebooks synced to JupyterHub</td>
+        </tr>
+        <tr>
+          <td><code>workspace/</code></td>
+          <td>User work-in-progress notebooks</td>
+        </tr>
+        <tr>
+          <td><code>published/</code></td>
+          <td>Production-ready notebooks for Airflow</td>
+        </tr>
+        <tr>
+          <td><code>artifacts/</code></td>
+          <td>Execution outputs and logs</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>2. Publishing Notebooks</h3>
+
+    <p>When you're ready to schedule a notebook, publish it to MinIO:</p>
+
+    <pre><code># From JupyterHub terminal or notebook cell
+python /opt/scripts/mark_notebook_ready.py my_etl_job.ipynb</code></pre>
+
+    <p>The script uploads to <code>s3://openlakes-notebooks/published/</code> with versioning enabled.<sup><a href="#ref10" id="cite10">[10]</a></sup></p>
+
+    <h3>3. Airflow Discovery</h3>
+
+    <p>CronJobs sync published notebooks to Airflow's DAG directory:<sup><a href="#ref11" id="cite11">[11]</a></sup></p>
+
+    <ul>
+      <li><strong>Download schedule</strong> &mdash; Every 2 minutes, sync from MinIO to JupyterHub</li>
+      <li><strong>Airflow schedule</strong> &mdash; Every 3 minutes, sync published notebooks to Airflow DAGs<sup><a href="#ref12" id="cite12">[12]</a></sup></li>
+    </ul>
+
+    <p>Airflow uses Papermill to execute notebooks with parameters.</p>
+
+    <h2>Data Ingestion Options</h2>
+
+    <h3>Batch Ingestion with Meltano</h3>
+
+    <p>Meltano is pre-configured with Singer connectors:<sup><a href="#ref13" id="cite13">[13]</a></sup></p>
+
+    <pre><code># Example: Extract from PostgreSQL, load to MinIO
+meltano run tap-postgres target-s3
+
+# Data lands in s3://openlakes/meltano/
+# Ready for Spark processing</code></pre>
+
+    <h3>CDC with Debezium</h3>
+
+    <p>Debezium captures database changes and streams to Kafka:<sup><a href="#ref14" id="cite14">[14]</a></sup></p>
+
+    <pre><code># Debezium Connect cluster at debezium.openlakes.dev
+# Pre-configured for infrastructure-kafka:9092
+
+# Register a PostgreSQL connector:
+curl -X POST http://debezium.openlakes.dev/connectors \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "orders-connector",
+    "config": {
+      "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+      "database.hostname": "infrastructure-postgres",
+      "database.port": "5432",
+      "database.user": "openlakes",
+      "database.password": "openlakes123",
+      "database.dbname": "demo",
+      "topic.prefix": "cdc"
+    }
+  }'</code></pre>
+
+    <p>Spark Structured Streaming can consume these topics and write to Iceberg tables.</p>
+
+    <h2>Monitoring Your Pipelines</h2>
+
+    <p>The monitoring stack provides visibility into pipeline health:<sup><a href="#ref15" id="cite15">[15]</a></sup></p>
+
+    <ul>
+      <li><strong>Spark History Server</strong> &mdash; Job execution details at <code>spark-history.openlakes.dev</code></li>
+      <li><strong>Airflow UI</strong> &mdash; DAG status and logs at <code>airflow.openlakes.dev</code></li>
+      <li><strong>Grafana dashboards</strong> &mdash; Spark executor metrics, Kafka throughput, query latency</li>
+      <li><strong>Loki logs</strong> &mdash; Centralized log search across all components<sup><a href="#ref16" id="cite16">[16]</a></sup></li>
+    </ul>
+
+    <h2>Data Catalog with OpenMetadata</h2>
+
+    <p>OpenMetadata provides data discovery and lineage:<sup><a href="#ref17" id="cite17">[17]</a></sup></p>
+
+    <ul>
+      <li><strong>Auto-discovery</strong> &mdash; Crawl Trino, PostgreSQL, and MinIO for schemas</li>
+      <li><strong>Lineage graphs</strong> &mdash; Visualize data flow between tables</li>
+      <li><strong>Column-level lineage</strong> &mdash; Track transformations</li>
+      <li><strong>Data quality</strong> &mdash; Define and monitor quality rules</li>
+      <li><strong>Collaboration</strong> &mdash; Add descriptions, tags, and ownership</li>
+    </ul>
+
+    <div class="highlight-box">
+      <p><strong>Single interface:</strong> OpenMetadata catalogs all your data assets&mdash;Iceberg tables, raw files in MinIO, PostgreSQL databases&mdash;in one searchable interface at <code>metadata.openlakes.dev</code>.</p>
+    </div>
+
+    <h2>Example Pipeline Patterns</h2>
+
+    <p>OpenLakes includes example notebooks demonstrating common patterns:<sup><a href="#ref18" id="cite18">[18]</a></sup></p>
+
+    <ul>
+      <li><strong>Batch ETL</strong> &mdash; Extract, transform, load to Iceberg tables</li>
+      <li><strong>SCD Type 2</strong> &mdash; Slowly changing dimensions with history tracking</li>
+      <li><strong>CDC to Iceberg</strong> &mdash; Stream Debezium changes to lakehouse tables</li>
+      <li><strong>Multi-source joins</strong> &mdash; Combine data from multiple systems</li>
+      <li><strong>Aggregation pipelines</strong> &mdash; Pre-compute metrics for dashboards</li>
+    </ul>
+
+    <div class="cta-box">
+      <h3>Start Building Pipelines</h3>
+      <p>Deploy OpenLakes and explore the example notebooks.</p>
+      <a href="https://docs.openlakes.io/tutorials/" class="btn">View Tutorials</a>
+    </div>
+
+    <div class="references">
+      <h3>Source References</h3>
+      <ol>
+        <li id="ref1">JupyterHub notebook image: <a href="https://github.com/openlakes-io/core/blob/main/layers/05-analytics/values.yaml#L131-L135" target="_blank">layers/05-analytics/values.yaml</a> (ghcr.io/openlakes/core/jupyterhub-notebook:1.0.0)</li>
+        <li id="ref2">JupyterHub storage: <a href="https://github.com/openlakes-io/core/blob/main/layers/05-analytics/values.yaml#L157-L165" target="_blank">layers/05-analytics/values.yaml</a></li>
+        <li id="ref3">Shared examples mount: <a href="https://github.com/openlakes-io/core/blob/main/layers/05-analytics/values.yaml#L167-L177" target="_blank">layers/05-analytics/values.yaml</a></li>
+        <li id="ref4">MinIO environment variables: <a href="https://github.com/openlakes-io/core/blob/main/layers/05-analytics/values.yaml#L178-L186" target="_blank">layers/05-analytics/values.yaml</a></li>
+        <li id="ref5">Spark Nessie catalog config: <a href="https://github.com/openlakes-io/core/blob/main/layers/02-compute/values.yaml#L127-L139" target="_blank">layers/02-compute/values.yaml</a></li>
+        <li id="ref6">Nessie JDBC backend: <a href="https://github.com/openlakes-io/core/blob/main/layers/01-infrastructure/values.yaml#L418-L443" target="_blank">layers/01-infrastructure/values.yaml</a></li>
+        <li id="ref7">Trino Iceberg catalog: <a href="https://github.com/openlakes-io/core/blob/main/layers/02-compute/values.yaml#L36-L45" target="_blank">layers/02-compute/values.yaml</a></li>
+        <li id="ref8">Superset configuration: <a href="https://github.com/openlakes-io/core/blob/main/layers/05-analytics/values.yaml#L26-L47" target="_blank">layers/05-analytics/values.yaml</a></li>
+        <li id="ref9">Notebook bucket prefixes: <a href="https://github.com/openlakes-io/core/blob/main/core-config.yaml#L96-L101" target="_blank">core-config.yaml</a></li>
+        <li id="ref10">Notebook versioning: <a href="https://github.com/openlakes-io/core/blob/main/core-config.yaml#L106" target="_blank">core-config.yaml</a></li>
+        <li id="ref11">Notebook sync CronJobs: <a href="https://github.com/openlakes-io/core/blob/main/layers/05-analytics/templates/notebook-sync.yaml" target="_blank">layers/05-analytics/templates/notebook-sync.yaml</a></li>
+        <li id="ref12">Sync schedules: <a href="https://github.com/openlakes-io/core/blob/main/core-config.yaml#L102-L105" target="_blank">core-config.yaml</a></li>
+        <li id="ref13">Meltano configuration: <a href="https://github.com/openlakes-io/core/blob/main/layers/06-ingestion/values.yaml#L30-L82" target="_blank">layers/06-ingestion/values.yaml</a></li>
+        <li id="ref14">Debezium configuration: <a href="https://github.com/openlakes-io/core/blob/main/layers/06-ingestion/values.yaml#L84-L98" target="_blank">layers/06-ingestion/values.yaml</a></li>
+        <li id="ref15">Monitoring stack: <a href="https://github.com/openlakes-io/core/blob/main/layers/08-monitoring/values.yaml" target="_blank">layers/08-monitoring/values.yaml</a></li>
+        <li id="ref16">Loki configuration: <a href="https://github.com/openlakes-io/core/blob/main/layers/08-monitoring/values.yaml#L248-L314" target="_blank">layers/08-monitoring/values.yaml</a></li>
+        <li id="ref17">OpenMetadata: <a href="https://github.com/openlakes-io/core/blob/main/layers/07-catalog/values.yaml" target="_blank">layers/07-catalog/values.yaml</a></li>
+        <li id="ref18">Example notebooks: <a href="https://github.com/openlakes-io/core/tree/main/examples" target="_blank">examples/</a></li>
+      </ol>
+    </div>
+  </article>
+
+  <footer class="footer">
+    <div class="container footer__grid">
+      <p>&copy; <span id="year"></span> OpenLakes.io. Built with open-source from day one.</p>
+      <div class="footer__links">
+        <a href="https://docs.openlakes.io/">Docs</a>
+        <a href="https://docs.openlakes.io/privacy-policy/">Privacy</a>
+        <a href="https://docs.openlakes.io/terms-of-service/">Terms</a>
+        <a href="https://github.com/openlakes-io">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

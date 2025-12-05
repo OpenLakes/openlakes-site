@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Build a Future-Proof Data Platform Without Vendor Lock-In | OpenLakes Blog</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <style>
+    .nav { display: flex; justify-content: space-between; align-items: center; padding: 1rem 0; }
+    .nav__logo { font-weight: 700; font-size: 1.1rem; color: var(--text); text-decoration: none; }
+    .nav__links { display: flex; gap: 1.5rem; }
+    .nav__links a { color: var(--muted); text-decoration: none; font-weight: 500; }
+    .nav__links a:hover { color: var(--accent); }
+    .article-header { padding: 3rem 0 2rem; background: linear-gradient(180deg, var(--bg) 0%, var(--bg-alt) 100%); }
+    .article-header h1 { font-size: clamp(1.8rem, 3vw, 2.5rem); margin-bottom: 1rem; max-width: 800px; }
+    .article-meta { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; margin-bottom: 1rem; }
+    .article-date { color: var(--muted); font-size: 0.9rem; }
+    .article-content { max-width: 760px; margin: 0 auto; padding: 2rem 0 4rem; }
+    .article-content h2 { font-size: 1.5rem; margin: 2.5rem 0 1rem; color: var(--text); }
+    .article-content h3 { font-size: 1.25rem; margin: 2rem 0 0.75rem; color: var(--text); }
+    .article-content p { font-size: 1.05rem; line-height: 1.75; margin-bottom: 1.25rem; }
+    .article-content ul, .article-content ol { margin: 1rem 0 1.5rem 1.5rem; }
+    .article-content li { margin-bottom: 0.5rem; line-height: 1.7; color: var(--muted); }
+    .article-content strong { color: var(--text); }
+    .article-content code { background: var(--bg-alt); padding: 0.15rem 0.4rem; border-radius: 4px; font-size: 0.9em; }
+    .highlight-box { background: var(--bg-alt); border-left: 4px solid var(--accent); padding: 1.25rem 1.5rem; margin: 1.5rem 0; border-radius: 0 0.5rem 0.5rem 0; }
+    .highlight-box p { margin: 0; }
+    .comparison-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; }
+    .comparison-table th, .comparison-table td { padding: 0.75rem 1rem; text-align: left; border-bottom: 1px solid var(--border); }
+    .comparison-table th { background: var(--bg-alt); font-weight: 600; color: var(--text); }
+    .comparison-table td { color: var(--muted); }
+    sup { font-size: 0.7em; }
+    sup a { color: var(--accent); text-decoration: none; }
+    sup a:hover { text-decoration: underline; }
+    .references { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border); }
+    .references h3 { font-size: 1.1rem; margin-bottom: 1rem; }
+    .references ol { font-size: 0.85rem; color: var(--muted); }
+    .references li { margin-bottom: 0.5rem; word-break: break-all; }
+    .references a { color: var(--accent); }
+    .cta-box { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: white; padding: 2rem; border-radius: 0.75rem; margin: 2rem 0; text-align: center; }
+    .cta-box h3 { color: white; margin: 0 0 0.5rem; }
+    .cta-box p { color: rgba(255,255,255,0.9); margin-bottom: 1rem; }
+    .cta-box .btn { background: white; color: var(--accent); }
+    .arch-diagram { background: var(--card); border: 1px solid var(--border); border-radius: 0.75rem; padding: 1.5rem; margin: 1.5rem 0; font-family: monospace; font-size: 0.85rem; overflow-x: auto; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav class="nav">
+      <a href="../" class="nav__logo">OpenLakes</a>
+      <div class="nav__links">
+        <a href="../">Home</a>
+        <a href="./">Blog</a>
+        <a href="https://docs.openlakes.io/">Docs</a>
+        <a href="https://github.com/openlakes-io">GitHub</a>
+      </div>
+    </nav>
+  </div>
+
+  <header class="article-header">
+    <div class="container">
+      <div class="article-meta">
+        <span class="article-date">December 2024</span>
+      </div>
+      <h1>Build a Future-Proof Data Platform Without Vendor Lock-In</h1>
+      <p class="lead">Why Apache Iceberg and open source components protect your long-term technology strategy.</p>
+    </div>
+  </header>
+
+  <article class="article-content container">
+    <p>Every technology leader faces a fundamental tension: adopt managed services for speed, or build on open standards for control. With data infrastructure, this choice has long-term strategic implications. Proprietary table formats trap your data. Managed platforms create switching costs. OpenLakes offers an alternative.</p>
+
+    <h2>The Vendor Lock-In Problem</h2>
+
+    <p>Proprietary data platforms create lock-in through:</p>
+
+    <ul>
+      <li><strong>Proprietary table formats</strong> &mdash; Snowflake tables and Databricks Delta Lake require their engines to read efficiently</li>
+      <li><strong>Platform-specific SQL extensions</strong> &mdash; Queries written for one platform don't port cleanly to others</li>
+      <li><strong>Integrated tooling</strong> &mdash; BI, governance, and ingestion tools designed for vendor ecosystems</li>
+      <li><strong>Data gravity</strong> &mdash; Moving petabytes out of a cloud region is expensive and slow</li>
+    </ul>
+
+    <p>Once locked in, switching costs become prohibitive. You're subject to annual price increases with limited negotiating power.</p>
+
+    <h2>OpenLakes: Open Standards by Design</h2>
+
+    <p>OpenLakes builds on Apache Iceberg, the open table format created by Netflix and now governed by the Apache Software Foundation.<sup><a href="#ref1" id="cite1">[1]</a></sup> Every component in the stack is open source and interoperable.</p>
+
+    <div class="highlight-box">
+      <p><strong>Apache Iceberg tables are engine-agnostic.</strong> The same tables can be read and written by Spark, Trino, Flink, Dremio, Snowflake, and dozens of other engines. Your data is never trapped.</p>
+    </div>
+
+    <h3>Architecture Overview</h3>
+
+    <p>OpenLakes implements a layered architecture where each component is replaceable:<sup><a href="#ref2" id="cite2">[2]</a></sup></p>
+
+    <div class="arch-diagram">
+Layer 08: Monitoring     &rarr; Prometheus, Grafana, Loki (replaceable with Datadog, etc.)
+Layer 07: Catalog        &rarr; OpenMetadata (replaceable with DataHub, Atlan)
+Layer 06: Ingestion      &rarr; Meltano, Debezium (replaceable with Airbyte, Fivetran)
+Layer 05: Analytics      &rarr; Superset, JupyterHub (replaceable with Metabase, Looker)
+Layer 04: Orchestration  &rarr; Airflow (replaceable with Dagster, Prefect)
+Layer 02: Compute        &rarr; Spark, Trino (add Flink, Dremio, StarRocks)
+Layer 01: Infrastructure &rarr; MinIO, PostgreSQL, Kafka, Nessie
+    </div>
+
+    <h3>The Nessie Catalog</h3>
+
+    <p>OpenLakes uses Project Nessie as its Iceberg REST catalog.<sup><a href="#ref3" id="cite3">[3]</a></sup> Nessie provides:</p>
+
+    <ul>
+      <li><strong>Git-like versioning</strong> &mdash; Branch, tag, and merge table changes</li>
+      <li><strong>Cross-engine compatibility</strong> &mdash; Standard REST API for any Iceberg-compatible engine</li>
+      <li><strong>ACID transactions</strong> &mdash; Consistent reads and writes across concurrent queries</li>
+      <li><strong>Time travel</strong> &mdash; Query historical snapshots of your data</li>
+    </ul>
+
+    <p>The catalog metadata is stored in PostgreSQL,<sup><a href="#ref4" id="cite4">[4]</a></sup> not a proprietary service. You can export, migrate, or replicate it at will.</p>
+
+    <h2>Multi-Engine Query Architecture</h2>
+
+    <p>OpenLakes deploys both Apache Spark and Trino as query engines:<sup><a href="#ref5" id="cite5">[5]</a></sup></p>
+
+    <table class="comparison-table">
+      <thead>
+        <tr>
+          <th>Engine</th>
+          <th>Version</th>
+          <th>Best For</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Apache Spark</td>
+          <td>Custom image with Iceberg/S3A<sup><a href="#ref6" id="cite6">[6]</a></sup></td>
+          <td>ETL, ML pipelines, streaming, large batch jobs</td>
+        </tr>
+        <tr>
+          <td>Trino</td>
+          <td>478<sup><a href="#ref7" id="cite7">[7]</a></sup></td>
+          <td>Interactive queries, BI dashboards, ad-hoc analysis</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>Both engines read from the same Iceberg tables through the Nessie catalog. Choose the right engine for each workload, or add additional engines as needs evolve.</p>
+
+    <h2>Storage Independence</h2>
+
+    <p>Data is stored in MinIO using S3-compatible APIs.<sup><a href="#ref8" id="cite8">[8]</a></sup> The storage layer supports:</p>
+
+    <ul>
+      <li><strong>Hot tier</strong> &mdash; NVMe/SSD storage mapped from host paths for high performance</li>
+      <li><strong>Cold tier</strong> &mdash; Optional NAS/NFS mounts for lifecycle tiering</li>
+      <li><strong>Cache tier</strong> &mdash; Optional Alluxio integration for distributed caching<sup><a href="#ref9" id="cite9">[9]</a></sup></li>
+    </ul>
+
+    <p>Storage tiers are configured in a single YAML file.<sup><a href="#ref10" id="cite10">[10]</a></sup> Data is stored in open Parquet format within Iceberg tables&mdash;readable by any tool that understands Parquet.</p>
+
+    <h2>Future-Proofing Your Architecture</h2>
+
+    <p>With OpenLakes, you retain full optionality:</p>
+
+    <ul>
+      <li><strong>Add engines</strong> &mdash; Connect Flink, Dremio, or StarRocks to the same Iceberg tables</li>
+      <li><strong>Change clouds</strong> &mdash; Deploy on AWS, GCP, Azure, or on-premises</li>
+      <li><strong>Swap components</strong> &mdash; Replace Superset with Metabase, Meltano with Airbyte</li>
+      <li><strong>Export data</strong> &mdash; Standard formats mean zero conversion on migration</li>
+      <li><strong>Hybrid deployments</strong> &mdash; Run some workloads in cloud, others on-premises</li>
+    </ul>
+
+    <h2>Component Versions and Licensing</h2>
+
+    <p>Every component is open source under permissive licenses:</p>
+
+    <table class="comparison-table">
+      <thead>
+        <tr>
+          <th>Component</th>
+          <th>Version</th>
+          <th>License</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Apache Spark</td>
+          <td>Custom 1.0.0<sup><a href="#ref6" id="cite6b">[6]</a></sup></td>
+          <td>Apache 2.0</td>
+        </tr>
+        <tr>
+          <td>Trino</td>
+          <td>478<sup><a href="#ref7" id="cite7b">[7]</a></sup></td>
+          <td>Apache 2.0</td>
+        </tr>
+        <tr>
+          <td>Apache Kafka</td>
+          <td>4.0.1<sup><a href="#ref11" id="cite11">[11]</a></sup></td>
+          <td>Apache 2.0</td>
+        </tr>
+        <tr>
+          <td>Project Nessie</td>
+          <td>0.77.1<sup><a href="#ref3" id="cite3b">[3]</a></sup></td>
+          <td>Apache 2.0</td>
+        </tr>
+        <tr>
+          <td>OpenMetadata</td>
+          <td>1.10.7<sup><a href="#ref12" id="cite12">[12]</a></sup></td>
+          <td>Apache 2.0</td>
+        </tr>
+        <tr>
+          <td>Apache Superset</td>
+          <td>4.1.1<sup><a href="#ref13" id="cite13">[13]</a></sup></td>
+          <td>Apache 2.0</td>
+        </tr>
+        <tr>
+          <td>MinIO</td>
+          <td>latest<sup><a href="#ref8" id="cite8b">[8]</a></sup></td>
+          <td>GNU AGPL v3</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>The leadership decision</h2>
+
+    <p>OpenLakes is the right choice when you value:</p>
+
+    <ol>
+      <li><strong>Long-term optionality</strong> over short-term convenience</li>
+      <li><strong>Open standards</strong> over proprietary ecosystems</li>
+      <li><strong>Architectural control</strong> over managed simplicity</li>
+      <li><strong>Predictable costs</strong> over usage-based pricing</li>
+      <li><strong>Data sovereignty</strong> over cloud convenience</li>
+    </ol>
+
+    <div class="cta-box">
+      <h3>Explore the Architecture</h3>
+      <p>Review the full technical documentation and deployment options.</p>
+      <a href="https://docs.openlakes.io/core/architecture/" class="btn">View Architecture</a>
+    </div>
+
+    <div class="references">
+      <h3>Source References</h3>
+      <ol>
+        <li id="ref1">Apache Iceberg integration via Nessie catalog: <a href="https://docs.openlakes.io/core/components/nessie/" target="_blank">docs.openlakes.io/core/components/nessie</a></li>
+        <li id="ref2">Layered architecture: <a href="https://docs.openlakes.io/core/#layered-architecture" target="_blank">docs.openlakes.io/core</a></li>
+        <li id="ref3">Nessie configuration: <a href="https://github.com/openlakes-io/core/blob/main/layers/01-infrastructure/values.yaml#L418-L443" target="_blank">layers/01-infrastructure/values.yaml</a> (Nessie 0.77.1, JDBC backend)</li>
+        <li id="ref4">PostgreSQL metadata store: <a href="https://github.com/openlakes-io/core/blob/main/layers/01-infrastructure/values.yaml#L259-L284" target="_blank">layers/01-infrastructure/values.yaml</a> (line 264: PostgreSQL 15)</li>
+        <li id="ref5">Compute layer overview: <a href="https://docs.openlakes.io/core/components/spark/" target="_blank">docs.openlakes.io/core/components/spark</a></li>
+        <li id="ref6">Custom Spark image: <a href="https://github.com/openlakes-io/core/blob/main/layers/02-compute/values.yaml#L77-L80" target="_blank">layers/02-compute/values.yaml</a> (ghcr.io/openlakes/core/spark:1.0.0)</li>
+        <li id="ref7">Trino version: <a href="https://github.com/openlakes-io/core/blob/main/layers/02-compute/values.yaml#L29-L33" target="_blank">layers/02-compute/values.yaml</a> (trinodb/trino:478)</li>
+        <li id="ref8">MinIO configuration: <a href="https://github.com/openlakes-io/core/blob/main/layers/01-infrastructure/values.yaml#L298-L333" target="_blank">layers/01-infrastructure/values.yaml</a></li>
+        <li id="ref9">Alluxio caching: <a href="https://github.com/openlakes-io/core/blob/main/layers/01-infrastructure/values.yaml#L455-L645" target="_blank">layers/01-infrastructure/values.yaml</a> (Alluxio 2.9.3)</li>
+        <li id="ref10">Storage tier configuration: <a href="https://github.com/openlakes-io/core/blob/main/core-config.yaml#L44-L93" target="_blank">core-config.yaml</a></li>
+        <li id="ref11">Kafka version: <a href="https://github.com/openlakes-io/core/blob/main/layers/01-infrastructure/values.yaml#L335-L359" target="_blank">layers/01-infrastructure/values.yaml</a> (apache/kafka:4.0.1)</li>
+        <li id="ref12">OpenMetadata version: <a href="https://github.com/openlakes-io/core/blob/main/layers/07-catalog/values.yaml#L34-L38" target="_blank">layers/07-catalog/values.yaml</a> (1.10.7)</li>
+        <li id="ref13">Superset version: <a href="https://github.com/openlakes-io/core/blob/main/layers/05-analytics/values.yaml#L29-L33" target="_blank">layers/05-analytics/values.yaml</a> (apache/superset:4.1.1)</li>
+      </ol>
+    </div>
+  </article>
+
+  <footer class="footer">
+    <div class="container footer__grid">
+      <p>&copy; <span id="year"></span> OpenLakes.io. Built with open-source from day one.</p>
+      <div class="footer__links">
+        <a href="https://docs.openlakes.io/">Docs</a>
+        <a href="https://docs.openlakes.io/privacy-policy/">Privacy</a>
+        <a href="https://docs.openlakes.io/terms-of-service/">Terms</a>
+        <a href="https://github.com/openlakes-io">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

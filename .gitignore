@@ -1,0 +1,21 @@
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Build artifacts
+node_modules/
+dist/
+build/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Local development
+.env
+.env.local
+
+cloudflare-zone-openlakes.io.txt

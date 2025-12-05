@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data Sovereignty: Keep Your Data in Your Environment | OpenLakes Blog</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <style>
+    .nav { display: flex; justify-content: space-between; align-items: center; padding: 1rem 0; }
+    .nav__logo { font-weight: 700; font-size: 1.1rem; color: var(--text); text-decoration: none; }
+    .nav__links { display: flex; gap: 1.5rem; }
+    .nav__links a { color: var(--muted); text-decoration: none; font-weight: 500; }
+    .nav__links a:hover { color: var(--accent); }
+    .article-header { padding: 3rem 0 2rem; background: linear-gradient(180deg, var(--bg) 0%, var(--bg-alt) 100%); }
+    .article-header h1 { font-size: clamp(1.8rem, 3vw, 2.5rem); margin-bottom: 1rem; max-width: 800px; }
+    .article-meta { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; margin-bottom: 1rem; }
+    .article-date { color: var(--muted); font-size: 0.9rem; }
+    .article-content { max-width: 760px; margin: 0 auto; padding: 2rem 0 4rem; }
+    .article-content h2 { font-size: 1.5rem; margin: 2.5rem 0 1rem; color: var(--text); }
+    .article-content h3 { font-size: 1.25rem; margin: 2rem 0 0.75rem; color: var(--text); }
+    .article-content p { font-size: 1.05rem; line-height: 1.75; margin-bottom: 1.25rem; }
+    .article-content ul, .article-content ol { margin: 1rem 0 1.5rem 1.5rem; }
+    .article-content li { margin-bottom: 0.5rem; line-height: 1.7; color: var(--muted); }
+    .article-content strong { color: var(--text); }
+    .article-content code { background: var(--bg-alt); padding: 0.15rem 0.4rem; border-radius: 4px; font-size: 0.9em; }
+    .highlight-box { background: var(--bg-alt); border-left: 4px solid var(--accent); padding: 1.25rem 1.5rem; margin: 1.5rem 0; border-radius: 0 0.5rem 0.5rem 0; }
+    .highlight-box p { margin: 0; }
+    .warning-box { background: #fef3c7; border-left: 4px solid #f59e0b; padding: 1.25rem 1.5rem; margin: 1.5rem 0; border-radius: 0 0.5rem 0.5rem 0; }
+    .warning-box p { margin: 0; color: #92400e; }
+    .comparison-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; }
+    .comparison-table th, .comparison-table td { padding: 0.75rem 1rem; text-align: left; border-bottom: 1px solid var(--border); }
+    .comparison-table th { background: var(--bg-alt); font-weight: 600; color: var(--text); }
+    .comparison-table td { color: var(--muted); }
+    sup { font-size: 0.7em; }
+    sup a { color: var(--accent); text-decoration: none; }
+    sup a:hover { text-decoration: underline; }
+    .references { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border); }
+    .references h3 { font-size: 1.1rem; margin-bottom: 1rem; }
+    .references ol { font-size: 0.85rem; color: var(--muted); }
+    .references li { margin-bottom: 0.5rem; word-break: break-all; }
+    .references a { color: var(--accent); }
+    .cta-box { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: white; padding: 2rem; border-radius: 0.75rem; margin: 2rem 0; text-align: center; }
+    .cta-box h3 { color: white; margin: 0 0 0.5rem; }
+    .cta-box p { color: rgba(255,255,255,0.9); margin-bottom: 1rem; }
+    .cta-box .btn { background: white; color: var(--accent); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav class="nav">
+      <a href="../" class="nav__logo">OpenLakes</a>
+      <div class="nav__links">
+        <a href="../">Home</a>
+        <a href="./">Blog</a>
+        <a href="https://docs.openlakes.io/">Docs</a>
+        <a href="https://github.com/openlakes-io">GitHub</a>
+      </div>
+    </nav>
+  </div>
+
+  <header class="article-header">
+    <div class="container">
+      <div class="article-meta">
+        <span class="article-date">December 2024</span>
+      </div>
+      <h1>Data Sovereignty: Keep Your Data in Your Environment</h1>
+      <p class="lead">How self-hosted data infrastructure addresses compliance, security, and privacy requirements.</p>
+    </div>
+  </header>
+
+  <article class="article-content container">
+    <p>For teams operating in regulated industries, cloud data warehouses present a fundamental challenge: your most sensitive data lives in someone else's environment. OpenLakes keeps the entire stack on infrastructure you control.</p>
+
+    <div class="warning-box">
+      <p><strong>Important:</strong> OpenLakes is open-source infrastructure software. Security implementation is your responsibility. OpenLakes does not guarantee data privacy, security, or protection against data loss. See our <a href="https://docs.openlakes.io/terms-of-service/">Terms of Service</a> for details.</p>
+    </div>
+
+    <h2>The Data Sovereignty Challenge</h2>
+
+    <p>Regulated industries face strict requirements around data handling:</p>
+
+    <ul>
+      <li><strong>HIPAA</strong> &mdash; Healthcare data must be protected with specific safeguards</li>
+      <li><strong>GDPR</strong> &mdash; European personal data may require EU-based processing</li>
+      <li><strong>SOC 2</strong> &mdash; Service organization controls for data security</li>
+      <li><strong>PCI-DSS</strong> &mdash; Payment card data requires specific protections</li>
+      <li><strong>ITAR/EAR</strong> &mdash; Defense and export-controlled data restrictions</li>
+    </ul>
+
+    <p>Cloud data warehouses complicate compliance. Your data transits third-party networks, lives in multi-tenant environments, and may be subject to foreign jurisdiction requests.</p>
+
+    <h2>Self-Hosted Data Infrastructure</h2>
+
+    <p>OpenLakes deploys entirely within your Kubernetes cluster.<sup><a href="#ref1" id="cite1">[1]</a></sup> Data flows through components you control:</p>
+
+    <div class="highlight-box">
+      <p><strong>No data egress.</strong> All processing happens within your environment. Data never transits external networks for analytics, transformation, or storage.</p>
+    </div>
+
+    <h3>Network Architecture</h3>
+
+    <p>OpenLakes uses Traefik as an ingress controller with configurable TLS termination:<sup><a href="#ref2" id="cite2">[2]</a></sup></p>
+
+    <ul>
+      <li><strong>Internal service mesh</strong> &mdash; Components communicate via ClusterIP services</li>
+      <li><strong>TLS termination</strong> &mdash; Let's Encrypt certificates via DNS-01 challenge, or bring your own</li>
+      <li><strong>Network isolation</strong> &mdash; All services run in the <code>openlakes</code> namespace<sup><a href="#ref3" id="cite3">[3]</a></sup></li>
+      <li><strong>No external dependencies</strong> &mdash; No calls to external APIs or telemetry services</li>
+    </ul>
+
+    <h3>Storage Architecture</h3>
+
+    <p>Data is stored in MinIO using S3-compatible APIs, with multiple storage tiers:<sup><a href="#ref4" id="cite4">[4]</a></sup></p>
+
+    <table class="comparison-table">
+      <thead>
+        <tr>
+          <th>Tier</th>
+          <th>Purpose</th>
+          <th>Control</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Hot (MinIO)</td>
+          <td>Active data, frequent access</td>
+          <td>NVMe/SSD paths you specify<sup><a href="#ref5" id="cite5">[5]</a></sup></td>
+        </tr>
+        <tr>
+          <td>Cold (NAS)</td>
+          <td>Archive data, lifecycle tiering</td>
+          <td>Your NFS/NAS mounts</td>
+        </tr>
+        <tr>
+          <td>Cache (Alluxio)</td>
+          <td>Distributed caching layer</td>
+          <td>Local SSD paths</td>
+        </tr>
+        <tr>
+          <td>Longhorn</td>
+          <td>Replicated block storage</td>
+          <td>Kubernetes PVCs with 2x replication<sup><a href="#ref6" id="cite6">[6]</a></sup></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>All storage paths are configured in a single file you control:<sup><a href="#ref7" id="cite7">[7]</a></sup></p>
+
+    <h2>Authentication and Access Control</h2>
+
+    <p>OpenLakes components support various authentication mechanisms:</p>
+
+    <ul>
+      <li><strong>PostgreSQL</strong> &mdash; Username/password authentication, configurable per database<sup><a href="#ref8" id="cite8">[8]</a></sup></li>
+      <li><strong>MinIO</strong> &mdash; Access key/secret key authentication<sup><a href="#ref9" id="cite9">[9]</a></sup></li>
+      <li><strong>Superset</strong> &mdash; Built-in user management<sup><a href="#ref10" id="cite10">[10]</a></sup></li>
+      <li><strong>JupyterHub</strong> &mdash; Configurable authenticator (dummy auth in dev, LDAP/OAuth in production)<sup><a href="#ref11" id="cite11">[11]</a></sup></li>
+      <li><strong>Airflow</strong> &mdash; Built-in RBAC<sup><a href="#ref12" id="cite12">[12]</a></sup></li>
+      <li><strong>OpenMetadata</strong> &mdash; Basic auth with JWT tokens<sup><a href="#ref13" id="cite13">[13]</a></sup></li>
+    </ul>
+
+    <p>Credentials are configured in <code>core-config.yaml</code> before deployment. For production, integrate with your identity provider via each component's native SSO support.</p>
+
+    <h2>Audit and Observability</h2>
+
+    <p>OpenLakes includes a complete observability stack for audit and monitoring:<sup><a href="#ref14" id="cite14">[14]</a></sup></p>
+
+    <ul>
+      <li><strong>Prometheus</strong> &mdash; Metrics collection with 15-day retention<sup><a href="#ref15" id="cite15">[15]</a></sup></li>
+      <li><strong>Grafana</strong> &mdash; Dashboards for all components</li>
+      <li><strong>Loki</strong> &mdash; Centralized log aggregation with 7-day retention<sup><a href="#ref16" id="cite16">[16]</a></sup></li>
+      <li><strong>Alertmanager</strong> &mdash; Configurable alerting rules</li>
+    </ul>
+
+    <p>Query logs, access patterns, and system events are captured locally. Integrate with your SIEM by shipping logs from Loki.</p>
+
+    <h2>Data Governance with OpenMetadata</h2>
+
+    <p>OpenMetadata provides data cataloging and governance:<sup><a href="#ref17" id="cite17">[17]</a></sup></p>
+
+    <ul>
+      <li><strong>Data discovery</strong> &mdash; Catalog all tables, columns, and schemas</li>
+      <li><strong>Lineage tracking</strong> &mdash; Understand data flow through pipelines</li>
+      <li><strong>Classification</strong> &mdash; Tag sensitive columns (PII, PHI, financial)</li>
+      <li><strong>Ownership</strong> &mdash; Assign data stewards and owners</li>
+      <li><strong>Quality rules</strong> &mdash; Define and monitor data quality expectations</li>
+    </ul>
+
+    <h2>Security Considerations</h2>
+
+    <p>While OpenLakes provides the infrastructure, security implementation requires additional work:</p>
+
+    <h3>Your Responsibilities</h3>
+
+    <ul>
+      <li><strong>Network security</strong> &mdash; Firewall rules, network policies, VPN access</li>
+      <li><strong>Encryption at rest</strong> &mdash; Configure Kubernetes secrets encryption, disk encryption</li>
+      <li><strong>Encryption in transit</strong> &mdash; Ensure TLS is configured for all endpoints</li>
+      <li><strong>Access management</strong> &mdash; Integrate with your identity provider</li>
+      <li><strong>Patch management</strong> &mdash; Keep components updated</li>
+      <li><strong>Backup and recovery</strong> &mdash; Implement your own backup strategy</li>
+      <li><strong>Vulnerability scanning</strong> &mdash; Scan container images and dependencies</li>
+    </ul>
+
+    <h3>What OpenLakes Provides</h3>
+
+    <ul>
+      <li><strong>No external telemetry</strong> &mdash; Components don't phone home</li>
+      <li><strong>Configurable credentials</strong> &mdash; All passwords specified at deployment time</li>
+      <li><strong>Namespace isolation</strong> &mdash; All components in a single namespace</li>
+      <li><strong>Longhorn replication</strong> &mdash; Data replicated across nodes for availability<sup><a href="#ref6" id="cite6b">[6]</a></sup></li>
+      <li><strong>Open source transparency</strong> &mdash; Full source code available for audit</li>
+    </ul>
+
+    <h2>Compliance Framework Mapping</h2>
+
+    <table class="comparison-table">
+      <thead>
+        <tr>
+          <th>Requirement</th>
+          <th>Cloud DW Challenge</th>
+          <th>OpenLakes Approach</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Data residency</td>
+          <td>Limited region options</td>
+          <td>Deploy in any jurisdiction</td>
+        </tr>
+        <tr>
+          <td>Third-party access</td>
+          <td>Vendor has access</td>
+          <td>You control all access</td>
+        </tr>
+        <tr>
+          <td>Audit trails</td>
+          <td>Vendor-provided logs</td>
+          <td>Self-hosted logging stack</td>
+        </tr>
+        <tr>
+          <td>Encryption keys</td>
+          <td>Often vendor-managed</td>
+          <td>Your keys, your control</td>
+        </tr>
+        <tr>
+          <td>Network isolation</td>
+          <td>Shared infrastructure</td>
+          <td>Your network boundaries</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>What to evaluate before self-hosting</h2>
+
+    <p>OpenLakes may be appropriate when:</p>
+
+    <ol>
+      <li><strong>Data cannot leave your environment</strong> due to regulatory or policy requirements</li>
+      <li><strong>You need full audit control</strong> over data access and processing</li>
+      <li><strong>Third-party data processing</strong> creates unacceptable risk</li>
+      <li><strong>You have the security expertise</strong> to operate self-hosted infrastructure</li>
+      <li><strong>Compliance frameworks</strong> are easier to satisfy with on-premises control</li>
+    </ol>
+
+    <div class="cta-box">
+      <h3>Review the Security Architecture</h3>
+      <p>Explore the technical documentation for deployment and configuration details.</p>
+      <a href="https://docs.openlakes.io/core/architecture/" class="btn">View Documentation</a>
+    </div>
+
+    <div class="references">
+      <h3>Source References</h3>
+      <ol>
+        <li id="ref1">Kubernetes deployment: <a href="https://github.com/openlakes-io/core/blob/main/deploy-openlakes.sh" target="_blank">deploy-openlakes.sh</a></li>
+        <li id="ref2">Traefik ingress configuration: <a href="https://github.com/openlakes-io/core/blob/main/layers/01-infrastructure/values.yaml#L139-L258" target="_blank">layers/01-infrastructure/values.yaml</a></li>
+        <li id="ref3">Namespace configuration: <a href="https://github.com/openlakes-io/core/blob/main/core-config.yaml#L5" target="_blank">core-config.yaml</a> (line 5: namespace: openlakes)</li>
+        <li id="ref4">Storage architecture: <a href="https://docs.openlakes.io/core/storage/" target="_blank">docs.openlakes.io/core/storage</a></li>
+        <li id="ref5">MinIO hot tier paths: <a href="https://github.com/openlakes-io/core/blob/main/core-config.yaml#L44-L58" target="_blank">core-config.yaml</a> (storage.tiers.hot)</li>
+        <li id="ref6">Longhorn replication: <a href="https://github.com/openlakes-io/core/blob/main/layers/01-infrastructure/values.yaml#L44-L115" target="_blank">layers/01-infrastructure/values.yaml</a> (defaultReplicaCount: 2)</li>
+        <li id="ref7">Central configuration: <a href="https://github.com/openlakes-io/core/blob/main/core-config.yaml" target="_blank">core-config.yaml</a></li>
+        <li id="ref8">PostgreSQL credentials: <a href="https://github.com/openlakes-io/core/blob/main/core-config.yaml#L21-L25" target="_blank">core-config.yaml</a></li>
+        <li id="ref9">MinIO credentials: <a href="https://github.com/openlakes-io/core/blob/main/core-config.yaml#L17-L20" target="_blank">core-config.yaml</a></li>
+        <li id="ref10">Superset auth: <a href="https://github.com/openlakes-io/core/blob/main/layers/05-analytics/values.yaml#L44-L47" target="_blank">layers/05-analytics/values.yaml</a></li>
+        <li id="ref11">JupyterHub auth: <a href="https://github.com/openlakes-io/core/blob/main/layers/05-analytics/values.yaml#L83-L95" target="_blank">layers/05-analytics/values.yaml</a></li>
+        <li id="ref12">Airflow configuration: <a href="https://github.com/openlakes-io/core/blob/main/core-config.yaml#L28-L30" target="_blank">core-config.yaml</a></li>
+        <li id="ref13">OpenMetadata auth: <a href="https://github.com/openlakes-io/core/blob/main/layers/07-catalog/values.yaml#L83-L101" target="_blank">layers/07-catalog/values.yaml</a></li>
+        <li id="ref14">Monitoring layer: <a href="https://github.com/openlakes-io/core/blob/main/layers/08-monitoring/values.yaml" target="_blank">layers/08-monitoring/values.yaml</a></li>
+        <li id="ref15">Prometheus retention: <a href="https://github.com/openlakes-io/core/blob/main/layers/08-monitoring/values.yaml#L110-L111" target="_blank">layers/08-monitoring/values.yaml</a> (retention: 15d)</li>
+        <li id="ref16">Loki retention: <a href="https://github.com/openlakes-io/core/blob/main/layers/08-monitoring/values.yaml#L273" target="_blank">layers/08-monitoring/values.yaml</a> (retention_period: 168h)</li>
+        <li id="ref17">OpenMetadata catalog: <a href="https://github.com/openlakes-io/core/blob/main/layers/07-catalog/values.yaml#L24-L141" target="_blank">layers/07-catalog/values.yaml</a></li>
+      </ol>
+    </div>
+  </article>
+
+  <footer class="footer">
+    <div class="container footer__grid">
+      <p>&copy; <span id="year"></span> OpenLakes.io. Built with open-source from day one.</p>
+      <div class="footer__links">
+        <a href="https://docs.openlakes.io/">Docs</a>
+        <a href="https://docs.openlakes.io/privacy-policy/">Privacy</a>
+        <a href="https://docs.openlakes.io/terms-of-service/">Terms</a>
+        <a href="https://github.com/openlakes-io">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

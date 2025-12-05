@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OpenLakes.io | Open-Source Lakehouse Experts</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="icon" type="image/x-icon" href="brand/favicon.ico" />
+</head>
+<body>
+  <div class="container" style="padding-top: 1rem;">
+    <nav style="display: flex; justify-content: space-between; align-items: center;">
+      <div style="display: flex; align-items: center; gap: 0.5rem;">
+        <img src="brand/logo-icon.svg" alt="OpenLakes icon" style="width: 32px; height: 32px;" />
+        <span style="font-weight: 700; font-size: 1.1rem; color: var(--text);">OpenLakes</span>
+      </div>
+      <div style="display: flex; gap: 1.25rem; align-items: center;">
+        <a href="/" style="color: var(--muted); text-decoration: none; font-weight: 500;">Home</a>
+        <a href="platform/" style="color: var(--muted); text-decoration: none; font-weight: 500;">Platform</a>
+        <a href="blog/" style="color: var(--muted); text-decoration: none; font-weight: 500;">Blog</a>
+        <a href="https://docs.openlakes.io/" style="color: var(--muted); text-decoration: none; font-weight: 500;">Docs</a>
+        <a href="https://github.com/openlakes-io" style="color: var(--muted); text-decoration: none; font-weight: 500;">GitHub</a>
+        <a href="https://core.openlakes.io/" class="btn btn--primary" style="padding: 0.4rem 1rem;">Sign In</a>
+      </div>
+    </nav>
+  </div>
+  <header class="hero" id="top">
+    <div class="container hero__grid">
+      <div class="hero__content">
+        <p class="eyebrow">Open-source lakehouse</p>
+        <h1>Run the stack on your own terms</h1>
+        <p class="lead">
+          OpenLakes packages Apache Iceberg, Trino, Spark, Airflow, Superset, and the supporting services into a documented reference
+          architecture. We automate the wiring, networking, and defaults so your team can focus on building reliable data products without
+          paying for proprietary control planes.
+        </p>
+        <div class="hero__actions">
+          <a href="https://core.openlakes.io/" class="btn btn--primary">Start free trial</a>
+          <a href="mailto:hello@openlakes.io" class="btn btn--ghost">Talk to us</a>
+          <a href="https://docs.openlakes.io/" class="btn btn--ghost">Documentation</a>
+        </div>
+      </div>
+      <div class="hero__visual">
+        <div class="hero__brand">
+          <img src="brand/logo.svg" alt="OpenLakes wordmark" style="width: 100%; max-width: 420px;" />
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="section" id="features">
+    <div class="container">
+      <div class="section__header">
+        <h2>Why OpenLakes?</h2>
+        <p>100% open source under Apache 2.0 license. Everything you need for modern data infrastructure, nothing you don't.</p>
+      </div>
+      <div class="pill-grid">
+        <div class="pill">
+          <h3>Guided install process</h3>
+          <p>Use the deployer script to generate manifests, review them in Git, and roll out the stack with the level of automation that fits your change controls.</p>
+        </div>
+        <div class="pill">
+          <h3>Open formats by default</h3>
+          <p>Everything ships in Iceberg, Parquet, and open APIs so you can swap engines, clouds, or storage without rewriting workloads.</p>
+        </div>
+        <div class="pill">
+          <h3>Right-sized footprints</h3>
+          <p>Profiles for lab clusters, PoCs, and multi-node production give you a clear bill of materials before you turn anything on.</p>
+        </div>
+        <div class="pill">
+          <h3>Operational guardrails</h3>
+          <p>Baseline security, monitoring, and backup tasks are included so you start with sensible defaults instead of a blank Terraform folder.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt" id="blog">
+    <div class="container">
+      <div class="section__header">
+        <h2>From the Blog</h2>
+        <p>Learn how OpenLakes can transform your data infrastructure across every role in your organization.</p>
+      </div>
+      <div class="pill-grid">
+        <a href="blog/cfo-cost-control-open-source-lakehouse.html" class="pill" style="text-decoration: none; color: inherit;">
+          <h3 style="font-size: 1.1rem;">Reduce Data Platform Spend</h3>
+          <p style="font-size: 0.9rem;">Track the real cost of warehouses and plan a gradual transition to open infrastructure.</p>
+        </a>
+        <a href="blog/cto-no-vendor-lock-in-data-platform.html" class="pill" style="text-decoration: none; color: inherit;">
+          <h3 style="font-size: 1.1rem;">Stay Portable</h3>
+          <p style="font-size: 0.9rem;">Design decisions that keep your data stack portable across clouds and vendors.</p>
+        </a>
+        <a href="blog/platform-engineering-single-deployment.html" class="pill" style="text-decoration: none; color: inherit;">
+          <h3 style="font-size: 1.1rem;">Reliable Deployments</h3>
+          <p style="font-size: 0.9rem;">Coordinating Trino, Spark, Airflow, and MinIO in a single rollout plan.</p>
+        </a>
+        <a href="blog/data-engineer-pipelines-not-infrastructure.html" class="pill" style="text-decoration: none; color: inherit;">
+          <h3 style="font-size: 1.1rem;">Ship Workflows Faster</h3>
+          <p style="font-size: 0.9rem;">Take notebooks and SQL to production without rebuilding the control plane yourself.</p>
+        </a>
+      </div>
+      <div style="text-align: center; margin-top: 2rem;">
+        <a href="blog/" class="btn btn--ghost">View All Articles</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer__grid">
+      <p>© <span id="year"></span> OpenLakes.io. Built with open-source from day one.</p>
+      <div class="footer__links">
+        <a href="blog/">Blog</a>
+        <a href="https://docs.openlakes.io/">Docs</a>
+        <a href="https://docs.openlakes.io/privacy-policy/">Privacy</a>
+        <a href="https://docs.openlakes.io/terms-of-service/">Terms</a>
+        <a href="https://github.com/openlakes-io">GitHub</a>
+        <a href="mailto:hello@openlakes.io">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
