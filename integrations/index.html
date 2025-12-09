@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Integrations | OpenLakes</title>
+  <meta name="description" content="Connect OpenLakes to 500+ data sources. Sync databases in real-time, import from SaaS apps, and load files from anywhere." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <link rel="icon" type="image/x-icon" href="../brand/favicon.ico" />
+  <script defer data-domain="openlakes.io" data-api="https://plausible.openlakes.io/api/event" src="https://plausible.openlakes.io/js/script.js"></script>
+  <style>
+    .search-box {
+      position: relative;
+      max-width: 500px;
+      margin: 0 auto 2rem;
+    }
+    .search-input {
+      width: 100%;
+      padding: 1rem 1.5rem;
+      font-size: 1.1rem;
+      border: 2px solid var(--border);
+      border-radius: 999px;
+      background: var(--card);
+      color: var(--text);
+      font-family: inherit;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .search-input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(8, 145, 178, 0.15);
+    }
+    .search-input::placeholder {
+      color: var(--muted);
+    }
+    .search-count {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 2rem;
+    }
+    .integration-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+    .integration-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 0.75rem;
+      padding: 1.25rem;
+      text-align: center;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .integration-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    }
+    .integration-card h4 {
+      margin: 0 0 0.25rem;
+      font-size: 1rem;
+    }
+    .integration-card .category-tag {
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .integration-card .sync-badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      margin-top: 0.5rem;
+      font-weight: 600;
+    }
+    .sync-badge.realtime {
+      background: rgba(16, 185, 129, 0.1);
+      color: #059669;
+    }
+    .sync-badge.batch {
+      background: rgba(59, 130, 246, 0.1);
+      color: #2563eb;
+    }
+    .category-filter {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      justify-content: center;
+      margin-bottom: 2rem;
+    }
+    .filter-btn {
+      padding: 0.5rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: var(--card);
+      color: var(--muted);
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      font-family: inherit;
+    }
+    .filter-btn:hover, .filter-btn.active {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(8, 145, 178, 0.05);
+    }
+    .hidden {
+      display: none !important;
+    }
+    .no-results {
+      text-align: center;
+      padding: 3rem;
+      color: var(--muted);
+    }
+    .sync-types {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+    .sync-type-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+    }
+    .sync-type-card h3 {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .sync-type-card .badge {
+      font-size: 0.7rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      font-weight: 600;
+    }
+    .badge.realtime {
+      background: rgba(16, 185, 129, 0.1);
+      color: #059669;
+    }
+    .badge.batch {
+      background: rgba(59, 130, 246, 0.1);
+      color: #2563eb;
+    }
+  </style>
+</head>
+<body>
+  <div class="container" style="padding-top: 1rem;">
+    <nav style="display: flex; justify-content: space-between; align-items: center;">
+      <div style="display: flex; align-items: center; gap: 0.5rem;">
+        <img src="/brand/logo-icon.svg" alt="OpenLakes icon" style="width: 32px; height: 32px;" />
+        <span style="font-weight: 700; font-size: 1.1rem; color: var(--text);">OpenLakes</span>
+      </div>
+      <div style="display: flex; gap: 1.25rem; align-items: center;">
+        <a href="/" style="color: var(--muted); text-decoration: none; font-weight: 500;">Home</a>
+        <a href="/platform/" style="color: var(--muted); text-decoration: none; font-weight: 500;">Platform</a>
+        <a href="/integrations/" style="color: var(--text); text-decoration: none; font-weight: 600;">Integrations</a>
+        <a href="/products/" style="color: var(--muted); text-decoration: none; font-weight: 500;">Products</a>
+        <a href="https://docs.openlakes.io/" style="color: var(--muted); text-decoration: none; font-weight: 500;">Docs</a>
+        <a href="https://github.com/openlakes-io" style="color: var(--muted); text-decoration: none; font-weight: 500;">GitHub</a>
+        <a href="https://harbor.openlakes.io/" class="btn btn--primary" style="padding: 0.4rem 1rem;">Sign In</a>
+      </div>
+    </nav>
+  </div>
+
+  <header class="hero" style="padding-top: 4rem; padding-bottom: 3rem;">
+    <div class="container">
+      <div style="max-width: 700px; margin: 0 auto; text-align: center;">
+        <p class="eyebrow">Data Integrations</p>
+        <h1>Connect to the tools you already use</h1>
+        <p class="lead" style="margin-bottom: 2rem;">
+          Your data lives in databases, SaaS apps, spreadsheets, and APIs. OpenLakes brings it all together
+          so you can analyze everything in one place.
+        </p>
+        <div class="search-box">
+          <input type="text" class="search-input" id="search" placeholder="Search for a data source..." autocomplete="off" />
+        </div>
+        <div class="category-filter">
+          <button class="filter-btn active" data-category="all">All Sources</button>
+          <button class="filter-btn" data-category="database">Databases</button>
+          <button class="filter-btn" data-category="saas">SaaS & Apps</button>
+          <button class="filter-btn" data-category="files">Files & Storage</button>
+          <button class="filter-btn" data-category="api">APIs</button>
+        </div>
+        <p class="search-count"><span id="count">500+</span> data sources available</p>
+      </div>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container">
+      <div class="sync-types">
+        <div class="sync-type-card">
+          <h3>Real-time sync <span class="badge realtime">Live</span></h3>
+          <p>Changes in your source database appear in OpenLakes within seconds. Perfect for operational dashboards, fraud detection, and keeping analytics fresh.</p>
+          <p style="font-size: 0.9rem; color: var(--muted); margin-bottom: 0;">Powered by Debezium CDC</p>
+        </div>
+        <div class="sync-type-card">
+          <h3>Scheduled imports <span class="badge batch">Batch</span></h3>
+          <p>Pull data from 500+ sources on a schedule that works for you. Ideal for SaaS apps, APIs, and historical data loads.</p>
+          <p style="font-size: 0.9rem; color: var(--muted); margin-bottom: 0;">Powered by Meltano + Singer</p>
+        </div>
+      </div>
+
+      <div id="no-results" class="no-results hidden">
+        <h3>No matching data sources</h3>
+        <p>Try a different search term, or <a href="mailto:support@openlakes.io" style="color: var(--accent);">contact us</a> to request a new integration.</p>
+      </div>
+
+      <div class="integration-grid" id="integrations">
+        <!-- Databases with real-time CDC -->
+        <div class="integration-card" data-category="database" data-name="postgresql postgres">
+          <h4>PostgreSQL</h4>
+          <span class="category-tag">Database</span>
+          <div><span class="sync-badge realtime">Real-time</span></div>
+        </div>
+        <div class="integration-card" data-category="database" data-name="mysql mariadb">
+          <h4>MySQL</h4>
+          <span class="category-tag">Database</span>
+          <div><span class="sync-badge realtime">Real-time</span></div>
+        </div>
+        <div class="integration-card" data-category="database" data-name="mongodb mongo nosql">
+          <h4>MongoDB</h4>
+          <span class="category-tag">Database</span>
+          <div><span class="sync-badge realtime">Real-time</span></div>
+        </div>
+
+        <!-- Databases batch only -->
+        <div class="integration-card" data-category="database" data-name="oracle database">
+          <h4>Oracle</h4>
+          <span class="category-tag">Database</span>
+          <div><span class="sync-badge batch">Batch</span></div>
+        </div>
+        <div class="integration-card" data-category="database" data-name="sql server mssql microsoft">
+          <h4>SQL Server</h4>
+          <span class="category-tag">Database</span>
+          <div><span class="sync-badge batch">Batch</span></div>
+        </div>
+        <div class="integration-card" data-category="database" data-name="snowflake cloud warehouse">
+          <h4>Snowflake</h4>
+          <span class="category-tag">Database</span>
+          <div><span class="sync-badge batch">Batch</span></div>
+        </div>
+        <div class="integration-card" data-category="database" data-name="bigquery google cloud">
+          <h4>BigQuery</h4>
+          <span class="category-tag">Database</span>
+          <div><span class="sync-badge batch">Batch</span></div>
+        </div>
+        <div class="integration-card" data-category="database" data-name="redshift amazon aws">
+          <h4>Redshift</h4>
+          <span class="category-tag">Database</span>
+          <div><span class="sync-badge batch">Batch</span></div>
+        </div>
+        <div class="integration-card" data-category="database" data-name="sqlite local">
+          <h4>SQLite</h4>
+          <span class="category-tag">Database</span>
+          <div><span class="sync-badge batch">Batch</span></div>
+        </div>
+        <div class="integration-card" data-category="database" data-name="dynamodb amazon aws nosql">
+          <h4>DynamoDB</h4>
+          <span class="category-tag">Database</span>
+          <div><span class="sync-badge batch">Batch</span></div>
+        </div>
+
+        <!-- CRM & Sales -->
+        <div class="integration-card" data-category="saas" data-name="salesforce crm sales">
+          <h4>Salesforce</h4>
+          <span class="category-tag">CRM</span>
+          <div><span class="sync-badge batch">Batch</span></div>
+        </div>
+        <div class="integration-card" data-category="saas" data-name="hubspot crm marketing sales">
+          <h4>HubSpot</h4>
+          <span class="category-tag">CRM</span>
+          <div><span class="sync-badge batch">Batch</span></div>
+        </div>
+        <div class="integration-card" data-category="saas" data-name="pipedrive crm sales">
+          <h4>Pipedrive</h4>
+          <span class="category-tag">CRM</span>
+          <div><span class="sync-badge batch">Batch</span></div>
+        </div>
+        <div class="integration-card" data-category="saas" data-name="zendesk support tickets customer">
+          <h4>Zendesk</h4>
+          <span class="category-tag">Support</span>
+          <div><span class="sync-badge batch">Batch</span></div>
+        </div>
+        <div class="integration-card" data-category="saas" data-name="intercom chat support customer">
+          <h4>Intercom</h4>
+          <span class="category-tag">Support</span>
+          <div><span class="sync-badge batch">Batch</span></div>
+        </div>
+        <div class="integration-card" data-category="saas" data-name="freshdesk support tickets">
+          <h4>Freshdesk</h4>
+          <span class="category-tag">Support</span>
+          <div><span class="sync-badge batch">Batch</span></div>
+        </div>
+
+        <!-- Payments & Finance -->
+        <div class="integration-card" data-category="saas" data-name="stripe payments billing subscriptions">
+          <h4>Stripe</h4>
+          <span class="category-tag">Payments</span>
+          <div><span class="sync-badge batch">Batch</span></div>
+        </div>
+        <div class="integration-card" data-category="saas" data-name="shopify ecommerce store orders">
+          <h4>Shopify</h4>
+          <span class="category-tag">E-commerce</span>
+          <div><span class="sync-badge batch">Batch</span></div>
+        </div>
+        <div class="integration-card" data-category="saas" data-name="square payments pos retail">
+          <h4>Square</h4>
+          <span class="category-tag">Payments</span>
+          <div><span class="sync-badge batch">Batch</span></div>
+        </div>
+        <div class="integration-card" data-category="saas" data-name="quickbooks accounting finance">
+          <h4>QuickBooks</h4>
+          <span class="category-tag">Accounting</span>
+          <div><span class="sync-badge batch">Batch</span></div>
+        </div>
+        <div class="integration-card" data-category="saas" data-name="xero accounting finance">
+          <h4>Xero</h4>
+          <span class="category-tag">Accounting</span>
+          <div><span class="sync-badge batch">Batch</span></div>
+        </div>
+        <div class="integration-card" data-category="saas" data-name="chargebee billing subscriptions">
+          <h4>Chargebee</h4>
+          <span class="category-tag">Billing</span>
+          <div><span class="sync-badge batch">Batch</span></div>
+        </div>
+
+        <!-- Marketing & Analytics -->
+        <div class="integration-card" data-category="saas" data-name="google analytics ga4 web traffic">
+          <h4>Google Analytics</h4>
+          <span class="category-tag">Analytics</span>
+          <div><span class="sync-badge batch">Batch</span></div>
+        </div>
+        <div class="integration-card" data-category="saas" data-name="google ads adwords advertising ppc">
+          <h4>Google Ads</h4>
+          <span class="category-tag">Advertising</span>
+          <div><span class="sync-badge batch">Batch</span></div>
+        </div>
+        <div class="integration-card" data-category="saas" data-name="facebook ads meta advertising social">
+          <h4>Facebook Ads</h4>
+          <span class="category-tag">Advertising</span>
+          <div><span class="sync-badge batch">Batch</span></div>
+        </div>
+        <div class="integration-card" data-category="saas" data-name="linkedin ads advertising b2b">
+          <h4>LinkedIn Ads</h4>
+          <span class="category-tag">Advertising</span>
+          <div><span class="sync-badge batch">Batch</span></div>
+        </div>
+        <div class="integration-card" data-category="saas" data-name="mailchimp email marketing campaigns">
+          <h4>Mailchimp</h4>
+          <span class="category-tag">Email</span>
+          <div><span class="sync-badge batch">Batch</span></div>
+        </div>
+        <div class="integration-card" data-category="saas" data-name="sendgrid email transactional">
+          <h4>SendGrid</h4>
+          <span class="category-tag">Email</span>
+          <div><span class="sync-badge batch">Batch</span></div>
+        </div>
+        <div class="integration-card" data-category="saas" data-name="mixpanel product analytics events">
+          <h4>Mixpanel</h4>
+          <span class="category-tag">Analytics</span>
+          <div><span class="sync-badge batch">Batch</span></div>
+        </div>
+        <div class="integration-card" data-category="saas" data-name="amplitude product analytics events">
+          <h4>Amplitude</h4>
+          <span class="category-tag">Analytics</span>
+          <div><span class="sync-badge batch">Batch</span></div>
+        </div>
+        <div class="integration-card" data-category="saas" data-name="segment cdp customer data">
+          <h4>Segment</h4>
+          <span class="category-tag">CDP</span>
+          <div><span class="sync-badge batch">Batch</span></div>
+        </div>
+
+        <!-- Engineering & Product -->
+        <div class="integration-card" data-category="saas" data-name="github code repositories developers">
+          <h4>GitHub</h4>
+          <span class="category-tag">Engineering</span>
+          <div><span class="sync-badge batch">Batch</span></div>
+        </div>
+        <div class="integration-card" data-category="saas" data-name="gitlab code repositories devops">
+          <h4>GitLab</h4>
+          <span class="category-tag">Engineering</span>
+          <div><span class="sync-badge batch">Batch</span></div>
+        </div>
+        <div class="integration-card" data-category="saas" data-name="jira issues tickets project agile">
+          <h4>Jira</h4>
+          <span class="category-tag">Project Mgmt</span>
+          <div><span class="sync-badge batch">Batch</span></div>
+        </div>
+        <div class="integration-card" data-category="saas" data-name="asana tasks project management">
+          <h4>Asana</h4>
+          <span class="category-tag">Project Mgmt</span>
+          <div><span class="sync-badge batch">Batch</span></div>
+        </div>
+        <div class="integration-card" data-category="saas" data-name="notion docs wiki knowledge">
+          <h4>Notion</h4>
+          <span class="category-tag">Workspace</span>
+          <div><span class="sync-badge batch">Batch</span></div>
+        </div>
+        <div class="integration-card" data-category="saas" data-name="slack messages communication team">
+          <h4>Slack</h4>
+          <span class="category-tag">Communication</span>
+          <div><span class="sync-badge batch">Batch</span></div>
+        </div>
+
+        <!-- Files & Storage -->
+        <div class="integration-card" data-category="files" data-name="csv comma separated spreadsheet">
+          <h4>CSV Files</h4>
+          <span class="category-tag">Files</span>
+          <div><span class="sync-badge batch">Batch</span></div>
+        </div>
+        <div class="integration-card" data-category="files" data-name="excel xlsx spreadsheet microsoft">
+          <h4>Excel</h4>
+          <span class="category-tag">Files</span>
+          <div><span class="sync-badge batch">Batch</span></div>
+        </div>
+        <div class="integration-card" data-category="files" data-name="json javascript object notation">
+          <h4>JSON Files</h4>
+          <span class="category-tag">Files</span>
+          <div><span class="sync-badge batch">Batch</span></div>
+        </div>
+        <div class="integration-card" data-category="files" data-name="parquet columnar apache">
+          <h4>Parquet</h4>
+          <span class="category-tag">Files</span>
+          <div><span class="sync-badge batch">Batch</span></div>
+        </div>
+        <div class="integration-card" data-category="files" data-name="s3 amazon aws bucket storage">
+          <h4>Amazon S3</h4>
+          <span class="category-tag">Storage</span>
+          <div><span class="sync-badge batch">Batch</span></div>
+        </div>
+        <div class="integration-card" data-category="files" data-name="gcs google cloud storage bucket">
+          <h4>Google Cloud Storage</h4>
+          <span class="category-tag">Storage</span>
+          <div><span class="sync-badge batch">Batch</span></div>
+        </div>
+        <div class="integration-card" data-category="files" data-name="azure blob storage microsoft">
+          <h4>Azure Blob Storage</h4>
+          <span class="category-tag">Storage</span>
+          <div><span class="sync-badge batch">Batch</span></div>
+        </div>
+        <div class="integration-card" data-category="files" data-name="sftp ftp file transfer ssh">
+          <h4>SFTP / FTP</h4>
+          <span class="category-tag">Transfer</span>
+          <div><span class="sync-badge batch">Batch</span></div>
+        </div>
+        <div class="integration-card" data-category="files" data-name="google drive docs sheets">
+          <h4>Google Drive</h4>
+          <span class="category-tag">Storage</span>
+          <div><span class="sync-badge batch">Batch</span></div>
+        </div>
+        <div class="integration-card" data-category="files" data-name="google sheets spreadsheet">
+          <h4>Google Sheets</h4>
+          <span class="category-tag">Spreadsheets</span>
+          <div><span class="sync-badge batch">Batch</span></div>
+        </div>
+        <div class="integration-card" data-category="files" data-name="dropbox cloud storage">
+          <h4>Dropbox</h4>
+          <span class="category-tag">Storage</span>
+          <div><span class="sync-badge batch">Batch</span></div>
+        </div>
+
+        <!-- APIs -->
+        <div class="integration-card" data-category="api" data-name="rest api http json generic">
+          <h4>REST APIs</h4>
+          <span class="category-tag">Generic</span>
+          <div><span class="sync-badge batch">Batch</span></div>
+        </div>
+        <div class="integration-card" data-category="api" data-name="graphql api query">
+          <h4>GraphQL</h4>
+          <span class="category-tag">Generic</span>
+          <div><span class="sync-badge batch">Batch</span></div>
+        </div>
+        <div class="integration-card" data-category="api" data-name="webhook http events push">
+          <h4>Webhooks</h4>
+          <span class="category-tag">Events</span>
+          <div><span class="sync-badge batch">Batch</span></div>
+        </div>
+        <div class="integration-card" data-category="api" data-name="kafka streaming events message">
+          <h4>Apache Kafka</h4>
+          <span class="category-tag">Streaming</span>
+          <div><span class="sync-badge realtime">Real-time</span></div>
+        </div>
+
+        <!-- More SaaS -->
+        <div class="integration-card" data-category="saas" data-name="twilio sms voice communications">
+          <h4>Twilio</h4>
+          <span class="category-tag">Communications</span>
+          <div><span class="sync-badge batch">Batch</span></div>
+        </div>
+        <div class="integration-card" data-category="saas" data-name="datadog monitoring observability">
+          <h4>Datadog</h4>
+          <span class="category-tag">Monitoring</span>
+          <div><span class="sync-badge batch">Batch</span></div>
+        </div>
+        <div class="integration-card" data-category="saas" data-name="pagerduty incidents alerts oncall">
+          <h4>PagerDuty</h4>
+          <span class="category-tag">Ops</span>
+          <div><span class="sync-badge batch">Batch</span></div>
+        </div>
+        <div class="integration-card" data-category="saas" data-name="lever recruiting hiring ats">
+          <h4>Lever</h4>
+          <span class="category-tag">HR</span>
+          <div><span class="sync-badge batch">Batch</span></div>
+        </div>
+        <div class="integration-card" data-category="saas" data-name="greenhouse recruiting hiring ats">
+          <h4>Greenhouse</h4>
+          <span class="category-tag">HR</span>
+          <div><span class="sync-badge batch">Batch</span></div>
+        </div>
+        <div class="integration-card" data-category="saas" data-name="workday hr human resources payroll">
+          <h4>Workday</h4>
+          <span class="category-tag">HR</span>
+          <div><span class="sync-badge batch">Batch</span></div>
+        </div>
+        <div class="integration-card" data-category="saas" data-name="bamboohr hr human resources">
+          <h4>BambooHR</h4>
+          <span class="category-tag">HR</span>
+          <div><span class="sync-badge batch">Batch</span></div>
+        </div>
+        <div class="integration-card" data-category="saas" data-name="netsuite erp oracle finance">
+          <h4>NetSuite</h4>
+          <span class="category-tag">ERP</span>
+          <div><span class="sync-badge batch">Batch</span></div>
+        </div>
+        <div class="integration-card" data-category="saas" data-name="sap erp enterprise">
+          <h4>SAP</h4>
+          <span class="category-tag">ERP</span>
+          <div><span class="sync-badge batch">Batch</span></div>
+        </div>
+      </div>
+
+      <div style="text-align: center; margin-top: 3rem; padding: 2rem; background: var(--bg-alt); border-radius: 0.75rem;">
+        <p style="font-size: 1.1rem; margin-bottom: 1rem;">Don't see your data source? <strong>500+ additional connectors</strong> available via Meltano Hub.</p>
+        <a href="https://hub.meltano.com/" target="_blank" style="color: var(--accent); font-weight: 600;">Browse all connectors &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <div class="section__header">
+        <h2>How it works</h2>
+        <p>Get your data flowing in minutes, not months.</p>
+      </div>
+      <div class="pill-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+        <div class="pill">
+          <h3>1. Choose your source</h3>
+          <p>Search our catalog of 500+ data sources. Whether it's a production database, a SaaS app, or files in cloud storage, we've got you covered.</p>
+        </div>
+        <div class="pill">
+          <h3>2. Enter credentials</h3>
+          <p>Provide read-only access to your data source. OpenLakes never modifies your source systems. All credentials are encrypted at rest.</p>
+        </div>
+        <div class="pill">
+          <h3>3. Set your schedule</h3>
+          <p>Choose real-time sync for databases or set a schedule that works for batch sources. Daily, hourly, or custom cron expressions.</p>
+        </div>
+        <div class="pill">
+          <h3>4. Query in SQL</h3>
+          <p>Your data lands in Apache Iceberg tables. Query it with Trino, transform it with Spark, or visualize it in Superset. All from one platform.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="get-started">
+    <div class="container" style="text-align: center;">
+      <h2>Start connecting your data</h2>
+      <p style="max-width: 600px; margin: 1rem auto 2rem;">Try OpenLakes Harbor free for 30 days. No credit card required. Set up your first data pipeline in under 10 minutes.</p>
+      <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+        <a href="https://harbor.openlakes.io/" class="btn btn--primary">Start free trial</a>
+        <a href="https://docs.openlakes.io/harbor/ingestion/" class="btn btn--ghost">Read the docs</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer__grid">
+      <p>&copy; <span id="year"></span> OpenLakes. Built with open-source from day one.</p>
+      <div class="footer__links">
+        <a href="/">Home</a>
+        <a href="/platform/">Platform</a>
+        <a href="/products/">Products</a>
+        <a href="https://docs.openlakes.io/">Docs</a>
+        <a href="https://docs.openlakes.io/privacy-policy/">Privacy</a>
+        <a href="https://docs.openlakes.io/terms-of-service/">Terms</a>
+        <a href="https://github.com/openlakes-io">GitHub</a>
+        <a href="mailto:sales@openlakes.io">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const searchInput = document.getElementById('search');
+    const integrations = document.querySelectorAll('.integration-card');
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const countSpan = document.getElementById('count');
+    const noResults = document.getElementById('no-results');
+    const grid = document.getElementById('integrations');
+
+    let currentCategory = 'all';
+
+    function updateCount() {
+      const visible = document.querySelectorAll('.integration-card:not(.hidden)').length;
+      countSpan.textContent = visible === integrations.length ? '500+' : visible;
+
+      if (visible === 0) {
+        noResults.classList.remove('hidden');
+        grid.style.display = 'none';
+      } else {
+        noResults.classList.add('hidden');
+        grid.style.display = 'grid';
+      }
+    }
+
+    function filterIntegrations() {
+      const query = searchInput.value.toLowerCase().trim();
+
+      integrations.forEach(card => {
+        const name = card.dataset.name.toLowerCase();
+        const category = card.dataset.category;
+        const title = card.querySelector('h4').textContent.toLowerCase();
+
+        const matchesSearch = !query || name.includes(query) || title.includes(query);
+        const matchesCategory = currentCategory === 'all' || category === currentCategory;
+
+        if (matchesSearch && matchesCategory) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+
+      updateCount();
+    }
+
+    searchInput.addEventListener('input', filterIntegrations);
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentCategory = btn.dataset.category;
+        filterIntegrations();
+      });
+    });
+
+    updateCount();
+  </script>
+</body>
+</html>
