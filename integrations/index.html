@@ -3,8 +3,33 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Integrations | OpenLakes</title>
-  <meta name="description" content="Connect OpenLakes to 500+ data sources. Sync databases in real-time, import from SaaS apps, and load files from anywhere." />
+  <title>500+ Data Integrations | OpenLakes - Connect Any Data Source</title>
+  <meta name="description" content="Connect OpenLakes to 500+ data sources including PostgreSQL, MySQL, MongoDB, Salesforce, HubSpot, Stripe, Shopify, Google Analytics, Snowflake, BigQuery, and more. Real-time CDC and batch ELT supported." />
+  <meta name="keywords" content="data integration, ETL, ELT, CDC, PostgreSQL connector, MySQL connector, MongoDB connector, Salesforce integration, HubSpot integration, Stripe data, Shopify analytics, data pipeline, data lakehouse, Apache Iceberg" />
+  <link rel="canonical" href="https://openlakes.io/integrations/" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="500+ Data Integrations | OpenLakes" />
+  <meta property="og:description" content="Connect any data source to your lakehouse. Real-time CDC for databases, batch imports for SaaS apps." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://openlakes.io/integrations/" />
+
+  <!-- Structured Data for SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "OpenLakes Data Integrations",
+    "applicationCategory": "Data Integration Platform",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "featureList": ["PostgreSQL CDC", "MySQL CDC", "MongoDB CDC", "Salesforce Integration", "HubSpot Integration", "Stripe Integration", "Shopify Integration", "Google Analytics", "Snowflake Connector", "BigQuery Connector", "500+ Data Sources"]
+  }
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -44,15 +69,14 @@
     }
     .integration-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 1rem;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 0.75rem;
     }
     .integration-card {
       background: var(--card);
       border: 1px solid var(--border);
-      border-radius: 0.75rem;
-      padding: 1.25rem;
-      text-align: center;
+      border-radius: 0.5rem;
+      padding: 0.75rem 1rem;
       transition: transform 0.15s ease, box-shadow 0.15s ease;
     }
     .integration-card:hover {
@@ -61,20 +85,21 @@
     }
     .integration-card h4 {
       margin: 0 0 0.25rem;
-      font-size: 1rem;
+      font-size: 0.9rem;
+      font-weight: 600;
     }
     .integration-card .category-tag {
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       color: var(--muted);
       text-transform: uppercase;
       letter-spacing: 0.05em;
     }
     .integration-card .sync-badge {
       display: inline-block;
-      font-size: 0.7rem;
-      padding: 0.15rem 0.5rem;
+      font-size: 0.65rem;
+      padding: 0.1rem 0.4rem;
       border-radius: 999px;
-      margin-top: 0.5rem;
+      margin-left: 0.5rem;
       font-weight: 600;
     }
     .sync-badge.realtime {
@@ -148,6 +173,39 @@
       background: rgba(59, 130, 246, 0.1);
       color: #2563eb;
     }
+    .category-section {
+      margin-bottom: 3rem;
+    }
+    .category-section h3 {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+    }
+    .show-more-btn {
+      display: block;
+      width: 100%;
+      padding: 0.75rem;
+      margin-top: 1rem;
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: 0.5rem;
+      color: var(--accent);
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.15s ease;
+    }
+    .show-more-btn:hover {
+      background: var(--card);
+    }
+    .initially-hidden {
+      display: none;
+    }
+    .expanded .initially-hidden {
+      display: block;
+    }
   </style>
 </head>
 <body>
@@ -179,14 +237,14 @@
           so you can analyze everything in one place.
         </p>
         <div class="search-box">
-          <input type="text" class="search-input" id="search" placeholder="Search for a data source..." autocomplete="off" />
+          <input type="text" class="search-input" id="search" placeholder="Search 500+ data sources..." autocomplete="off" />
         </div>
         <div class="category-filter">
           <button class="filter-btn active" data-category="all">All Sources</button>
           <button class="filter-btn" data-category="database">Databases</button>
           <button class="filter-btn" data-category="saas">SaaS & Apps</button>
           <button class="filter-btn" data-category="files">Files & Storage</button>
-          <button class="filter-btn" data-category="api">APIs</button>
+          <button class="filter-btn" data-category="api">APIs & Streaming</button>
         </div>
         <p class="search-count"><span id="count">500+</span> data sources available</p>
       </div>
@@ -214,333 +272,358 @@
       </div>
 
       <div class="integration-grid" id="integrations">
-        <!-- Databases with real-time CDC -->
-        <div class="integration-card" data-category="database" data-name="postgresql postgres">
-          <h4>PostgreSQL</h4>
-          <span class="category-tag">Database</span>
-          <div><span class="sync-badge realtime">Real-time</span></div>
-        </div>
-        <div class="integration-card" data-category="database" data-name="mysql mariadb">
-          <h4>MySQL</h4>
-          <span class="category-tag">Database</span>
-          <div><span class="sync-badge realtime">Real-time</span></div>
-        </div>
-        <div class="integration-card" data-category="database" data-name="mongodb mongo nosql">
-          <h4>MongoDB</h4>
-          <span class="category-tag">Database</span>
-          <div><span class="sync-badge realtime">Real-time</span></div>
-        </div>
+        <!-- ==================== DATABASES ==================== -->
+        <!-- Real-time CDC Databases -->
+        <div class="integration-card" data-category="database" data-name="postgresql postgres pg relational sql acid"><h4>PostgreSQL<span class="sync-badge realtime">CDC</span></h4><span class="category-tag">Database</span></div>
+        <div class="integration-card" data-category="database" data-name="mysql mariadb relational sql"><h4>MySQL<span class="sync-badge realtime">CDC</span></h4><span class="category-tag">Database</span></div>
+        <div class="integration-card" data-category="database" data-name="mariadb mysql relational sql"><h4>MariaDB<span class="sync-badge realtime">CDC</span></h4><span class="category-tag">Database</span></div>
+        <div class="integration-card" data-category="database" data-name="mongodb mongo nosql document"><h4>MongoDB<span class="sync-badge realtime">CDC</span></h4><span class="category-tag">Database</span></div>
+        <div class="integration-card" data-category="database" data-name="sql server mssql microsoft sqlserver"><h4>SQL Server<span class="sync-badge realtime">CDC</span></h4><span class="category-tag">Database</span></div>
+        <div class="integration-card" data-category="database" data-name="oracle database orcl"><h4>Oracle<span class="sync-badge realtime">CDC</span></h4><span class="category-tag">Database</span></div>
+        <div class="integration-card" data-category="database" data-name="db2 ibm as400"><h4>IBM Db2<span class="sync-badge realtime">CDC</span></h4><span class="category-tag">Database</span></div>
+        <div class="integration-card" data-category="database" data-name="vitess planetscale mysql"><h4>Vitess<span class="sync-badge realtime">CDC</span></h4><span class="category-tag">Database</span></div>
+        <div class="integration-card" data-category="database" data-name="cassandra apache nosql wide-column"><h4>Cassandra<span class="sync-badge realtime">CDC</span></h4><span class="category-tag">Database</span></div>
 
-        <!-- Databases batch only -->
-        <div class="integration-card" data-category="database" data-name="oracle database">
-          <h4>Oracle</h4>
-          <span class="category-tag">Database</span>
-          <div><span class="sync-badge batch">Batch</span></div>
-        </div>
-        <div class="integration-card" data-category="database" data-name="sql server mssql microsoft">
-          <h4>SQL Server</h4>
-          <span class="category-tag">Database</span>
-          <div><span class="sync-badge batch">Batch</span></div>
-        </div>
-        <div class="integration-card" data-category="database" data-name="snowflake cloud warehouse">
-          <h4>Snowflake</h4>
-          <span class="category-tag">Database</span>
-          <div><span class="sync-badge batch">Batch</span></div>
-        </div>
-        <div class="integration-card" data-category="database" data-name="bigquery google cloud">
-          <h4>BigQuery</h4>
-          <span class="category-tag">Database</span>
-          <div><span class="sync-badge batch">Batch</span></div>
-        </div>
-        <div class="integration-card" data-category="database" data-name="redshift amazon aws">
-          <h4>Redshift</h4>
-          <span class="category-tag">Database</span>
-          <div><span class="sync-badge batch">Batch</span></div>
-        </div>
-        <div class="integration-card" data-category="database" data-name="sqlite local">
-          <h4>SQLite</h4>
-          <span class="category-tag">Database</span>
-          <div><span class="sync-badge batch">Batch</span></div>
-        </div>
-        <div class="integration-card" data-category="database" data-name="dynamodb amazon aws nosql">
-          <h4>DynamoDB</h4>
-          <span class="category-tag">Database</span>
-          <div><span class="sync-badge batch">Batch</span></div>
-        </div>
+        <!-- Batch Databases -->
+        <div class="integration-card" data-category="database" data-name="snowflake cloud warehouse"><h4>Snowflake<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
+        <div class="integration-card" data-category="database" data-name="bigquery google cloud gcp bq"><h4>BigQuery<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
+        <div class="integration-card" data-category="database" data-name="redshift amazon aws warehouse"><h4>Redshift<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
+        <div class="integration-card" data-category="database" data-name="databricks spark delta"><h4>Databricks<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
+        <div class="integration-card" data-category="database" data-name="clickhouse olap analytics"><h4>ClickHouse<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
+        <div class="integration-card" data-category="database" data-name="duckdb embedded analytics"><h4>DuckDB<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
+        <div class="integration-card" data-category="database" data-name="sqlite local embedded"><h4>SQLite<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
+        <div class="integration-card" data-category="database" data-name="dynamodb amazon aws nosql"><h4>DynamoDB<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
+        <div class="integration-card" data-category="database" data-name="couchbase nosql document"><h4>Couchbase<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
+        <div class="integration-card" data-category="database" data-name="couchdb apache nosql"><h4>CouchDB<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
+        <div class="integration-card" data-category="database" data-name="elasticsearch elastic search"><h4>Elasticsearch<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
+        <div class="integration-card" data-category="database" data-name="opensearch aws elastic"><h4>OpenSearch<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
+        <div class="integration-card" data-category="database" data-name="redis cache nosql"><h4>Redis<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
+        <div class="integration-card" data-category="database" data-name="neo4j graph database"><h4>Neo4j<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
+        <div class="integration-card" data-category="database" data-name="cockroachdb distributed sql"><h4>CockroachDB<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
+        <div class="integration-card" data-category="database" data-name="tidb mysql distributed"><h4>TiDB<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
+        <div class="integration-card" data-category="database" data-name="yugabytedb distributed postgresql"><h4>YugabyteDB<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
+        <div class="integration-card" data-category="database" data-name="singlestore memsql"><h4>SingleStore<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
+        <div class="integration-card" data-category="database" data-name="planetscale mysql vitess"><h4>PlanetScale<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
+        <div class="integration-card" data-category="database" data-name="neon postgres serverless"><h4>Neon<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
+        <div class="integration-card" data-category="database" data-name="supabase postgres firebase"><h4>Supabase<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
+        <div class="integration-card" data-category="database" data-name="airtable spreadsheet database"><h4>Airtable<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
+        <div class="integration-card" data-category="database" data-name="firebase google firestore"><h4>Firebase<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
+        <div class="integration-card" data-category="database" data-name="fauna serverless"><h4>Fauna<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
+        <div class="integration-card" data-category="database" data-name="influxdb timeseries iot"><h4>InfluxDB<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
+        <div class="integration-card" data-category="database" data-name="timescaledb postgres timeseries"><h4>TimescaleDB<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
+        <div class="integration-card" data-category="database" data-name="questdb timeseries"><h4>QuestDB<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
+        <div class="integration-card" data-category="database" data-name="druid apache olap"><h4>Apache Druid<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
+        <div class="integration-card" data-category="database" data-name="pinot apache olap"><h4>Apache Pinot<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
+        <div class="integration-card" data-category="database" data-name="greenplum analytics mpp"><h4>Greenplum<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
+        <div class="integration-card" data-category="database" data-name="vertica analytics mpp"><h4>Vertica<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
+        <div class="integration-card" data-category="database" data-name="teradata enterprise warehouse"><h4>Teradata<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
+        <div class="integration-card" data-category="database" data-name="exasol analytics"><h4>Exasol<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
+        <div class="integration-card" data-category="database" data-name="sap hana enterprise"><h4>SAP HANA<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
+        <div class="integration-card" data-category="database" data-name="sybase sap ase"><h4>Sybase<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
+        <div class="integration-card" data-category="database" data-name="informix ibm"><h4>Informix<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
+        <div class="integration-card" data-category="database" data-name="firebird interbase"><h4>Firebird<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
+        <div class="integration-card" data-category="database" data-name="access microsoft mdb"><h4>MS Access<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
 
-        <!-- CRM & Sales -->
-        <div class="integration-card" data-category="saas" data-name="salesforce crm sales">
-          <h4>Salesforce</h4>
-          <span class="category-tag">CRM</span>
-          <div><span class="sync-badge batch">Batch</span></div>
-        </div>
-        <div class="integration-card" data-category="saas" data-name="hubspot crm marketing sales">
-          <h4>HubSpot</h4>
-          <span class="category-tag">CRM</span>
-          <div><span class="sync-badge batch">Batch</span></div>
-        </div>
-        <div class="integration-card" data-category="saas" data-name="pipedrive crm sales">
-          <h4>Pipedrive</h4>
-          <span class="category-tag">CRM</span>
-          <div><span class="sync-badge batch">Batch</span></div>
-        </div>
-        <div class="integration-card" data-category="saas" data-name="zendesk support tickets customer">
-          <h4>Zendesk</h4>
-          <span class="category-tag">Support</span>
-          <div><span class="sync-badge batch">Batch</span></div>
-        </div>
-        <div class="integration-card" data-category="saas" data-name="intercom chat support customer">
-          <h4>Intercom</h4>
-          <span class="category-tag">Support</span>
-          <div><span class="sync-badge batch">Batch</span></div>
-        </div>
-        <div class="integration-card" data-category="saas" data-name="freshdesk support tickets">
-          <h4>Freshdesk</h4>
-          <span class="category-tag">Support</span>
-          <div><span class="sync-badge batch">Batch</span></div>
-        </div>
+        <!-- ==================== CRM & SALES ==================== -->
+        <div class="integration-card" data-category="saas" data-name="salesforce crm sales sfdc"><h4>Salesforce<span class="sync-badge batch">Batch</span></h4><span class="category-tag">CRM</span></div>
+        <div class="integration-card" data-category="saas" data-name="hubspot crm marketing sales inbound"><h4>HubSpot<span class="sync-badge batch">Batch</span></h4><span class="category-tag">CRM</span></div>
+        <div class="integration-card" data-category="saas" data-name="pipedrive crm sales pipeline"><h4>Pipedrive<span class="sync-badge batch">Batch</span></h4><span class="category-tag">CRM</span></div>
+        <div class="integration-card" data-category="saas" data-name="zoho crm sales"><h4>Zoho CRM<span class="sync-badge batch">Batch</span></h4><span class="category-tag">CRM</span></div>
+        <div class="integration-card" data-category="saas" data-name="dynamics microsoft 365 crm"><h4>Dynamics 365<span class="sync-badge batch">Batch</span></h4><span class="category-tag">CRM</span></div>
+        <div class="integration-card" data-category="saas" data-name="close crm sales"><h4>Close<span class="sync-badge batch">Batch</span></h4><span class="category-tag">CRM</span></div>
+        <div class="integration-card" data-category="saas" data-name="copper crm google"><h4>Copper<span class="sync-badge batch">Batch</span></h4><span class="category-tag">CRM</span></div>
+        <div class="integration-card" data-category="saas" data-name="freshsales crm freshworks"><h4>Freshsales<span class="sync-badge batch">Batch</span></h4><span class="category-tag">CRM</span></div>
+        <div class="integration-card" data-category="saas" data-name="insightly crm"><h4>Insightly<span class="sync-badge batch">Batch</span></h4><span class="category-tag">CRM</span></div>
+        <div class="integration-card" data-category="saas" data-name="nimble crm social"><h4>Nimble<span class="sync-badge batch">Batch</span></h4><span class="category-tag">CRM</span></div>
+        <div class="integration-card" data-category="saas" data-name="nutshell crm"><h4>Nutshell<span class="sync-badge batch">Batch</span></h4><span class="category-tag">CRM</span></div>
+        <div class="integration-card" data-category="saas" data-name="streak crm gmail"><h4>Streak<span class="sync-badge batch">Batch</span></h4><span class="category-tag">CRM</span></div>
+        <div class="integration-card" data-category="saas" data-name="agile crm"><h4>Agile CRM<span class="sync-badge batch">Batch</span></h4><span class="category-tag">CRM</span></div>
+        <div class="integration-card" data-category="saas" data-name="capsule crm"><h4>Capsule<span class="sync-badge batch">Batch</span></h4><span class="category-tag">CRM</span></div>
+        <div class="integration-card" data-category="saas" data-name="salesflare crm"><h4>Salesflare<span class="sync-badge batch">Batch</span></h4><span class="category-tag">CRM</span></div>
+        <div class="integration-card" data-category="saas" data-name="outreach sales engagement"><h4>Outreach<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Sales</span></div>
+        <div class="integration-card" data-category="saas" data-name="salesloft engagement"><h4>SalesLoft<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Sales</span></div>
+        <div class="integration-card" data-category="saas" data-name="apollo prospecting"><h4>Apollo<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Sales</span></div>
+        <div class="integration-card" data-category="saas" data-name="zoominfo enrichment"><h4>ZoomInfo<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Sales</span></div>
+        <div class="integration-card" data-category="saas" data-name="clearbit enrichment"><h4>Clearbit<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Sales</span></div>
+        <div class="integration-card" data-category="saas" data-name="gong conversation intelligence"><h4>Gong<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Sales</span></div>
+        <div class="integration-card" data-category="saas" data-name="chorus conversation intelligence"><h4>Chorus<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Sales</span></div>
+        <div class="integration-card" data-category="saas" data-name="clari forecasting"><h4>Clari<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Sales</span></div>
+        <div class="integration-card" data-category="saas" data-name="linkedin sales navigator"><h4>LinkedIn Sales Nav<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Sales</span></div>
 
-        <!-- Payments & Finance -->
-        <div class="integration-card" data-category="saas" data-name="stripe payments billing subscriptions">
-          <h4>Stripe</h4>
-          <span class="category-tag">Payments</span>
-          <div><span class="sync-badge batch">Batch</span></div>
-        </div>
-        <div class="integration-card" data-category="saas" data-name="shopify ecommerce store orders">
-          <h4>Shopify</h4>
-          <span class="category-tag">E-commerce</span>
-          <div><span class="sync-badge batch">Batch</span></div>
-        </div>
-        <div class="integration-card" data-category="saas" data-name="square payments pos retail">
-          <h4>Square</h4>
-          <span class="category-tag">Payments</span>
-          <div><span class="sync-badge batch">Batch</span></div>
-        </div>
-        <div class="integration-card" data-category="saas" data-name="quickbooks accounting finance">
-          <h4>QuickBooks</h4>
-          <span class="category-tag">Accounting</span>
-          <div><span class="sync-badge batch">Batch</span></div>
-        </div>
-        <div class="integration-card" data-category="saas" data-name="xero accounting finance">
-          <h4>Xero</h4>
-          <span class="category-tag">Accounting</span>
-          <div><span class="sync-badge batch">Batch</span></div>
-        </div>
-        <div class="integration-card" data-category="saas" data-name="chargebee billing subscriptions">
-          <h4>Chargebee</h4>
-          <span class="category-tag">Billing</span>
-          <div><span class="sync-badge batch">Batch</span></div>
-        </div>
+        <!-- ==================== CUSTOMER SUPPORT ==================== -->
+        <div class="integration-card" data-category="saas" data-name="zendesk support tickets helpdesk"><h4>Zendesk<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Support</span></div>
+        <div class="integration-card" data-category="saas" data-name="intercom chat support messaging"><h4>Intercom<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Support</span></div>
+        <div class="integration-card" data-category="saas" data-name="freshdesk support freshworks"><h4>Freshdesk<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Support</span></div>
+        <div class="integration-card" data-category="saas" data-name="helpscout support email"><h4>Help Scout<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Support</span></div>
+        <div class="integration-card" data-category="saas" data-name="front email helpdesk"><h4>Front<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Support</span></div>
+        <div class="integration-card" data-category="saas" data-name="kustomer support crm"><h4>Kustomer<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Support</span></div>
+        <div class="integration-card" data-category="saas" data-name="freshchat messaging"><h4>Freshchat<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Support</span></div>
+        <div class="integration-card" data-category="saas" data-name="drift chat conversational"><h4>Drift<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Support</span></div>
+        <div class="integration-card" data-category="saas" data-name="crisp chat"><h4>Crisp<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Support</span></div>
+        <div class="integration-card" data-category="saas" data-name="tidio chat"><h4>Tidio<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Support</span></div>
+        <div class="integration-card" data-category="saas" data-name="livechat support"><h4>LiveChat<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Support</span></div>
+        <div class="integration-card" data-category="saas" data-name="tawk chat"><h4>Tawk.to<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Support</span></div>
+        <div class="integration-card" data-category="saas" data-name="servicenow itsm"><h4>ServiceNow<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Support</span></div>
+        <div class="integration-card" data-category="saas" data-name="jira service management jsm"><h4>Jira Service Mgmt<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Support</span></div>
+        <div class="integration-card" data-category="saas" data-name="freshservice itsm"><h4>Freshservice<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Support</span></div>
+        <div class="integration-card" data-category="saas" data-name="delighted nps feedback"><h4>Delighted<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Feedback</span></div>
+        <div class="integration-card" data-category="saas" data-name="typeform surveys forms"><h4>Typeform<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Feedback</span></div>
+        <div class="integration-card" data-category="saas" data-name="surveymonkey surveys"><h4>SurveyMonkey<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Feedback</span></div>
 
-        <!-- Marketing & Analytics -->
-        <div class="integration-card" data-category="saas" data-name="google analytics ga4 web traffic">
-          <h4>Google Analytics</h4>
-          <span class="category-tag">Analytics</span>
-          <div><span class="sync-badge batch">Batch</span></div>
-        </div>
-        <div class="integration-card" data-category="saas" data-name="google ads adwords advertising ppc">
-          <h4>Google Ads</h4>
-          <span class="category-tag">Advertising</span>
-          <div><span class="sync-badge batch">Batch</span></div>
-        </div>
-        <div class="integration-card" data-category="saas" data-name="facebook ads meta advertising social">
-          <h4>Facebook Ads</h4>
-          <span class="category-tag">Advertising</span>
-          <div><span class="sync-badge batch">Batch</span></div>
-        </div>
-        <div class="integration-card" data-category="saas" data-name="linkedin ads advertising b2b">
-          <h4>LinkedIn Ads</h4>
-          <span class="category-tag">Advertising</span>
-          <div><span class="sync-badge batch">Batch</span></div>
-        </div>
-        <div class="integration-card" data-category="saas" data-name="mailchimp email marketing campaigns">
-          <h4>Mailchimp</h4>
-          <span class="category-tag">Email</span>
-          <div><span class="sync-badge batch">Batch</span></div>
-        </div>
-        <div class="integration-card" data-category="saas" data-name="sendgrid email transactional">
-          <h4>SendGrid</h4>
-          <span class="category-tag">Email</span>
-          <div><span class="sync-badge batch">Batch</span></div>
-        </div>
-        <div class="integration-card" data-category="saas" data-name="mixpanel product analytics events">
-          <h4>Mixpanel</h4>
-          <span class="category-tag">Analytics</span>
-          <div><span class="sync-badge batch">Batch</span></div>
-        </div>
-        <div class="integration-card" data-category="saas" data-name="amplitude product analytics events">
-          <h4>Amplitude</h4>
-          <span class="category-tag">Analytics</span>
-          <div><span class="sync-badge batch">Batch</span></div>
-        </div>
-        <div class="integration-card" data-category="saas" data-name="segment cdp customer data">
-          <h4>Segment</h4>
-          <span class="category-tag">CDP</span>
-          <div><span class="sync-badge batch">Batch</span></div>
-        </div>
+        <!-- ==================== PAYMENTS & E-COMMERCE ==================== -->
+        <div class="integration-card" data-category="saas" data-name="stripe payments billing subscriptions"><h4>Stripe<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Payments</span></div>
+        <div class="integration-card" data-category="saas" data-name="shopify ecommerce store orders"><h4>Shopify<span class="sync-badge batch">Batch</span></h4><span class="category-tag">E-commerce</span></div>
+        <div class="integration-card" data-category="saas" data-name="woocommerce wordpress ecommerce"><h4>WooCommerce<span class="sync-badge batch">Batch</span></h4><span class="category-tag">E-commerce</span></div>
+        <div class="integration-card" data-category="saas" data-name="bigcommerce ecommerce"><h4>BigCommerce<span class="sync-badge batch">Batch</span></h4><span class="category-tag">E-commerce</span></div>
+        <div class="integration-card" data-category="saas" data-name="magento adobe ecommerce"><h4>Magento<span class="sync-badge batch">Batch</span></h4><span class="category-tag">E-commerce</span></div>
+        <div class="integration-card" data-category="saas" data-name="prestashop ecommerce"><h4>PrestaShop<span class="sync-badge batch">Batch</span></h4><span class="category-tag">E-commerce</span></div>
+        <div class="integration-card" data-category="saas" data-name="square payments pos retail"><h4>Square<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Payments</span></div>
+        <div class="integration-card" data-category="saas" data-name="paypal payments"><h4>PayPal<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Payments</span></div>
+        <div class="integration-card" data-category="saas" data-name="braintree payments paypal"><h4>Braintree<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Payments</span></div>
+        <div class="integration-card" data-category="saas" data-name="adyen payments"><h4>Adyen<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Payments</span></div>
+        <div class="integration-card" data-category="saas" data-name="klarna payments bnpl"><h4>Klarna<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Payments</span></div>
+        <div class="integration-card" data-category="saas" data-name="afterpay payments bnpl"><h4>Afterpay<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Payments</span></div>
+        <div class="integration-card" data-category="saas" data-name="chargebee billing subscriptions"><h4>Chargebee<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Billing</span></div>
+        <div class="integration-card" data-category="saas" data-name="recurly billing subscriptions"><h4>Recurly<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Billing</span></div>
+        <div class="integration-card" data-category="saas" data-name="chargify billing"><h4>Chargify<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Billing</span></div>
+        <div class="integration-card" data-category="saas" data-name="zuora billing subscriptions"><h4>Zuora<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Billing</span></div>
+        <div class="integration-card" data-category="saas" data-name="paddle billing saas"><h4>Paddle<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Billing</span></div>
+        <div class="integration-card" data-category="saas" data-name="lemonsqueezy billing"><h4>Lemon Squeezy<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Billing</span></div>
+        <div class="integration-card" data-category="saas" data-name="recharge subscriptions shopify"><h4>Recharge<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Billing</span></div>
+        <div class="integration-card" data-category="saas" data-name="amazon seller marketplace"><h4>Amazon Seller<span class="sync-badge batch">Batch</span></h4><span class="category-tag">E-commerce</span></div>
+        <div class="integration-card" data-category="saas" data-name="ebay marketplace"><h4>eBay<span class="sync-badge batch">Batch</span></h4><span class="category-tag">E-commerce</span></div>
+        <div class="integration-card" data-category="saas" data-name="etsy marketplace handmade"><h4>Etsy<span class="sync-badge batch">Batch</span></h4><span class="category-tag">E-commerce</span></div>
+        <div class="integration-card" data-category="saas" data-name="walmart marketplace"><h4>Walmart<span class="sync-badge batch">Batch</span></h4><span class="category-tag">E-commerce</span></div>
 
-        <!-- Engineering & Product -->
-        <div class="integration-card" data-category="saas" data-name="github code repositories developers">
-          <h4>GitHub</h4>
-          <span class="category-tag">Engineering</span>
-          <div><span class="sync-badge batch">Batch</span></div>
-        </div>
-        <div class="integration-card" data-category="saas" data-name="gitlab code repositories devops">
-          <h4>GitLab</h4>
-          <span class="category-tag">Engineering</span>
-          <div><span class="sync-badge batch">Batch</span></div>
-        </div>
-        <div class="integration-card" data-category="saas" data-name="jira issues tickets project agile">
-          <h4>Jira</h4>
-          <span class="category-tag">Project Mgmt</span>
-          <div><span class="sync-badge batch">Batch</span></div>
-        </div>
-        <div class="integration-card" data-category="saas" data-name="asana tasks project management">
-          <h4>Asana</h4>
-          <span class="category-tag">Project Mgmt</span>
-          <div><span class="sync-badge batch">Batch</span></div>
-        </div>
-        <div class="integration-card" data-category="saas" data-name="notion docs wiki knowledge">
-          <h4>Notion</h4>
-          <span class="category-tag">Workspace</span>
-          <div><span class="sync-badge batch">Batch</span></div>
-        </div>
-        <div class="integration-card" data-category="saas" data-name="slack messages communication team">
-          <h4>Slack</h4>
-          <span class="category-tag">Communication</span>
-          <div><span class="sync-badge batch">Batch</span></div>
-        </div>
+        <!-- ==================== ACCOUNTING & FINANCE ==================== -->
+        <div class="integration-card" data-category="saas" data-name="quickbooks intuit accounting"><h4>QuickBooks<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Accounting</span></div>
+        <div class="integration-card" data-category="saas" data-name="xero accounting"><h4>Xero<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Accounting</span></div>
+        <div class="integration-card" data-category="saas" data-name="freshbooks accounting invoicing"><h4>FreshBooks<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Accounting</span></div>
+        <div class="integration-card" data-category="saas" data-name="wave accounting free"><h4>Wave<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Accounting</span></div>
+        <div class="integration-card" data-category="saas" data-name="sage accounting erp"><h4>Sage<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Accounting</span></div>
+        <div class="integration-card" data-category="saas" data-name="netsuite oracle erp finance"><h4>NetSuite<span class="sync-badge batch">Batch</span></h4><span class="category-tag">ERP</span></div>
+        <div class="integration-card" data-category="saas" data-name="sap erp enterprise s4hana"><h4>SAP<span class="sync-badge batch">Batch</span></h4><span class="category-tag">ERP</span></div>
+        <div class="integration-card" data-category="saas" data-name="bill.com accounts payable"><h4>Bill.com<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Finance</span></div>
+        <div class="integration-card" data-category="saas" data-name="expensify expense management"><h4>Expensify<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Finance</span></div>
+        <div class="integration-card" data-category="saas" data-name="brex corporate card"><h4>Brex<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Finance</span></div>
+        <div class="integration-card" data-category="saas" data-name="ramp corporate card expenses"><h4>Ramp<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Finance</span></div>
+        <div class="integration-card" data-category="saas" data-name="plaid banking api"><h4>Plaid<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Finance</span></div>
+        <div class="integration-card" data-category="saas" data-name="harvest time tracking invoicing"><h4>Harvest<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Finance</span></div>
+        <div class="integration-card" data-category="saas" data-name="toggl time tracking"><h4>Toggl<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Finance</span></div>
 
-        <!-- Files & Storage -->
-        <div class="integration-card" data-category="files" data-name="csv comma separated spreadsheet">
-          <h4>CSV Files</h4>
-          <span class="category-tag">Files</span>
-          <div><span class="sync-badge batch">Batch</span></div>
-        </div>
-        <div class="integration-card" data-category="files" data-name="excel xlsx spreadsheet microsoft">
-          <h4>Excel</h4>
-          <span class="category-tag">Files</span>
-          <div><span class="sync-badge batch">Batch</span></div>
-        </div>
-        <div class="integration-card" data-category="files" data-name="json javascript object notation">
-          <h4>JSON Files</h4>
-          <span class="category-tag">Files</span>
-          <div><span class="sync-badge batch">Batch</span></div>
-        </div>
-        <div class="integration-card" data-category="files" data-name="parquet columnar apache">
-          <h4>Parquet</h4>
-          <span class="category-tag">Files</span>
-          <div><span class="sync-badge batch">Batch</span></div>
-        </div>
-        <div class="integration-card" data-category="files" data-name="s3 amazon aws bucket storage">
-          <h4>Amazon S3</h4>
-          <span class="category-tag">Storage</span>
-          <div><span class="sync-badge batch">Batch</span></div>
-        </div>
-        <div class="integration-card" data-category="files" data-name="gcs google cloud storage bucket">
-          <h4>Google Cloud Storage</h4>
-          <span class="category-tag">Storage</span>
-          <div><span class="sync-badge batch">Batch</span></div>
-        </div>
-        <div class="integration-card" data-category="files" data-name="azure blob storage microsoft">
-          <h4>Azure Blob Storage</h4>
-          <span class="category-tag">Storage</span>
-          <div><span class="sync-badge batch">Batch</span></div>
-        </div>
-        <div class="integration-card" data-category="files" data-name="sftp ftp file transfer ssh">
-          <h4>SFTP / FTP</h4>
-          <span class="category-tag">Transfer</span>
-          <div><span class="sync-badge batch">Batch</span></div>
-        </div>
-        <div class="integration-card" data-category="files" data-name="google drive docs sheets">
-          <h4>Google Drive</h4>
-          <span class="category-tag">Storage</span>
-          <div><span class="sync-badge batch">Batch</span></div>
-        </div>
-        <div class="integration-card" data-category="files" data-name="google sheets spreadsheet">
-          <h4>Google Sheets</h4>
-          <span class="category-tag">Spreadsheets</span>
-          <div><span class="sync-badge batch">Batch</span></div>
-        </div>
-        <div class="integration-card" data-category="files" data-name="dropbox cloud storage">
-          <h4>Dropbox</h4>
-          <span class="category-tag">Storage</span>
-          <div><span class="sync-badge batch">Batch</span></div>
-        </div>
+        <!-- ==================== MARKETING & ANALYTICS ==================== -->
+        <div class="integration-card" data-category="saas" data-name="google analytics ga4 web traffic"><h4>Google Analytics<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Analytics</span></div>
+        <div class="integration-card" data-category="saas" data-name="google ads adwords advertising ppc"><h4>Google Ads<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Ads</span></div>
+        <div class="integration-card" data-category="saas" data-name="google search console seo"><h4>Search Console<span class="sync-badge batch">Batch</span></h4><span class="category-tag">SEO</span></div>
+        <div class="integration-card" data-category="saas" data-name="facebook ads meta advertising social"><h4>Facebook Ads<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Ads</span></div>
+        <div class="integration-card" data-category="saas" data-name="instagram meta social"><h4>Instagram<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Social</span></div>
+        <div class="integration-card" data-category="saas" data-name="linkedin ads advertising b2b"><h4>LinkedIn Ads<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Ads</span></div>
+        <div class="integration-card" data-category="saas" data-name="twitter x ads social"><h4>Twitter/X Ads<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Ads</span></div>
+        <div class="integration-card" data-category="saas" data-name="tiktok ads social video"><h4>TikTok Ads<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Ads</span></div>
+        <div class="integration-card" data-category="saas" data-name="pinterest ads social"><h4>Pinterest Ads<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Ads</span></div>
+        <div class="integration-card" data-category="saas" data-name="snapchat ads social"><h4>Snapchat Ads<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Ads</span></div>
+        <div class="integration-card" data-category="saas" data-name="reddit ads social"><h4>Reddit Ads<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Ads</span></div>
+        <div class="integration-card" data-category="saas" data-name="bing microsoft ads search"><h4>Bing Ads<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Ads</span></div>
+        <div class="integration-card" data-category="saas" data-name="amazon ads advertising"><h4>Amazon Ads<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Ads</span></div>
+        <div class="integration-card" data-category="saas" data-name="criteo ads retargeting"><h4>Criteo<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Ads</span></div>
+        <div class="integration-card" data-category="saas" data-name="mailchimp email marketing campaigns"><h4>Mailchimp<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Email</span></div>
+        <div class="integration-card" data-category="saas" data-name="sendgrid email transactional"><h4>SendGrid<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Email</span></div>
+        <div class="integration-card" data-category="saas" data-name="klaviyo email ecommerce"><h4>Klaviyo<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Email</span></div>
+        <div class="integration-card" data-category="saas" data-name="braze engagement messaging"><h4>Braze<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Engagement</span></div>
+        <div class="integration-card" data-category="saas" data-name="iterable marketing automation"><h4>Iterable<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Email</span></div>
+        <div class="integration-card" data-category="saas" data-name="customer.io email automation"><h4>Customer.io<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Email</span></div>
+        <div class="integration-card" data-category="saas" data-name="activecampaign email automation crm"><h4>ActiveCampaign<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Email</span></div>
+        <div class="integration-card" data-category="saas" data-name="convertkit email creators"><h4>ConvertKit<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Email</span></div>
+        <div class="integration-card" data-category="saas" data-name="drip email ecommerce"><h4>Drip<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Email</span></div>
+        <div class="integration-card" data-category="saas" data-name="mailerlite email"><h4>MailerLite<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Email</span></div>
+        <div class="integration-card" data-category="saas" data-name="sendinblue brevo email"><h4>Brevo<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Email</span></div>
+        <div class="integration-card" data-category="saas" data-name="constant contact email"><h4>Constant Contact<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Email</span></div>
+        <div class="integration-card" data-category="saas" data-name="mixpanel product analytics events"><h4>Mixpanel<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Analytics</span></div>
+        <div class="integration-card" data-category="saas" data-name="amplitude product analytics events"><h4>Amplitude<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Analytics</span></div>
+        <div class="integration-card" data-category="saas" data-name="heap product analytics"><h4>Heap<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Analytics</span></div>
+        <div class="integration-card" data-category="saas" data-name="pendo product analytics"><h4>Pendo<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Analytics</span></div>
+        <div class="integration-card" data-category="saas" data-name="fullstory session replay"><h4>FullStory<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Analytics</span></div>
+        <div class="integration-card" data-category="saas" data-name="hotjar heatmaps session"><h4>Hotjar<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Analytics</span></div>
+        <div class="integration-card" data-category="saas" data-name="posthog product analytics opensource"><h4>PostHog<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Analytics</span></div>
+        <div class="integration-card" data-category="saas" data-name="segment cdp customer data"><h4>Segment<span class="sync-badge batch">Batch</span></h4><span class="category-tag">CDP</span></div>
+        <div class="integration-card" data-category="saas" data-name="rudderstack cdp"><h4>RudderStack<span class="sync-badge batch">Batch</span></h4><span class="category-tag">CDP</span></div>
+        <div class="integration-card" data-category="saas" data-name="mparticle cdp"><h4>mParticle<span class="sync-badge batch">Batch</span></h4><span class="category-tag">CDP</span></div>
+        <div class="integration-card" data-category="saas" data-name="appsflyer mobile attribution"><h4>AppsFlyer<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Mobile</span></div>
+        <div class="integration-card" data-category="saas" data-name="adjust mobile attribution"><h4>Adjust<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Mobile</span></div>
+        <div class="integration-card" data-category="saas" data-name="branch mobile attribution"><h4>Branch<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Mobile</span></div>
+        <div class="integration-card" data-category="saas" data-name="singular mobile attribution"><h4>Singular<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Mobile</span></div>
 
-        <!-- APIs -->
-        <div class="integration-card" data-category="api" data-name="rest api http json generic">
-          <h4>REST APIs</h4>
-          <span class="category-tag">Generic</span>
-          <div><span class="sync-badge batch">Batch</span></div>
-        </div>
-        <div class="integration-card" data-category="api" data-name="graphql api query">
-          <h4>GraphQL</h4>
-          <span class="category-tag">Generic</span>
-          <div><span class="sync-badge batch">Batch</span></div>
-        </div>
-        <div class="integration-card" data-category="api" data-name="webhook http events push">
-          <h4>Webhooks</h4>
-          <span class="category-tag">Events</span>
-          <div><span class="sync-badge batch">Batch</span></div>
-        </div>
-        <div class="integration-card" data-category="api" data-name="kafka streaming events message">
-          <h4>Apache Kafka</h4>
-          <span class="category-tag">Streaming</span>
-          <div><span class="sync-badge realtime">Real-time</span></div>
-        </div>
+        <!-- ==================== ENGINEERING & DEVTOOLS ==================== -->
+        <div class="integration-card" data-category="saas" data-name="github code repositories developers"><h4>GitHub<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Engineering</span></div>
+        <div class="integration-card" data-category="saas" data-name="gitlab code repositories devops"><h4>GitLab<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Engineering</span></div>
+        <div class="integration-card" data-category="saas" data-name="bitbucket atlassian git"><h4>Bitbucket<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Engineering</span></div>
+        <div class="integration-card" data-category="saas" data-name="jira issues tickets project agile atlassian"><h4>Jira<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Project Mgmt</span></div>
+        <div class="integration-card" data-category="saas" data-name="linear issues project"><h4>Linear<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Project Mgmt</span></div>
+        <div class="integration-card" data-category="saas" data-name="shortcut clubhouse issues"><h4>Shortcut<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Project Mgmt</span></div>
+        <div class="integration-card" data-category="saas" data-name="asana tasks project management"><h4>Asana<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Project Mgmt</span></div>
+        <div class="integration-card" data-category="saas" data-name="trello boards kanban atlassian"><h4>Trello<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Project Mgmt</span></div>
+        <div class="integration-card" data-category="saas" data-name="monday project management"><h4>Monday.com<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Project Mgmt</span></div>
+        <div class="integration-card" data-category="saas" data-name="clickup project management"><h4>ClickUp<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Project Mgmt</span></div>
+        <div class="integration-card" data-category="saas" data-name="basecamp project management"><h4>Basecamp<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Project Mgmt</span></div>
+        <div class="integration-card" data-category="saas" data-name="wrike project management"><h4>Wrike<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Project Mgmt</span></div>
+        <div class="integration-card" data-category="saas" data-name="smartsheet spreadsheet project"><h4>Smartsheet<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Project Mgmt</span></div>
+        <div class="integration-card" data-category="saas" data-name="notion docs wiki knowledge"><h4>Notion<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Workspace</span></div>
+        <div class="integration-card" data-category="saas" data-name="confluence atlassian wiki"><h4>Confluence<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Workspace</span></div>
+        <div class="integration-card" data-category="saas" data-name="coda docs workspace"><h4>Coda<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Workspace</span></div>
+        <div class="integration-card" data-category="saas" data-name="slack messages communication team"><h4>Slack<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Communication</span></div>
+        <div class="integration-card" data-category="saas" data-name="microsoft teams communication"><h4>MS Teams<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Communication</span></div>
+        <div class="integration-card" data-category="saas" data-name="discord communication community"><h4>Discord<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Communication</span></div>
+        <div class="integration-card" data-category="saas" data-name="zoom video meetings"><h4>Zoom<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Communication</span></div>
+        <div class="integration-card" data-category="saas" data-name="calendly scheduling"><h4>Calendly<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Communication</span></div>
+        <div class="integration-card" data-category="saas" data-name="sentry error tracking"><h4>Sentry<span class="sync-badge batch">Batch</span></h4><span class="category-tag">DevOps</span></div>
+        <div class="integration-card" data-category="saas" data-name="datadog monitoring observability apm"><h4>Datadog<span class="sync-badge batch">Batch</span></h4><span class="category-tag">DevOps</span></div>
+        <div class="integration-card" data-category="saas" data-name="newrelic monitoring apm"><h4>New Relic<span class="sync-badge batch">Batch</span></h4><span class="category-tag">DevOps</span></div>
+        <div class="integration-card" data-category="saas" data-name="splunk logs monitoring"><h4>Splunk<span class="sync-badge batch">Batch</span></h4><span class="category-tag">DevOps</span></div>
+        <div class="integration-card" data-category="saas" data-name="pagerduty incidents alerts oncall"><h4>PagerDuty<span class="sync-badge batch">Batch</span></h4><span class="category-tag">DevOps</span></div>
+        <div class="integration-card" data-category="saas" data-name="opsgenie alerts atlassian"><h4>Opsgenie<span class="sync-badge batch">Batch</span></h4><span class="category-tag">DevOps</span></div>
+        <div class="integration-card" data-category="saas" data-name="statuspage incidents"><h4>Statuspage<span class="sync-badge batch">Batch</span></h4><span class="category-tag">DevOps</span></div>
+        <div class="integration-card" data-category="saas" data-name="circleci ci cd"><h4>CircleCI<span class="sync-badge batch">Batch</span></h4><span class="category-tag">DevOps</span></div>
+        <div class="integration-card" data-category="saas" data-name="jenkins ci cd"><h4>Jenkins<span class="sync-badge batch">Batch</span></h4><span class="category-tag">DevOps</span></div>
+        <div class="integration-card" data-category="saas" data-name="buildkite ci cd"><h4>Buildkite<span class="sync-badge batch">Batch</span></h4><span class="category-tag">DevOps</span></div>
+        <div class="integration-card" data-category="saas" data-name="github actions ci cd"><h4>GitHub Actions<span class="sync-badge batch">Batch</span></h4><span class="category-tag">DevOps</span></div>
+        <div class="integration-card" data-category="saas" data-name="launchdarkly feature flags"><h4>LaunchDarkly<span class="sync-badge batch">Batch</span></h4><span class="category-tag">DevOps</span></div>
 
-        <!-- More SaaS -->
-        <div class="integration-card" data-category="saas" data-name="twilio sms voice communications">
-          <h4>Twilio</h4>
-          <span class="category-tag">Communications</span>
-          <div><span class="sync-badge batch">Batch</span></div>
-        </div>
-        <div class="integration-card" data-category="saas" data-name="datadog monitoring observability">
-          <h4>Datadog</h4>
-          <span class="category-tag">Monitoring</span>
-          <div><span class="sync-badge batch">Batch</span></div>
-        </div>
-        <div class="integration-card" data-category="saas" data-name="pagerduty incidents alerts oncall">
-          <h4>PagerDuty</h4>
-          <span class="category-tag">Ops</span>
-          <div><span class="sync-badge batch">Batch</span></div>
-        </div>
-        <div class="integration-card" data-category="saas" data-name="lever recruiting hiring ats">
-          <h4>Lever</h4>
-          <span class="category-tag">HR</span>
-          <div><span class="sync-badge batch">Batch</span></div>
-        </div>
-        <div class="integration-card" data-category="saas" data-name="greenhouse recruiting hiring ats">
-          <h4>Greenhouse</h4>
-          <span class="category-tag">HR</span>
-          <div><span class="sync-badge batch">Batch</span></div>
-        </div>
-        <div class="integration-card" data-category="saas" data-name="workday hr human resources payroll">
-          <h4>Workday</h4>
-          <span class="category-tag">HR</span>
-          <div><span class="sync-badge batch">Batch</span></div>
-        </div>
-        <div class="integration-card" data-category="saas" data-name="bamboohr hr human resources">
-          <h4>BambooHR</h4>
-          <span class="category-tag">HR</span>
-          <div><span class="sync-badge batch">Batch</span></div>
-        </div>
-        <div class="integration-card" data-category="saas" data-name="netsuite erp oracle finance">
-          <h4>NetSuite</h4>
-          <span class="category-tag">ERP</span>
-          <div><span class="sync-badge batch">Batch</span></div>
-        </div>
-        <div class="integration-card" data-category="saas" data-name="sap erp enterprise">
-          <h4>SAP</h4>
-          <span class="category-tag">ERP</span>
-          <div><span class="sync-badge batch">Batch</span></div>
-        </div>
+        <!-- ==================== HR & RECRUITING ==================== -->
+        <div class="integration-card" data-category="saas" data-name="lever recruiting hiring ats"><h4>Lever<span class="sync-badge batch">Batch</span></h4><span class="category-tag">HR</span></div>
+        <div class="integration-card" data-category="saas" data-name="greenhouse recruiting hiring ats"><h4>Greenhouse<span class="sync-badge batch">Batch</span></h4><span class="category-tag">HR</span></div>
+        <div class="integration-card" data-category="saas" data-name="workday hr human resources payroll"><h4>Workday<span class="sync-badge batch">Batch</span></h4><span class="category-tag">HR</span></div>
+        <div class="integration-card" data-category="saas" data-name="bamboohr hr human resources"><h4>BambooHR<span class="sync-badge batch">Batch</span></h4><span class="category-tag">HR</span></div>
+        <div class="integration-card" data-category="saas" data-name="gusto payroll hr"><h4>Gusto<span class="sync-badge batch">Batch</span></h4><span class="category-tag">HR</span></div>
+        <div class="integration-card" data-category="saas" data-name="rippling hr payroll"><h4>Rippling<span class="sync-badge batch">Batch</span></h4><span class="category-tag">HR</span></div>
+        <div class="integration-card" data-category="saas" data-name="deel hr global payroll"><h4>Deel<span class="sync-badge batch">Batch</span></h4><span class="category-tag">HR</span></div>
+        <div class="integration-card" data-category="saas" data-name="remote hr global"><h4>Remote<span class="sync-badge batch">Batch</span></h4><span class="category-tag">HR</span></div>
+        <div class="integration-card" data-category="saas" data-name="justworks hr payroll"><h4>Justworks<span class="sync-badge batch">Batch</span></h4><span class="category-tag">HR</span></div>
+        <div class="integration-card" data-category="saas" data-name="namely hr"><h4>Namely<span class="sync-badge batch">Batch</span></h4><span class="category-tag">HR</span></div>
+        <div class="integration-card" data-category="saas" data-name="paychex payroll hr"><h4>Paychex<span class="sync-badge batch">Batch</span></h4><span class="category-tag">HR</span></div>
+        <div class="integration-card" data-category="saas" data-name="adp payroll hr"><h4>ADP<span class="sync-badge batch">Batch</span></h4><span class="category-tag">HR</span></div>
+        <div class="integration-card" data-category="saas" data-name="ashby recruiting ats"><h4>Ashby<span class="sync-badge batch">Batch</span></h4><span class="category-tag">HR</span></div>
+        <div class="integration-card" data-category="saas" data-name="workable recruiting ats"><h4>Workable<span class="sync-badge batch">Batch</span></h4><span class="category-tag">HR</span></div>
+        <div class="integration-card" data-category="saas" data-name="breezy recruiting ats"><h4>Breezy HR<span class="sync-badge batch">Batch</span></h4><span class="category-tag">HR</span></div>
+        <div class="integration-card" data-category="saas" data-name="personio hr european"><h4>Personio<span class="sync-badge batch">Batch</span></h4><span class="category-tag">HR</span></div>
+        <div class="integration-card" data-category="saas" data-name="lattice performance hr"><h4>Lattice<span class="sync-badge batch">Batch</span></h4><span class="category-tag">HR</span></div>
+        <div class="integration-card" data-category="saas" data-name="15five performance"><h4>15Five<span class="sync-badge batch">Batch</span></h4><span class="category-tag">HR</span></div>
+        <div class="integration-card" data-category="saas" data-name="culture amp engagement"><h4>Culture Amp<span class="sync-badge batch">Batch</span></h4><span class="category-tag">HR</span></div>
+
+        <!-- ==================== COMMUNICATIONS ==================== -->
+        <div class="integration-card" data-category="saas" data-name="twilio sms voice communications"><h4>Twilio<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Communications</span></div>
+        <div class="integration-card" data-category="saas" data-name="vonage nexmo voice sms"><h4>Vonage<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Communications</span></div>
+        <div class="integration-card" data-category="saas" data-name="messagebird sms voice"><h4>MessageBird<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Communications</span></div>
+        <div class="integration-card" data-category="saas" data-name="plivo sms voice"><h4>Plivo<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Communications</span></div>
+        <div class="integration-card" data-category="saas" data-name="bandwidth sms voice"><h4>Bandwidth<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Communications</span></div>
+        <div class="integration-card" data-category="saas" data-name="aircall phone call center"><h4>Aircall<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Communications</span></div>
+        <div class="integration-card" data-category="saas" data-name="dialpad phone"><h4>Dialpad<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Communications</span></div>
+        <div class="integration-card" data-category="saas" data-name="ringcentral phone"><h4>RingCentral<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Communications</span></div>
+
+        <!-- ==================== FILES & STORAGE ==================== -->
+        <div class="integration-card" data-category="files" data-name="csv comma separated spreadsheet"><h4>CSV Files<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Files</span></div>
+        <div class="integration-card" data-category="files" data-name="excel xlsx spreadsheet microsoft xls"><h4>Excel<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Files</span></div>
+        <div class="integration-card" data-category="files" data-name="json javascript object notation"><h4>JSON<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Files</span></div>
+        <div class="integration-card" data-category="files" data-name="jsonl ndjson newline json"><h4>JSONL<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Files</span></div>
+        <div class="integration-card" data-category="files" data-name="parquet columnar apache"><h4>Parquet<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Files</span></div>
+        <div class="integration-card" data-category="files" data-name="avro apache serialization"><h4>Avro<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Files</span></div>
+        <div class="integration-card" data-category="files" data-name="orc apache hive"><h4>ORC<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Files</span></div>
+        <div class="integration-card" data-category="files" data-name="xml extensible markup"><h4>XML<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Files</span></div>
+        <div class="integration-card" data-category="files" data-name="yaml yml config"><h4>YAML<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Files</span></div>
+        <div class="integration-card" data-category="files" data-name="tsv tab separated"><h4>TSV<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Files</span></div>
+        <div class="integration-card" data-category="files" data-name="pdf document"><h4>PDF<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Files</span></div>
+        <div class="integration-card" data-category="files" data-name="s3 amazon aws bucket storage"><h4>Amazon S3<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Storage</span></div>
+        <div class="integration-card" data-category="files" data-name="gcs google cloud storage bucket"><h4>Google Cloud Storage<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Storage</span></div>
+        <div class="integration-card" data-category="files" data-name="azure blob storage microsoft adls"><h4>Azure Blob<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Storage</span></div>
+        <div class="integration-card" data-category="files" data-name="minio s3 compatible"><h4>MinIO<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Storage</span></div>
+        <div class="integration-card" data-category="files" data-name="wasabi s3 compatible"><h4>Wasabi<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Storage</span></div>
+        <div class="integration-card" data-category="files" data-name="backblaze b2 storage"><h4>Backblaze B2<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Storage</span></div>
+        <div class="integration-card" data-category="files" data-name="digitalocean spaces s3"><h4>DigitalOcean Spaces<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Storage</span></div>
+        <div class="integration-card" data-category="files" data-name="cloudflare r2 s3"><h4>Cloudflare R2<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Storage</span></div>
+        <div class="integration-card" data-category="files" data-name="sftp ftp file transfer ssh"><h4>SFTP / FTP<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Transfer</span></div>
+        <div class="integration-card" data-category="files" data-name="google drive docs sheets"><h4>Google Drive<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Storage</span></div>
+        <div class="integration-card" data-category="files" data-name="google sheets spreadsheet"><h4>Google Sheets<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Spreadsheets</span></div>
+        <div class="integration-card" data-category="files" data-name="dropbox cloud storage"><h4>Dropbox<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Storage</span></div>
+        <div class="integration-card" data-category="files" data-name="box cloud storage enterprise"><h4>Box<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Storage</span></div>
+        <div class="integration-card" data-category="files" data-name="onedrive microsoft sharepoint"><h4>OneDrive<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Storage</span></div>
+        <div class="integration-card" data-category="files" data-name="sharepoint microsoft"><h4>SharePoint<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Storage</span></div>
+        <div class="integration-card" data-category="files" data-name="hdfs hadoop distributed"><h4>HDFS<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Storage</span></div>
+        <div class="integration-card" data-category="files" data-name="local filesystem"><h4>Local Files<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Files</span></div>
+
+        <!-- ==================== APIs & STREAMING ==================== -->
+        <div class="integration-card" data-category="api" data-name="rest api http json generic openapi swagger"><h4>REST APIs<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Generic</span></div>
+        <div class="integration-card" data-category="api" data-name="graphql api query mutation"><h4>GraphQL<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Generic</span></div>
+        <div class="integration-card" data-category="api" data-name="soap xml web services wsdl"><h4>SOAP APIs<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Generic</span></div>
+        <div class="integration-card" data-category="api" data-name="grpc protocol buffers rpc"><h4>gRPC<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Generic</span></div>
+        <div class="integration-card" data-category="api" data-name="odata microsoft rest"><h4>OData<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Generic</span></div>
+        <div class="integration-card" data-category="api" data-name="webhook http events push"><h4>Webhooks<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Events</span></div>
+        <div class="integration-card" data-category="api" data-name="kafka apache streaming events message"><h4>Apache Kafka<span class="sync-badge realtime">Streaming</span></h4><span class="category-tag">Streaming</span></div>
+        <div class="integration-card" data-category="api" data-name="confluent kafka cloud"><h4>Confluent Cloud<span class="sync-badge realtime">Streaming</span></h4><span class="category-tag">Streaming</span></div>
+        <div class="integration-card" data-category="api" data-name="amazon kinesis streaming aws"><h4>Amazon Kinesis<span class="sync-badge realtime">Streaming</span></h4><span class="category-tag">Streaming</span></div>
+        <div class="integration-card" data-category="api" data-name="google pubsub gcp streaming"><h4>Google Pub/Sub<span class="sync-badge realtime">Streaming</span></h4><span class="category-tag">Streaming</span></div>
+        <div class="integration-card" data-category="api" data-name="azure event hubs microsoft streaming"><h4>Azure Event Hubs<span class="sync-badge realtime">Streaming</span></h4><span class="category-tag">Streaming</span></div>
+        <div class="integration-card" data-category="api" data-name="rabbitmq message queue amqp"><h4>RabbitMQ<span class="sync-badge realtime">Streaming</span></h4><span class="category-tag">Streaming</span></div>
+        <div class="integration-card" data-category="api" data-name="pulsar apache streaming"><h4>Apache Pulsar<span class="sync-badge realtime">Streaming</span></h4><span class="category-tag">Streaming</span></div>
+        <div class="integration-card" data-category="api" data-name="nats messaging cloud native"><h4>NATS<span class="sync-badge realtime">Streaming</span></h4><span class="category-tag">Streaming</span></div>
+        <div class="integration-card" data-category="api" data-name="redpanda kafka compatible"><h4>Redpanda<span class="sync-badge realtime">Streaming</span></h4><span class="category-tag">Streaming</span></div>
+        <div class="integration-card" data-category="api" data-name="amazon sqs queue aws"><h4>Amazon SQS<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Queue</span></div>
+        <div class="integration-card" data-category="api" data-name="mqtt iot protocol"><h4>MQTT<span class="sync-badge realtime">Streaming</span></h4><span class="category-tag">IoT</span></div>
+
+        <!-- ==================== MORE SAAS ==================== -->
+        <div class="integration-card" data-category="saas" data-name="docusign esignature contracts"><h4>DocuSign<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Legal</span></div>
+        <div class="integration-card" data-category="saas" data-name="pandadoc documents proposals"><h4>PandaDoc<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Legal</span></div>
+        <div class="integration-card" data-category="saas" data-name="hellosign esignature dropbox"><h4>HelloSign<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Legal</span></div>
+        <div class="integration-card" data-category="saas" data-name="productboard product management"><h4>Productboard<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Product</span></div>
+        <div class="integration-card" data-category="saas" data-name="aha product roadmap"><h4>Aha!<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Product</span></div>
+        <div class="integration-card" data-category="saas" data-name="figma design ui"><h4>Figma<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Design</span></div>
+        <div class="integration-card" data-category="saas" data-name="miro whiteboard collaboration"><h4>Miro<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Design</span></div>
+        <div class="integration-card" data-category="saas" data-name="loom video async"><h4>Loom<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Video</span></div>
+        <div class="integration-card" data-category="saas" data-name="youtube video google"><h4>YouTube<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Video</span></div>
+        <div class="integration-card" data-category="saas" data-name="vimeo video"><h4>Vimeo<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Video</span></div>
+        <div class="integration-card" data-category="saas" data-name="wistia video hosting"><h4>Wistia<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Video</span></div>
+        <div class="integration-card" data-category="saas" data-name="chargepoint ev charging"><h4>ChargePoint<span class="sync-badge batch">Batch</span></h4><span class="category-tag">IoT</span></div>
+        <div class="integration-card" data-category="saas" data-name="weatherapi weather data"><h4>Weather API<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Data</span></div>
+        <div class="integration-card" data-category="saas" data-name="openweather weather"><h4>OpenWeather<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Data</span></div>
+        <div class="integration-card" data-category="saas" data-name="currencyapi exchange rates"><h4>Exchange Rates<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Data</span></div>
+        <div class="integration-card" data-category="saas" data-name="alpha vantage stocks finance"><h4>Alpha Vantage<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Finance</span></div>
+        <div class="integration-card" data-category="saas" data-name="polygon stocks crypto"><h4>Polygon.io<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Finance</span></div>
+        <div class="integration-card" data-category="saas" data-name="coinbase crypto bitcoin"><h4>Coinbase<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Crypto</span></div>
+        <div class="integration-card" data-category="saas" data-name="binance crypto trading"><h4>Binance<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Crypto</span></div>
+        <div class="integration-card" data-category="saas" data-name="coingecko crypto prices"><h4>CoinGecko<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Crypto</span></div>
+        <div class="integration-card" data-category="saas" data-name="twitter x social api"><h4>Twitter/X<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Social</span></div>
+        <div class="integration-card" data-category="saas" data-name="facebook social meta"><h4>Facebook<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Social</span></div>
+        <div class="integration-card" data-category="saas" data-name="linkedin social professional"><h4>LinkedIn<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Social</span></div>
+        <div class="integration-card" data-category="saas" data-name="spotify music streaming"><h4>Spotify<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Media</span></div>
+        <div class="integration-card" data-category="saas" data-name="apple music streaming"><h4>Apple Music<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Media</span></div>
+        <div class="integration-card" data-category="saas" data-name="strava fitness sports"><h4>Strava<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Fitness</span></div>
+        <div class="integration-card" data-category="saas" data-name="fitbit fitness wearable"><h4>Fitbit<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Fitness</span></div>
+        <div class="integration-card" data-category="saas" data-name="oura ring sleep"><h4>Oura<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Fitness</span></div>
+        <div class="integration-card" data-category="saas" data-name="contentful cms headless"><h4>Contentful<span class="sync-badge batch">Batch</span></h4><span class="category-tag">CMS</span></div>
+        <div class="integration-card" data-category="saas" data-name="sanity cms headless"><h4>Sanity<span class="sync-badge batch">Batch</span></h4><span class="category-tag">CMS</span></div>
+        <div class="integration-card" data-category="saas" data-name="strapi cms opensource"><h4>Strapi<span class="sync-badge batch">Batch</span></h4><span class="category-tag">CMS</span></div>
+        <div class="integration-card" data-category="saas" data-name="wordpress cms blog"><h4>WordPress<span class="sync-badge batch">Batch</span></h4><span class="category-tag">CMS</span></div>
+        <div class="integration-card" data-category="saas" data-name="ghost cms blog"><h4>Ghost<span class="sync-badge batch">Batch</span></h4><span class="category-tag">CMS</span></div>
+        <div class="integration-card" data-category="saas" data-name="webflow cms nocode"><h4>Webflow<span class="sync-badge batch">Batch</span></h4><span class="category-tag">CMS</span></div>
+        <div class="integration-card" data-category="saas" data-name="squarespace website"><h4>Squarespace<span class="sync-badge batch">Batch</span></h4><span class="category-tag">CMS</span></div>
+        <div class="integration-card" data-category="saas" data-name="wix website"><h4>Wix<span class="sync-badge batch">Batch</span></h4><span class="category-tag">CMS</span></div>
+        <div class="integration-card" data-category="saas" data-name="auth0 identity authentication"><h4>Auth0<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Security</span></div>
+        <div class="integration-card" data-category="saas" data-name="okta identity sso"><h4>Okta<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Security</span></div>
+        <div class="integration-card" data-category="saas" data-name="onelogin identity sso"><h4>OneLogin<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Security</span></div>
+        <div class="integration-card" data-category="saas" data-name="1password secrets"><h4>1Password<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Security</span></div>
+        <div class="integration-card" data-category="saas" data-name="aws cloudwatch logs metrics"><h4>AWS CloudWatch<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Cloud</span></div>
+        <div class="integration-card" data-category="saas" data-name="aws cost explorer billing"><h4>AWS Cost Explorer<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Cloud</span></div>
+        <div class="integration-card" data-category="saas" data-name="google cloud platform gcp"><h4>GCP<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Cloud</span></div>
+        <div class="integration-card" data-category="saas" data-name="azure microsoft cloud"><h4>Azure<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Cloud</span></div>
+        <div class="integration-card" data-category="saas" data-name="heroku paas"><h4>Heroku<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Cloud</span></div>
+        <div class="integration-card" data-category="saas" data-name="vercel frontend deployment"><h4>Vercel<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Cloud</span></div>
+        <div class="integration-card" data-category="saas" data-name="netlify frontend deployment"><h4>Netlify<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Cloud</span></div>
+        <div class="integration-card" data-category="saas" data-name="render paas"><h4>Render<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Cloud</span></div>
+        <div class="integration-card" data-category="saas" data-name="railway paas"><h4>Railway<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Cloud</span></div>
+        <div class="integration-card" data-category="saas" data-name="fly.io edge"><h4>Fly.io<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Cloud</span></div>
       </div>
 
       <div style="text-align: center; margin-top: 3rem; padding: 2rem; background: var(--bg-alt); border-radius: 0.75rem;">
-        <p style="font-size: 1.1rem; margin-bottom: 1rem;">Don't see your data source? <strong>500+ additional connectors</strong> available via Meltano Hub.</p>
-        <a href="https://hub.meltano.com/" target="_blank" style="color: var(--accent); font-weight: 600;">Browse all connectors &rarr;</a>
+        <p style="font-size: 1.1rem; margin-bottom: 1rem;">Don't see your data source? We support <strong>any REST API, GraphQL endpoint, or custom connector</strong>.</p>
+        <a href="mailto:support@openlakes.io" style="color: var(--accent); font-weight: 600;">Request a new integration &rarr;</a>
       </div>
     </div>
   </section>
@@ -608,12 +691,13 @@
     const countSpan = document.getElementById('count');
     const noResults = document.getElementById('no-results');
     const grid = document.getElementById('integrations');
+    const totalCount = integrations.length;
 
     let currentCategory = 'all';
 
     function updateCount() {
       const visible = document.querySelectorAll('.integration-card:not(.hidden)').length;
-      countSpan.textContent = visible === integrations.length ? '500+' : visible;
+      countSpan.textContent = visible === totalCount ? `${totalCount}+` : visible;
 
       if (visible === 0) {
         noResults.classList.remove('hidden');
