@@ -110,6 +110,14 @@
       background: rgba(59, 130, 246, 0.1);
       color: #2563eb;
     }
+    .integration-card .tap-hint {
+      display: block;
+      font-size: 0.65rem;
+      color: var(--muted);
+      opacity: 0.7;
+      margin-top: 0.25rem;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
     .category-filter {
       display: flex;
       flex-wrap: wrap;
@@ -287,45 +295,48 @@
         <div class="integration-card" data-category="database" data-name="informix ibm relational sql"><h4>IBM Informix<span class="sync-badge realtime">CDC</span></h4><span class="category-tag">Database</span></div>
         <div class="integration-card" data-category="database" data-name="jdbc generic sql relational any"><h4>JDBC (Any SQL)<span class="sync-badge realtime">CDC</span></h4><span class="category-tag">Database</span></div>
 
-        <!-- Batch Databases -->
-        <div class="integration-card" data-category="database" data-name="snowflake cloud warehouse"><h4>Snowflake<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
-        <div class="integration-card" data-category="database" data-name="bigquery google cloud gcp bq"><h4>BigQuery<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
-        <div class="integration-card" data-category="database" data-name="redshift amazon aws warehouse"><h4>Redshift<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
-        <div class="integration-card" data-category="database" data-name="databricks spark delta"><h4>Databricks<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
-        <div class="integration-card" data-category="database" data-name="clickhouse olap analytics"><h4>ClickHouse<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
-        <div class="integration-card" data-category="database" data-name="duckdb embedded analytics"><h4>DuckDB<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
-        <div class="integration-card" data-category="database" data-name="sqlite local embedded"><h4>SQLite<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
-        <div class="integration-card" data-category="database" data-name="dynamodb amazon aws nosql"><h4>DynamoDB<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
-        <div class="integration-card" data-category="database" data-name="couchbase nosql document"><h4>Couchbase<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
-        <div class="integration-card" data-category="database" data-name="couchdb apache nosql"><h4>CouchDB<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
-        <div class="integration-card" data-category="database" data-name="elasticsearch elastic search"><h4>Elasticsearch<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
-        <div class="integration-card" data-category="database" data-name="opensearch aws elastic"><h4>OpenSearch<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
-        <div class="integration-card" data-category="database" data-name="redis cache nosql"><h4>Redis<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
-        <div class="integration-card" data-category="database" data-name="neo4j graph database"><h4>Neo4j<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
-        <div class="integration-card" data-category="database" data-name="cockroachdb distributed sql"><h4>CockroachDB<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
-        <div class="integration-card" data-category="database" data-name="tidb mysql distributed"><h4>TiDB<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
-        <div class="integration-card" data-category="database" data-name="yugabytedb distributed postgresql"><h4>YugabyteDB<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
-        <div class="integration-card" data-category="database" data-name="singlestore memsql"><h4>SingleStore<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
-        <div class="integration-card" data-category="database" data-name="planetscale mysql vitess"><h4>PlanetScale<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
-        <div class="integration-card" data-category="database" data-name="neon postgres serverless"><h4>Neon<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
-        <div class="integration-card" data-category="database" data-name="supabase postgres firebase"><h4>Supabase<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
-        <div class="integration-card" data-category="database" data-name="airtable spreadsheet database"><h4>Airtable<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
-        <div class="integration-card" data-category="database" data-name="firebase google firestore"><h4>Firebase<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
-        <div class="integration-card" data-category="database" data-name="fauna serverless"><h4>Fauna<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
-        <div class="integration-card" data-category="database" data-name="influxdb timeseries iot"><h4>InfluxDB<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
-        <div class="integration-card" data-category="database" data-name="timescaledb postgres timeseries"><h4>TimescaleDB<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
-        <div class="integration-card" data-category="database" data-name="questdb timeseries"><h4>QuestDB<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
-        <div class="integration-card" data-category="database" data-name="druid apache olap"><h4>Apache Druid<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
-        <div class="integration-card" data-category="database" data-name="pinot apache olap"><h4>Apache Pinot<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
-        <div class="integration-card" data-category="database" data-name="greenplum analytics mpp"><h4>Greenplum<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
-        <div class="integration-card" data-category="database" data-name="vertica analytics mpp"><h4>Vertica<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
-        <div class="integration-card" data-category="database" data-name="teradata enterprise warehouse"><h4>Teradata<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
-        <div class="integration-card" data-category="database" data-name="exasol analytics"><h4>Exasol<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
-        <div class="integration-card" data-category="database" data-name="sap hana enterprise"><h4>SAP HANA<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
-        <div class="integration-card" data-category="database" data-name="sybase sap ase"><h4>Sybase<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
-        <div class="integration-card" data-category="database" data-name="informix ibm"><h4>Informix<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
-        <div class="integration-card" data-category="database" data-name="firebird interbase"><h4>Firebird<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
-        <div class="integration-card" data-category="database" data-name="access microsoft mdb"><h4>MS Access<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span></div>
+        <!-- Batch Databases (with native taps) -->
+        <div class="integration-card" data-category="database" data-name="snowflake cloud warehouse"><h4>Snowflake<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span><span class="tap-hint">tap-snowflake</span></div>
+        <div class="integration-card" data-category="database" data-name="bigquery google cloud gcp bq"><h4>BigQuery<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span><span class="tap-hint">tap-bigquery</span></div>
+        <div class="integration-card" data-category="database" data-name="redshift amazon aws warehouse"><h4>Redshift<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span><span class="tap-hint">tap-redshift</span></div>
+        <div class="integration-card" data-category="database" data-name="clickhouse olap analytics"><h4>ClickHouse<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span><span class="tap-hint">tap-clickhouse</span></div>
+        <div class="integration-card" data-category="database" data-name="duckdb embedded analytics"><h4>DuckDB<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span><span class="tap-hint">tap-duckdb</span></div>
+        <div class="integration-card" data-category="database" data-name="dynamodb amazon aws nosql"><h4>DynamoDB<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span><span class="tap-hint">tap-dynamodb</span></div>
+        <div class="integration-card" data-category="database" data-name="elasticsearch elastic search"><h4>Elasticsearch<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span><span class="tap-hint">tap-elasticsearch</span></div>
+        <div class="integration-card" data-category="database" data-name="cockroachdb distributed sql"><h4>CockroachDB<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span><span class="tap-hint">tap-cockroachdb</span></div>
+        <div class="integration-card" data-category="database" data-name="tidb mysql distributed"><h4>TiDB<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span><span class="tap-hint">tap-tidb</span></div>
+        <div class="integration-card" data-category="database" data-name="airtable spreadsheet database"><h4>Airtable<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span><span class="tap-hint">tap-airtable</span></div>
+        <div class="integration-card" data-category="database" data-name="fauna serverless"><h4>Fauna<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span><span class="tap-hint">tap-fauna</span></div>
+        <div class="integration-card" data-category="database" data-name="sybase sap ase"><h4>Sybase<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span><span class="tap-hint">tap-sybase</span></div>
+        <!-- Batch Databases (via tap-postgres - PostgreSQL compatible) -->
+        <div class="integration-card" data-category="database" data-name="yugabytedb distributed postgresql"><h4>YugabyteDB<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span><span class="tap-hint">via tap-postgres</span></div>
+        <div class="integration-card" data-category="database" data-name="neon postgres serverless"><h4>Neon<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span><span class="tap-hint">via tap-postgres</span></div>
+        <div class="integration-card" data-category="database" data-name="supabase postgres firebase"><h4>Supabase<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span><span class="tap-hint">via tap-postgres</span></div>
+        <div class="integration-card" data-category="database" data-name="timescaledb postgres timeseries"><h4>TimescaleDB<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span><span class="tap-hint">via tap-postgres</span></div>
+        <div class="integration-card" data-category="database" data-name="greenplum analytics mpp"><h4>Greenplum<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span><span class="tap-hint">via tap-postgres</span></div>
+        <!-- Batch Databases (via tap-mysql - MySQL compatible) -->
+        <div class="integration-card" data-category="database" data-name="singlestore memsql"><h4>SingleStore<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span><span class="tap-hint">via tap-mysql</span></div>
+        <div class="integration-card" data-category="database" data-name="planetscale mysql vitess"><h4>PlanetScale<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span><span class="tap-hint">via tap-mysql</span></div>
+        <!-- Batch Databases (via JDBC - generic SQL) -->
+        <div class="integration-card" data-category="database" data-name="databricks spark delta"><h4>Databricks<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span><span class="tap-hint">via JDBC</span></div>
+        <div class="integration-card" data-category="database" data-name="vertica analytics mpp"><h4>Vertica<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span><span class="tap-hint">via JDBC</span></div>
+        <div class="integration-card" data-category="database" data-name="teradata enterprise warehouse"><h4>Teradata<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span><span class="tap-hint">via JDBC</span></div>
+        <div class="integration-card" data-category="database" data-name="exasol analytics"><h4>Exasol<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span><span class="tap-hint">via JDBC</span></div>
+        <div class="integration-card" data-category="database" data-name="sap hana enterprise"><h4>SAP HANA<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span><span class="tap-hint">via JDBC</span></div>
+        <div class="integration-card" data-category="database" data-name="firebird interbase"><h4>Firebird<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span><span class="tap-hint">via JDBC</span></div>
+        <div class="integration-card" data-category="database" data-name="druid apache olap"><h4>Apache Druid<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span><span class="tap-hint">via JDBC</span></div>
+        <div class="integration-card" data-category="database" data-name="pinot apache olap"><h4>Apache Pinot<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span><span class="tap-hint">via JDBC</span></div>
+        <div class="integration-card" data-category="database" data-name="questdb timeseries"><h4>QuestDB<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span><span class="tap-hint">via tap-postgres</span></div>
+        <!-- Batch Databases (via REST API) -->
+        <div class="integration-card" data-category="database" data-name="opensearch aws elastic"><h4>OpenSearch<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span><span class="tap-hint">via REST API</span></div>
+        <div class="integration-card" data-category="database" data-name="couchbase nosql document"><h4>Couchbase<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span><span class="tap-hint">via REST API</span></div>
+        <div class="integration-card" data-category="database" data-name="couchdb apache nosql"><h4>CouchDB<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span><span class="tap-hint">via REST API</span></div>
+        <div class="integration-card" data-category="database" data-name="firebase google firestore"><h4>Firebase<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span><span class="tap-hint">via REST API</span></div>
+        <div class="integration-card" data-category="database" data-name="influxdb timeseries iot"><h4>InfluxDB<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span><span class="tap-hint">via REST API</span></div>
+        <div class="integration-card" data-category="database" data-name="neo4j graph database"><h4>Neo4j<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span><span class="tap-hint">via REST API</span></div>
+        <div class="integration-card" data-category="database" data-name="redis cache nosql"><h4>Redis<span class="sync-badge batch">Batch</span></h4><span class="category-tag">Database</span><span class="tap-hint">via REST API</span></div>
+        <!-- Removed: SQLite (local filesystem not available in hosted), MS Access (local filesystem) -->
+        <!-- Removed: Informix batch (already has CDC support above) -->
 
         <!-- ==================== CRM & SALES ==================== -->
         <div class="integration-card" data-category="saas" data-name="salesforce crm sales sfdc"><h4>Salesforce<span class="sync-badge batch">Batch</span></h4><span class="category-tag">CRM</span></div>
